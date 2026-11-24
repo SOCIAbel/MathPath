@@ -103,3 +103,91 @@
   --shadow-hover: 0 9px 24px #00000033;
   --shadow-dialog: 0 20px 70px #00000080;
 }
+
+/* Stage 2: common controls and layout. Game art keeps its own pixel palette. */
+body { background: var(--base); color: var(--ink); }
+h1, h2, h3 { line-height: var(--line-height-heading); }
+h1 { font-size: var(--text-title); letter-spacing: -.035em; }
+h2 { font-size: 20px; letter-spacing: -.02em; }
+h3 { font-size: 17px; }
+.app { grid-template-columns: 232px minmax(0, 1fr); }
+.workspace { min-width: 0; }
+.page { padding: var(--space-6) clamp(20px, 2.6vw, 40px) var(--space-10); }
+.page-heading { margin-bottom: var(--space-6); }
+.page-heading p { max-width: 72ch; margin-top: var(--space-2); }
+.sidebar { padding: var(--space-6) var(--space-3) var(--space-4); background: var(--nav); color: var(--color-nav-text); }
+.brand { padding: 0 var(--space-2); gap: var(--space-3); }
+.brand-mark { width: 42px; height: 42px; border-radius: var(--radius-control); background: #b5d7be; color: #183e38; }
+.brand strong { font-size: 23px; letter-spacing: -.035em; }
+.brand small, .profile small, .sidebar summary { color: var(--color-nav-muted); }
+.sidebar nav { margin-block: var(--space-6) var(--space-4); }
+.sidebar summary { padding: var(--space-2); font-size: var(--text-xs); letter-spacing: .045em; }
+.nav-button { min-height: 43px; padding: 9px var(--space-3); gap: var(--space-3); border-radius: var(--radius-control); color: var(--color-nav-text); }
+.nav-button span { color: var(--color-nav-muted); }
+.nav-button:hover, .nav-button[aria-current="page"] { background: var(--color-nav-active); border-color: #52746d; }
+.nav-button[aria-current="page"] { box-shadow: inset 3px 0 #a9d7bc; }
+.sidebar .profile { padding: var(--space-4) var(--space-2) 0; border-color: #496360; }
+.topbar { min-height: 70px; padding: var(--space-3) clamp(20px, 2.6vw, 40px); background: var(--surface); }
+#breadcrumb { font-weight: 600; }
+.btn, .studio-button {
+  min-height: 42px;
+  padding: 9px var(--space-4);
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 650;
+  line-height: 1.35;
+  box-shadow: var(--shadow-sm);
+}
+.btn:hover, .studio-button:hover { border-color: var(--accent); background: var(--surface-subtle); }
+.btn.primary, .studio-button.primary, .btn.primary:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.btn.primary:hover { border-color: var(--accent-dark); background: var(--accent-dark); }
+.btn.ghost { border-color: transparent; background: transparent; color: var(--accent-ink); box-shadow: none; }
+.btn.ghost:hover { border-color: var(--line); background: var(--pale); }
+.btn.small { min-height: 36px; padding: 6px var(--space-3); font-size: var(--text-xs); }
+.btn.close { width: 40px; min-height: 40px; padding: 0; font-size: 24px; box-shadow: none; }
+.btn:disabled, .studio-button:disabled { opacity: .6; box-shadow: none; }
+.card, .panel { border-color: var(--line); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+.card { padding: var(--space-5); }
+.panel > header { padding: var(--space-4) var(--space-5); }
+.panel-body { padding: var(--space-5); }
+.grid, .grid.two, .grid.three { gap: var(--space-4); }
+.section { margin-top: var(--space-6); }
+label { gap: 7px; font-size: var(--text-sm); font-weight: 650; }
+input, select, textarea {
+  min-height: 44px;
+  border-color: var(--control-border);
+  border-radius: var(--radius-control);
+  padding: 10px var(--space-3);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--text-sm);
+}
+input::placeholder, textarea::placeholder { color: var(--muted); opacity: 1; }
+input[type="checkbox"], input[type="radio"], input[type="range"], input[type="color"] { min-height: auto; accent-color: var(--accent); }
+.form { gap: var(--space-4); }
+.fields { gap: var(--space-4); }
+.details { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--surface); }
+.details summary { min-height: 24px; color: var(--ink); }
+.history details { border-color: var(--line); border-radius: var(--radius-control); background: var(--surface); padding: var(--space-3) var(--space-4); }
+dialog { border-color: var(--line); border-radius: var(--radius-hero); padding: var(--space-5); background: var(--surface); box-shadow: var(--shadow-dialog); }
+dialog::backdrop { background: #0d2526a6; backdrop-filter: blur(3px); }
+.dialog-top { background: var(--surface); padding: var(--space-3) 0; }
+#notice, .fun-done, .fun-fail, .input-error, .verification { border-radius: var(--radius-control); padding: var(--space-3) var(--space-4); }
+#notice, .verification, .fun-done { background: var(--color-success-bg); color: var(--color-success); }
+#notice.error, .fun-fail, .input-error { background: var(--color-error-bg); color: var(--color-error); }
+.tag { border-radius: var(--radius-sm); padding: 4px var(--space-2); background: var(--surface-subtle); color: var(--muted); }
+.tag.ok { background: var(--color-success-bg); color: var(--color-success); }
+.tag.lock, .tag.demo { background: var(--color-warning-bg); color: var(--color-warning); }
+.formula, .preview { border-color: var(--line); border-radius: var(--radius-control); background: var(--surface-subtle); padding: var(--space-3) var(--space-4); }
+.meter, .fun-bar { background: var(--line); }
+.meter > span { background: var(--accent); }
+.fun-tabs, .grade-tabs, .plot-modes { gap: var(--space-2); }
+.fun-tabs button, .grade-tabs button, .plot-modes .btn { min-height: 42px; border-radius: var(--radius-control); font-size: var(--text-sm); }
+.fun-tabs button[aria-selected="true"], .grade-tabs button[aria-pressed="true"], .plot-modes .btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
