@@ -665,6 +665,13 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     if(this.active.studioData?.some(entry=>entry.implicit))this.scheduleSamples();
   }
   drawGrid(width,height){
+    const plotStyle=getComputedStyle(document.documentElement);
+    const palette={
+      grid:plotStyle.getPropertyValue('--plot-grid').trim()||'#eff0f4',
+      major:plotStyle.getPropertyValue('--plot-major-grid').trim()||'#dadde6',
+      axis:plotStyle.getPropertyValue('--plot-axis').trim()||'#747c8f',
+      label:plotStyle.getPropertyValue('--plot-label').trim()||'#596073',
+    };
     const ctx=this.ctx,[xmin,xmax,ymin,ymax]=this.drawingBounds();
     const x=value=>(value-xmin)/(xmax-xmin)*width,y=value=>(ymax-value)/(ymax-ymin)*height;
     const xs=graphTicks(xmin,xmax,Math.max(3,width/85)),ys=graphTicks(ymin,ymax,Math.max(3,height/65));
@@ -672,24 +679,24 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
       const minor=(low,high,major,vertical)=>{
         const step=major.length>1?(major[1]-major[0])/5:(high-low)/20;
         const count=Math.min(350,Math.ceil((high-low)/step)+1);
-        ctx.lineWidth=1;ctx.strokeStyle='#eff0f4';
+        ctx.lineWidth=1;ctx.strokeStyle=palette.grid;
         for(let index=0;index<count;index++){
           const value=(Math.ceil(low/step)+index)*step;
-          if(vertical)traceGraphLine(ctx,[x(value),0],[x(value),height],'#eff0f4');
-          else traceGraphLine(ctx,[0,y(value)],[width,y(value)],'#eff0f4');
+          if(vertical)traceGraphLine(ctx,[x(value),0],[x(value),height],palette.grid);
+          else traceGraphLine(ctx,[0,y(value)],[width,y(value)],palette.grid);
         }
       };
       minor(xmin,xmax,xs,true);minor(ymin,ymax,ys,false);
       ctx.lineWidth=1;
-      xs.forEach(value=>traceGraphLine(ctx,[x(value),0],[x(value),height],'#dadde6'));
-      ys.forEach(value=>traceGraphLine(ctx,[0,y(value)],[width,y(value)],'#dadde6'));
+      xs.forEach(value=>traceGraphLine(ctx,[x(value),0],[x(value),height],palette.major));
+      ys.forEach(value=>traceGraphLine(ctx,[0,y(value)],[width,y(value)],palette.major));
     }
     if(!this.options.axes)return;
     const axisX=x(0),axisY=y(0);
     ctx.lineWidth=1.1;
-    if(axisX>=0&&axisX<=width)traceGraphLine(ctx,[axisX,0],[axisX,height],'#747c8f');
-    if(axisY>=0&&axisY<=height)traceGraphLine(ctx,[0,axisY],[width,axisY],'#747c8f');
-    ctx.fillStyle='#596073';ctx.font='12px "Segoe UI",sans-serif';ctx.textAlign='center';
+    if(axisX>=0&&axisX<=width)traceGraphLine(ctx,[axisX,0],[axisX,height],palette.axis);
+    if(axisY>=0&&axisY<=height)traceGraphLine(ctx,[0,axisY],[width,axisY],palette.axis);
+    ctx.fillStyle=palette.label;ctx.font='14px "Segoe UI",sans-serif';ctx.textAlign='center';
     xs.filter(value=>Math.abs(value)>1e-10).forEach(value=>{
       if(x(value)>16&&x(value)<width-16)ctx.fillText(graphNumber(value),x(value),clampGraph(axisY+17,16,height-6));
     });
@@ -710,8 +717,8 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     }
     const ctx=this.ctx;
     ctx.setTransform(ratio,0,0,ratio,0,0);
-    ctx.fillStyle='#fff';ctx.fillRect(0,0,width,height);
-    ctx.font='12px "Segoe UI",sans-serif';ctx.lineWidth=1;
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--plot-bg').trim()||'#fff';ctx.fillRect(0,0,width,height);
+    ctx.font='14px "Segoe UI",sans-serif';ctx.lineWidth=1;
     if(this.mode===3){
       this.active.showGrid=this.options.grid;this.active.showAxes=this.options.axes;
       super.drawSurface(width,height);return;
@@ -870,7 +877,7 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     for(const point of this.sheetPoints||[]){
       const [x,y]=this.project(point);
       this.ctx.beginPath();this.ctx.arc(x,y,5,0,2*Math.PI);
-      this.ctx.fillStyle=studioColors[0];this.ctx.fill();this.ctx.strokeStyle='#fff';this.ctx.lineWidth=1.3;this.ctx.stroke();
+      this.ctx.fillStyle=studioColors[0];this.ctx.fill();this.ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--plot-bg').trim()||'#fff';this.ctx.lineWidth=1.3;this.ctx.stroke();
     }
   }
   syncProbabilityForm(){
@@ -903,7 +910,7 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     if(distribution==='binomial'){
       for(const [x,y] of points){
         const a=this.project([x-.4,0]),b=this.project([x+.4,y]);
-        ctx.fillStyle=x>=lower&&x<=upper?'#7965df':'#d3d5df';
+        ctx.fillStyle=x>=lower&&x<=upper?'#7965df':(getComputedStyle(document.documentElement).getPropertyValue('--plot-major-grid').trim()||'#d3d5df');
         ctx.fillRect(a[0],b[1],b[0]-a[0],a[1]-b[1]);
       }
       return;

@@ -78,6 +78,11 @@
 :root[data-accent="aurora"] { --accent: #166c70; --accent-dark: #115155; }
 :root[data-mode="dark"] {
   color-scheme: dark;
+  --ink: var(--color-ink);
+  --muted: var(--color-muted);
+  --surface: var(--color-surface);
+  --base: var(--color-canvas);
+  --line: var(--color-line);
   --color-ink: #e5eeeb;
   --color-muted: #b0c2bd;
   --color-surface: #1b2c30;
@@ -377,3 +382,141 @@ dialog::backdrop { background: #0d2526a6; backdrop-filter: blur(3px); }
   .teacher-grid, .paper-question { grid-template-columns: minmax(0, 1fr); }
   .paper-solution { margin-top: var(--space-2); }
 }
+
+/* Stage 4: theme-aware plot pixels, study surfaces and dark page palettes. */
+:root { --plot-bg: var(--surface); --plot-grid: color-mix(in srgb, var(--line) 48%, var(--surface)); --plot-major-grid: var(--line); --plot-axis: var(--muted); --plot-label: var(--ink); }
+.academic-page { --acad-ink: var(--ink); --acad-muted: var(--muted); --acad-border: var(--line); --acad-green: var(--accent-ink); --acad-tint: var(--pale); }
+.exam-paper { --pen: var(--color-info); --red: var(--color-error); background-image: linear-gradient(90deg, transparent 46px, color-mix(in srgb, var(--color-error) 32%, transparent) 46px 48px, transparent 48px), repeating-linear-gradient(var(--surface) 0 31px, var(--line) 31px 32px); }
+.paper-label, .paper-left header small, .paper-ink.empty { color: var(--muted); }
+.stamp-excellent, .stamp-good { color: var(--color-success); }
+.stamp-pass { color: var(--color-warning); }
+.calc-examples > span { color: var(--muted); }
+#graph-window.graph-studio { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.graph-studio :is(.studio-header, .studio-tools, .studio-sidebar, .studio-main, .studio-view-heading, .studio-status, .studio-menu, .studio-settings, .studio-keyboard, .studio-object, .studio-cas-row) { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.graph-studio :is(.studio-tools, .studio-sidebar-head, .studio-keyboard, .studio-sheet-grid > strong, .studio-sheet-grid > .sheet-corner) { background: var(--surface-subtle); }
+.graph-studio :is(.studio-brand > strong, .studio-object-select, .studio-cas-controls h2, .studio-sheet-controls h2, .studio-prob-controls h2, .studio-settings > strong) { color: var(--ink); }
+.graph-studio :is(.studio-brand > span, .studio-sidebar-head, .studio-view-heading, .studio-status p, .studio-status output, .studio-object-select small, .studio-remove, .studio-menu > button, .studio-settings label, .studio-cas-empty, .studio-cas-row p, .studio-cas-row summary, .studio-sheet-controls > p, .studio-sheet-error, .studio-value-table summary) { color: var(--muted); }
+.graph-studio :is(input, select, textarea, .studio-button, .studio-tool, .studio-menu > button, .studio-keys > button, .studio-tool-hint) { background: var(--surface); color: var(--ink); border-color: var(--control-border); }
+.graph-studio :is(.studio-tool[aria-pressed="true"], .studio-menu > button[aria-pressed="true"], .studio-menu > button:hover, .studio-object.is-selected, .studio-value-table, .studio-prob-result) { background: var(--pale); color: var(--accent-ink); border-color: var(--accent); }
+.graph-studio .studio-tool[aria-pressed="true"] { box-shadow: 0 0 0 1px var(--accent); }
+.graph-studio :is(.studio-menu > button > span, .studio-input-footer > button, .studio-cas-answer, .studio-sheet-grid output, .studio-prob-result) { color: var(--accent-ink); }
+.graph-studio :is(.studio-keyboard > nav > button, .studio-settings > button) { color: var(--muted); background: transparent; }
+.graph-studio .studio-keyboard > nav > button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.graph-studio .studio-keys > button:is([data-studio-key="↵"], [data-studio-key="⌫"]) { background: var(--surface-raised); color: var(--ink); }
+.graph-studio .studio-visibility[aria-pressed="false"] { background: var(--surface); }
+.graph-studio .studio-object.has-error { background: var(--color-error-bg); }
+.graph-studio :is(.studio-object.has-error small, .studio-status p.studio-error, .studio-sheet-grid output.is-error) { color: var(--color-error); }
+.graph-studio :is(.studio-sheet-grid, .studio-sheet-grid > *, .studio-settings > button, .studio-menu-divider, .studio-value-table th, .studio-value-table td) { border-color: var(--line); }
+:root[data-mode="dark"] :is(.home-page .stage-card, .continue-card, .home-progress, .exam-paper) { filter: none; }
+:root[data-mode="dark"] :is(.adventure-map-heading h2, .arena-page h1, .teacher-entry .page-heading h1, .teacher-level-heading h1) { color: var(--ink); }
+:root[data-mode="dark"] :is(.adventure-map-heading p, .arena-page .subnav > span, .teacher-entry .page-heading p, .teacher-topic-count) { color: var(--muted); }
+:root[data-mode="dark"] :is(.btn:not(.primary):not(.ghost), input, select, textarea) { background: var(--surface); color: var(--ink); border-color: var(--control-border); }
+:root[data-mode="dark"] .btn:not(.primary):hover { background: var(--pale); }
+:root[data-mode="dark"] :is(.ghost, .formula-reference a, .university-study-list .btn, .university-accuracy) { color: var(--accent-ink); }
+:root[data-mode="dark"] :is(.teacher-entry .page-heading, .teacher-catalog-header, .teacher-topic-group, .teacher-empty, .teacher-lesson, .study-disclosure, .practice-empty, .exam-topic-picker, .exam-rubric, .university-tool, .university-courses, .university-catalog, .university-topic, .book-card, .book-entry, .lab-card, .lab-controls, .lab-result, .lab-metric, .lab-step, .university-study-table thead) { background: var(--surface); color: var(--ink); border-color: var(--line); }
+:root[data-mode="dark"] :is(.study-theory, .study-theory > strong, .teacher-unit-filters .btn[aria-pressed="true"], .university-course[aria-pressed="true"], .university-topic:hover) { background: var(--pale); color: var(--ink); border-color: var(--accent); }
+:root[data-mode="dark"] .study-video { background: var(--surface-raised); color: var(--ink); border-color: var(--line); }
+:root[data-mode="dark"] .study-video-local { background: var(--color-success-bg); color: var(--color-success); }
+:root[data-mode="dark"] :is(.study-disclosure summary, .teacher-catalog-topic strong, .teacher-topic-group h2, .university-course, .university-results-head h2, .university-tool strong, .university-topic strong) { color: var(--ink); }
+:root[data-mode="dark"] :is(.university-search, .university-tool small, .university-study-note, .university-study-list small, .university-study-table thead, .book-card small, .lab-status) { color: var(--muted); }
+:root[data-mode="dark"] .procedure .study-step { --step-bg: var(--color-info-bg); --step-ink: var(--color-info); --step-accent: var(--accent); border-color: var(--line); }
+:root[data-mode="dark"] .procedure .study-step:nth-child(3n+2) { --step-bg: var(--color-warning-bg); --step-ink: var(--color-warning); }
+:root[data-mode="dark"] .procedure .study-step:nth-child(3n+3) { --step-bg: var(--color-success-bg); --step-ink: var(--color-success); }
+:root[data-mode="dark"] :is(.formula, .preview, .practice-board .exercise-formula, .guided-example .exercise-formula) { background: var(--color-info-bg); color: var(--color-info); border-color: var(--line); }
+:root[data-mode="dark"] .verification { background: var(--color-success-bg); color: var(--color-success); border-color: var(--line); }
+:root[data-mode="dark"] :is(#notice.error, .input-error, .fun-fail) { background: var(--color-error-bg); color: var(--color-error); }
+:root[data-mode="dark"] :is(.calc-screen, .calc-preview, .calc-empty, .calc-key, .calc-key.digit, .calc-key.clear) { background: var(--surface-raised); color: var(--ink); border-color: var(--control-border); }
+:root[data-mode="dark"] .calc-screen label { color: var(--color-nav-text); }
+:root[data-mode="dark"] :is(.calc-examples > span, .calc-screen textarea::placeholder, .calc-empty p) { color: var(--muted); }
+:root[data-mode="dark"] :is(.progress-summary, .progress-stage, .progress-unit, .progress-time, .progress-exam-empty, .progress-exam) { background: var(--surface); color: var(--ink); border-color: var(--line); }
+:root[data-mode="dark"] .progress-summary { --ring-center: var(--surface); --ring-rest: var(--line); --ring-fill: #79cdb2; }
+:root[data-mode="dark"] .progress-stage[aria-pressed="true"] { background: var(--pale); color: var(--ink); border-color: var(--accent-ink); }
+:root[data-mode="dark"] :is(.progress-stage-data strong, .progress-stage-icon, .progress-unit strong, .progress-stage small, .progress-unit small, .paper-label, .paper-left header small) { color: var(--ink); }
+:root[data-mode="dark"] .progress-stage-icon { background: var(--surface-raised); }
+:root[data-mode="dark"] :is(.paper-solution, .paper-question .study-step) { border-color: var(--line); }
+:root[data-mode="dark"] .paper-solution { background: var(--color-info-bg); color: var(--color-info); }
+:root[data-mode="dark"] .paper-left .formula { background: transparent; }
+:root[data-mode="dark"] .fun-board-paper { background-color: var(--surface-subtle); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); }
+:root[data-mode="dark"] .fun-board-paper canvas { filter: invert(.9) hue-rotate(180deg); }
+
+/* Stage 4: dark room surfaces, with the pixel scenery kept intact. */
+:root[data-mode="dark"] .lounge { --room-paper:var(--surface); --room-ink:var(--ink); }
+:root[data-mode="dark"] .lounge .mode-daily .lounge-mode-body em { background:var(--color-warning-bg); color:var(--color-warning); }
+:root[data-mode="dark"] .lounge .mode-dungeon .lounge-mode-body em { background:var(--pale); color:var(--accent-ink); }
+:root[data-mode="dark"] .lounge-mode-body>span,:root[data-mode="dark"] .lounge-trail { color:var(--muted); }
+:root[data-mode="dark"] .lounge-week b { background:var(--surface-subtle); color:var(--muted); }
+:root[data-mode="dark"] .lounge-week .on b { background:var(--accent); color:var(--on-accent); }
+:root[data-mode="dark"] .lounge-week .today b { outline-color:var(--color-reward); }
+:root[data-mode="dark"] .lounge-reward-room>.muted,:root[data-mode="dark"] .lounge-room-heading p { color:var(--muted); }
+:root[data-mode="dark"] .lounge-room-heading { color:var(--ink); }
+:root[data-mode="dark"] .lounge-room-heading>span { border-color:var(--line); color:var(--ink); }
+:root[data-mode="dark"] .lounge-reward-room .fun-achievement.got { background:linear-gradient(125deg,var(--color-warning-bg),var(--surface)); border-color:var(--color-reward); }
+:root[data-mode="dark"] .lounge .fun-unlock { color:var(--color-warning); }
+:root[data-mode="dark"] .lounge .lounge-chest { background:linear-gradient(150deg,var(--surface-raised),var(--surface-subtle)); color:var(--ink); border-color:var(--control-border); }
+:root[data-mode="dark"] .lounge .lounge-chest.fun-chest-raro { background:linear-gradient(150deg,var(--color-info-bg),var(--surface)); border-color:var(--color-info); }
+:root[data-mode="dark"] .lounge .lounge-chest.fun-chest-épico { background:linear-gradient(150deg,var(--pale),var(--surface)); border-color:var(--accent-ink); box-shadow:var(--shadow-card); }
+:root[data-mode="dark"] .lounge-chest>small:not(.lounge-rarity) { color:var(--muted); opacity:1; }
+:root[data-mode="dark"] .lounge-rarity { border-color:var(--control-border); color:var(--ink); }
+:root[data-mode="dark"] .lounge-empty-treasure,:root[data-mode="dark"] .lounge-empty-treasure h2 { color:var(--ink); }
+:root[data-mode="dark"] .lounge-empty-treasure p { color:var(--muted); }
+:root[data-mode="dark"] .lounge .lounge-loot { background:var(--surface-raised); border-color:var(--color-reward); color:var(--ink); }
+:root[data-mode="dark"] .lounge-loot>h2 { color:var(--ink); }
+:root[data-mode="dark"] .lounge-loot .lounge-kicker { color:var(--color-warning); }
+:root[data-mode="dark"] .lounge-loot>ul>li { background:var(--surface-subtle); color:var(--ink); }
+:root[data-mode="dark"] .lounge-loot li b { color:var(--color-success); }
+:root[data-mode="dark"] .lounge-loot li span { color:var(--muted); font-size:var(--text-sm); }
+:root[data-mode="dark"] .lounge .fun-reveal .prize { color:var(--accent-ink); }
+:root[data-mode="dark"] .lounge .fun-skill { background:var(--surface-raised); border-color:var(--line); }
+:root[data-mode="dark"] .lounge .fun-skill.learned { border-color:var(--accent-ink); box-shadow:inset 0 0 0 1px var(--accent-ink); }
+:root[data-mode="dark"] .lounge .fun-skill-dots i { background:var(--surface-subtle); border-color:var(--control-border); }
+:root[data-mode="dark"] .lounge .fun-skill-dots i.on { background:var(--accent-ink); border-color:var(--accent-ink); }
+:root[data-mode="dark"] .lounge .fun-knight-preview { background:radial-gradient(ellipse at 50% 0%,var(--pale),var(--surface-subtle) 80%); }
+:root[data-mode="dark"] .lounge .lounge-choice-check { background:var(--color-warning-bg); color:var(--color-warning); }
+:root[data-mode="dark"] .lounge .lounge-pet-choice:has(input:checked) { border-color:var(--accent-ink); box-shadow:0 0 0 3px var(--pale),var(--shadow-card); }
+:root[data-mode="dark"] .lounge .lounge-pet-choice:has(input:checked) .lounge-pet-pick { color:var(--accent-ink); }
+:root[data-mode="dark"] .lounge .lounge-pet-pick { border-color:var(--line); }
+:root[data-mode="dark"] .lounge-adopt-bar input { background:var(--surface-subtle); color:var(--ink); border-color:var(--control-border); }
+:root[data-mode="dark"] .lounge-pet-level { background:var(--surface-raised); color:var(--color-warning); border-color:var(--color-reward); font-size:var(--text-sm); }
+:root[data-mode="dark"] .lounge .lounge-feed>small { background:transparent; color:var(--on-accent); font-size:var(--text-sm); }
+:root[data-mode="dark"] .lounge-pet-powers,:root[data-mode="dark"] .lounge-evolution { background:var(--surface-subtle); border-color:var(--line); }
+:root[data-mode="dark"] .lounge-pet-powers>h2,:root[data-mode="dark"] .lounge-accessories h2,:root[data-mode="dark"] .lounge-evolution h2 { color:var(--ink); }
+:root[data-mode="dark"] .lounge-pet-powers li { background:var(--surface); opacity:1; }
+:root[data-mode="dark"] .lounge-pet-powers li:not(.on) img { opacity:.55; }
+:root[data-mode="dark"] .lounge-pet-powers li.on { background:var(--pale); }
+:root[data-mode="dark"] .lounge-accessories header { background:var(--surface-subtle); }
+:root[data-mode="dark"] .lounge .fun-hat { background:var(--surface-raised); border-color:var(--line); }
+:root[data-mode="dark"] .lounge .fun-hat[aria-pressed=true] { background:var(--pale); border-color:var(--accent-ink); }
+:root[data-mode="dark"] .lounge-evolution li { background:var(--surface); opacity:1; }
+:root[data-mode="dark"] .lounge-evolution li.current { background:var(--pale); outline-color:var(--accent-ink); }
+:root[data-mode="dark"] .lounge-evolution li strong { color:var(--ink); font-size:var(--text-sm); }
+:root[data-mode="dark"] .lounge-evolution li.future .fun-pet-art { opacity:.55; }
+:root[data-mode="dark"] .lounge-collection-progress { background:var(--surface); border-color:var(--line); }
+:root[data-mode="dark"] .lounge-collection-progress strong { color:var(--ink); }
+:root[data-mode="dark"] .lounge-collection-progress p,:root[data-mode="dark"] .lounge-collection-progress strong small { color:var(--muted); font-size:var(--text-sm); }
+:root[data-mode="dark"] .lounge-collection .fun-card-front { background:linear-gradient(160deg,var(--color-warning-bg),var(--surface-raised)); color:var(--color-warning); border-color:var(--color-reward); }
+:root[data-mode="dark"] .lounge-collection .fun-card-2 .fun-card-front { background:linear-gradient(160deg,var(--color-success-bg),var(--surface-raised)); color:var(--color-success); border-color:var(--color-success); }
+:root[data-mode="dark"] .lounge-collection .fun-card.locked .fun-card-front { background:var(--surface-subtle); color:var(--muted); border-color:var(--control-border); }
+:root[data-mode="dark"] .lounge-collection .fun-card-back { background:var(--surface-raised); color:var(--ink); border-color:var(--color-reward); }
+:root[data-mode="dark"] .formula-reference { --reference-accent:var(--accent-ink); }
+:root[data-mode="dark"] .formula-courses button[aria-pressed=true] { background:var(--pale); color:var(--accent-ink); }
+:root[data-mode="dark"] .formula-equation { background:var(--surface-subtle); color:var(--ink); }
+:root[data-mode="dark"] .formula-conditions>b,:root[data-mode="dark"] .formula-topic-section>header small { color:var(--muted); }
+:root[data-mode="dark"] .formula-search-bar>label { border-color:var(--control-border); }
+:root[data-mode="dark"] .formula-search-bar>label>span:first-child { color:var(--muted); }
+:root[data-mode="dark"] .formula-card>header>button { color:var(--muted); }
+:root[data-mode="dark"] .formula-card>header>button[aria-pressed=true] { color:var(--color-warning); }
+:root[data-mode="dark"] .formula-courses button small { opacity:1; }
+
+/* Verified text pairs, including labels over illustrated rewards. */
+.lounge .mode-daily .lounge-mode-body em { background: var(--color-warning-bg); color: var(--color-warning); }
+.lounge-level-seal > b { inset: 27px auto auto 21px; width: 30px; height: 30px; display: grid; place-items: center; border-radius: var(--radius-pill); background: var(--color-reward); color: var(--color-on-reward); line-height: 1; text-shadow: none; }
+.lounge .lounge-feed > small { color: var(--on-accent); }
+.lounge-collection-progress p, .lounge-collection-progress strong small { color: var(--muted); }
+.formula-card > header > button { color: var(--muted); }
+.formula-card > header > button[aria-pressed="true"] { color: var(--color-warning); }
+.graph-studio .studio-entry-form > button { color: var(--accent-ink); min-width: 36px; }
+:root[data-mode="dark"] .study-rule { background: var(--surface-raised); color: var(--ink); }
+:root[data-mode="dark"] .progress-key { color: var(--muted); }
+
+:root[data-mode="dark"] .lounge-team-pet.active { border-color:var(--accent-ink); } :root[data-mode="dark"] .lounge-team-pet.active small { color:var(--accent-ink); }
+:root[data-mode="dark"] .fun-scope { background:var(--pale); color:var(--accent-ink); }

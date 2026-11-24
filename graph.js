@@ -33,6 +33,13 @@ function traceGraphLine(ctx, from, to, color) {
 
 function drawSurfacePlot(ctx, width, height, view, trail = []) {
   const data = view.data;
+  const plotStyle = getComputedStyle(document.documentElement);
+  const palette = {
+    grid: plotStyle.getPropertyValue('--plot-major-grid').trim() || '#c5d5e7',
+    axis: plotStyle.getPropertyValue('--plot-axis').trim() || '#37619b',
+    label: plotStyle.getPropertyValue('--plot-label').trim() || '#53667b',
+  };
+  ctx.font = '14px "Segoe UI", sans-serif';
   const line = (from,to,color) => traceGraphLine(ctx,from,to,color);
   const [xmin,xmax,ymin,ymax] = view.bounds;
   const [zmin,zmax] = data?.zRange || [0,0];
@@ -47,8 +54,8 @@ function drawSurfacePlot(ctx, width, height, view, trail = []) {
     return [dx*cy-dy*sy,depth*sp-dz*cp,depth*cp+dz*sp];
   };
   const base = zmin-.12*halfZ;
-  const axes = [[xmax+.14*halfXY,ymin,base,'x','#37619b'],[xmin,ymax+.14*halfXY,base,'y','#37619b'],
-    [xmin,ymin,zmax+.22*halfZ,'z','#865072']];
+  const axes = [[xmax+.14*halfXY,ymin,base,'x',palette.axis],[xmin,ymax+.14*halfXY,base,'y',palette.axis],
+    [xmin,ymin,zmax+.22*halfZ,'z',palette.axis]];
   const corners = [xmin,xmax].flatMap(x=>[ymin,ymax].flatMap(y=>[base,zmax].map(z=>rotate(x,y,z))));
   const frame = corners.concat(axes.map(([x,y,z])=>rotate(x,y,z)));
   const horizontal = frame.map(point=>point[0]), vertical = frame.map(point=>point[1]);
@@ -62,8 +69,8 @@ function drawSurfacePlot(ctx, width, height, view, trail = []) {
   for (let index=0;view.showGrid!==false&&index<=8;index++) {
     const x = xmin+(xmax-xmin)*index/8;
     const y = ymin+(ymax-ymin)*index/8;
-    line(project(x,ymin,base),project(x,ymax,base),'#c5d5e7');
-    line(project(xmin,y,base),project(xmax,y,base),'#c5d5e7');
+    line(project(x,ymin,base),project(x,ymax,base),palette.grid);
+    line(project(xmin,y,base),project(xmax,y,base),palette.grid);
   }
   const origin = project(xmin,ymin,base);
   for (const [x,y,z,axis,color] of axes) {
@@ -75,7 +82,7 @@ function drawSurfacePlot(ctx, width, height, view, trail = []) {
     ctx.textAlign = 'center';
     for (const [x,y,z,axis,color] of axes) {
       const point = project(x,y,z);
-      ctx.fillStyle = color;
+      ctx.fillStyle = palette.label;
       ctx.fillText(axis,point[0],point[1]-5);
     }
   };
@@ -153,6 +160,9 @@ class GraphWorkspace {
     });
     const resize = new ResizeObserver(() => this.requestPaint());
     resize.observe(this.canvas);
+    // GraphStudio inherits this observer and the existing coalesced repaint path.
+    const theme = new MutationObserver(() => this.requestPaint());
+    theme.observe(document.documentElement, {attributes:true, attributeFilter:['data-mode','data-accent']});
     this.canvas.addEventListener('wheel', event => {
       event.preventDefault();
       const rect = this.canvas.getBoundingClientRect();
@@ -427,9 +437,9 @@ class GraphWorkspace {
       this.canvas.height = pixelHeight;
     }
     this.ctx.setTransform(ratio,0,0,ratio,0,0);
-    this.ctx.fillStyle = '#f8fbfe';
+    this.ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--plot-bg').trim() || '#f8fbfe';
     this.ctx.fillRect(0,0,width,height);
-    this.ctx.font = '11px "Segoe UI", sans-serif';
+    this.ctx.font = '14px "Segoe UI", sans-serif';
     this.ctx.lineWidth = 1;
     if (!this.validBounds(this.active.bounds)) return;
     if (this.mode===2) this.drawCurves(width,height);
@@ -442,25 +452,31 @@ class GraphWorkspace {
 
   drawCurves(width, height) {
     const ctx = this.ctx, view = this.active;
+    const plotStyle = getComputedStyle(document.documentElement);
+    const palette = {
+      grid: plotStyle.getPropertyValue('--plot-major-grid').trim() || '#dce6ef',
+      axis: plotStyle.getPropertyValue('--plot-axis').trim() || '#7793af',
+      label: plotStyle.getPropertyValue('--plot-label').trim() || '#53667b',
+    };
     const [xmin,xmax,ymin,ymax] = view.bounds;
     const plot = this.plotRect(width,height);
     const right = plot.left+plot.width, bottom = plot.top+plot.height;
     const x = value => plot.left+(value-xmin)/(xmax-xmin)*plot.width;
     const y = value => bottom-(value-ymin)/(ymax-ymin)*plot.height;
-    ctx.fillStyle = '#53667b';
+    ctx.fillStyle = palette.label;
     ctx.textAlign = 'center';
     for (const value of graphTicks(xmin,xmax,Math.max(3,Math.floor(plot.width/84)))) {
       const px = x(value);
-      this.segment([px,plot.top],[px,bottom],Math.abs(value)<1e-12?'#7793af':'#dce6ef');
+      this.segment([px,plot.top],[px,bottom],Math.abs(value)<1e-12?palette.axis:palette.grid);
       ctx.fillText(graphNumber(value),px,bottom+16);
     }
     ctx.textAlign = 'right';
     for (const value of graphTicks(ymin,ymax,Math.max(3,Math.floor(plot.height/55)))) {
       const py = y(value);
-      this.segment([plot.left,py],[right,py],Math.abs(value)<1e-12?'#7793af':'#dce6ef');
+      this.segment([plot.left,py],[right,py],Math.abs(value)<1e-12?palette.axis:palette.grid);
       ctx.fillText(graphNumber(value),plot.left-7,py+4);
     }
-    ctx.fillStyle = '#284a70';
+    ctx.fillStyle = palette.label;
     ctx.fillText('x',right+11,bottom+17);
     ctx.fillText('y',plot.left-7,plot.top-5);
     if (!view.data) return;
