@@ -1,9 +1,9 @@
 'use strict';
 
-// Game layer UI: challenges, trophies, pet, cards, classroom, effects, themes and whiteboard.
+// Game layer UI: challenges, trophies, pet, cards, effects, themes and whiteboard.
 const funUI=(()=>{
   let ctx=null;
-  const pages=new Set(['games','trophies','pet','cards','classroom']);
+  const pages=new Set(['games','trophies','pet','cards']);
   let gamesView='hub',trophyTab='logros',cardLevel=1,chestReveal=null,explain=null;
   let game=null,timer=null,data={cards:[],profiles:[],missions:[]};
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -355,7 +355,6 @@ const funUI=(()=>{
     if(page==='trophies')return trophiesPage();
     if(page==='pet')return petPage();
     if(page==='cards')return cardsPage();
-    if(page==='classroom')return classroomPage();
     return '';
   }
   const heading=(title,text,emoji)=>'<div class="fun-heading"><span class="fun-heading-emoji" aria-hidden="true">'+emoji+'</span><div><h1>'+title+'</h1><p>'+text+'</p></div></div>';
@@ -363,7 +362,7 @@ const funUI=(()=>{
   function gamesPage(){
     if(gamesView==='hub')return studentLounge.games(fun());
     const back=button('hub','← Retos','ghost');
-    const views={daily:dailyView,survival:survivalView,dungeon:dungeonView,graph:graphView,duel:duelView,missions:missionsView};
+    const views={daily:dailyView,survival:survivalView,dungeon:dungeonView,graph:graphView,duel:duelView};
     return '<div class="fun-page fun-game">'+'<div class="subnav">'+back+'</div>'+views[gamesView]()+'</div>';
   }
 
@@ -537,26 +536,6 @@ const funUI=(()=>{
       (duel.feedback?button('duel-next','Turno de '+esc(duel.players[1-duel.turn].name)+' →','primary'):'')+'</div></section>';
   }
 
-  // Teacher missions ---------------------------------------------------------
-  function missionsView(){
-    const run=game?.mission;
-    if(!run){
-      const list=data.missions.length?'<div class="fun-mission-list">'+data.missions.map(mission=>'<article class="fun-mission"><img src="arena/'+esc(mission.rival)+'.webp" alt="">'+
-        '<div><strong>'+esc(mission.title)+'</strong><small>'+mission.questions.length+' preguntas</small></div>'+button('mission-play:'+mission.id,'Jugar','primary small')+'</article>').join('')+'</div>':
-        '<p class="muted">Aún no hay misiones. Tu profe puede crearlas en <b>Aula</b>.</p>';
-      return heading('Misiones del profe','Combates con preguntas personalizadas.','📜')+list;
-    }
-    const mission=run.mission,question=mission.questions[run.index];
-    const over=run.rival===0||run.hero===0;
-    return '<div class="fun-mini-arena'+(run.flash?' flash-'+run.flash:'')+'"><div class="fun-mini-side"><img src="arena/knight.webp" alt=""><strong>Tú</strong>'+hearts(run.hero,3)+'</div>'+
-      '<div class="fun-mini-title">'+esc(mission.title)+'</div>'+
-      '<div class="fun-mini-side"><img src="arena/'+esc(mission.rival)+'.webp" alt="" class="flip"><strong>Rival</strong>'+hearts(run.rival,mission.questions.length)+'</div></div>'+
-      '<section class="panel fun-panel"><div class="panel-body">'+(over?(run.rival===0?'<p class="fun-done">🏆 ¡Misión completada!</p>':'<p class="fun-fail">💥 El rival ganó esta vez.</p>')+
-        '<div class="row">'+button('mission-play:'+mission.id,'Jugar de nuevo','primary')+button('mission-list','Otras misiones','ghost')+'</div>':
-        exerciseBlock({question:question.question,showExpression:false,problem:question.problem},'mission',run.feedback)+
-        (run.feedback?button('mission-next','Siguiente →','primary'):''))+'</div></section>';
-  }
-
   // Trophies, chests, skills, avatar -----------------------------------------
   function trophiesPage(){
     const body={logros:achievementsTab,cofres:chestsTab,habilidades:skillsTab,avatar:avatarTab}[trophyTab]();
@@ -617,33 +596,12 @@ const funUI=(()=>{
   }
 
   // Classroom ------------------------------------------------------------------
-  function classroomPage(){
-    const rows=data.profiles.map(student=>'<tr class="'+(student.active?'active':'')+'"><td><strong>'+esc(student.name)+'</strong>'+(student.demo?' <span class="tag demo">DEMO</span>':'')+
-      (student.active?' <span class="tag ok">Activo</span>':'')+'</td><td>'+student.mastered+' / '+student.total+'</td><td>'+(student.accuracy??'—')+(student.accuracy==null?'':' %')+
-      '</td><td>⭐ '+student.level+'</td><td>🔥 '+student.streak+'</td><td>'+student.wins+'</td><td class="fun-actions">'+
-      (student.active?'':button('profile-switch:'+student.id,'Usar','small'))+(student.id>2&&!student.active?button('profile-delete:'+student.id,'Borrar','small ghost'):'')+'</td></tr>').join('');
-    const rivals=state().adventureGuide.rivals;
-    const missions=data.missions.map(mission=>'<li><img src="arena/'+esc(mission.rival)+'.webp" alt=""><span><strong>'+esc(mission.title)+'</strong><small>'+mission.questions.length+
-      ' preguntas</small></span>'+button('mission-delete:'+mission.id,'Borrar','small ghost')+'</li>').join('');
-    return '<div class="fun-page">'+heading('Aula','Panel para profes y padres: alumnos, reportes y misiones propias.','👥')+
-      '<section class="panel fun-panel"><header class="row spread"><h2>Alumnos</h2>'+button('report','📄 Exportar reporte PDF','small')+'</header><div class="panel-body">'+
-      '<div class="fun-table-wrap"><table class="fun-table"><thead><tr><th>Alumno</th><th>Temas</th><th>Precisión</th><th>Nivel</th><th>Racha</th><th>Duelos</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
-      '<form class="row fun-inline-form" data-fun-form="new-student"><input name="name" maxlength="65" placeholder="Nombre del nuevo alumno" required><button class="btn primary small">Agregar alumno</button></form></div></section>'+
-      '<section class="panel fun-panel"><header><h2>Crear misión propia</h2></header><div class="panel-body">'+
-      '<form class="form" data-fun-form="mission"><div class="fields"><label>Título<input name="title" maxlength="80" required placeholder="Ej. Repaso de multiplicaciones"></label>'+
-      '<label>Rival<select name="rival">'+rivals.map(rival=>'<option value="'+rival.id+'">'+esc(rival.name)+'</option>').join('')+'</select></label>'+
-      '<label class="wide">Preguntas (una por línea: <code>pregunta | expresión que resuelve el motor</code>)<textarea name="questions" rows="5" required placeholder="Pedro tiene 3 cajas con 4 manzanas. ¿Cuántas hay? | 3*4&#10;Resuelve 2x + 3 = 9 | 2*x+3=9"></textarea></label></div>'+
-      '<small class="muted">El motor calcula la respuesta correcta de cada expresión. Los alumnos responden con el valor (por ejemplo 12 o 3).</small>'+
-      '<button class="btn primary">Guardar misión</button></form>'+(missions?'<ul class="fun-mission-admin">'+missions+'</ul>':'')+'</div></section></div>';
-  }
-
   // ---------------------------------------------------------------- loading & actions
   async function open(page){
     if(page==='cards'){
       if(ctx.getViewContext?.().contentLevel===3)cardLevel=3;
       data.cards=await ctx.call('fun',{action:'cards'});if(cardLevel===3)await formulaLibrary.open();
     }
-    if(page==='classroom'){data.profiles=await ctx.call('fun',{action:'profiles'});data.missions=await ctx.call('fun',{action:'missions'});}
     if(page==='games'){gamesView='hub';stopTimer();game=null;}
     if(page==='trophies')chestReveal=null;
   }
@@ -653,7 +611,6 @@ const funUI=(()=>{
     if(kind==='daily')game.daily=await ctx.call('fun',{action:'daily'});
     if(kind==='dungeon')game.dungeon=null;
     if(kind==='duel')game.duel={setup:true};
-    if(kind==='missions'){data.missions=await ctx.call('fun',{action:'missions'});}
     window.scrollTo(0,0);
   }
   let survivalScope='mine';
@@ -721,16 +678,6 @@ const funUI=(()=>{
       }else funAudio.play('wrong');
       return;
     }
-    if(form==='mission'){
-      const run=game.mission;
-      const result=await ctx.call('fun',{action:'missionCheck',id:run.mission.id,index:run.index,answer:value});
-      if(result.invalid){ctx.say(result.message,true);return;}
-      run.feedback=result;
-      if(result.correct){run.rival-=1;run.flash='hit';funAudio.play('hit');}
-      else{run.hero-=1;run.flash='hurt';funAudio.play('hurt');}
-      if(run.rival===0){funAudio.play('win');confetti();await refreshSummary(await ctx.call('fun',{action:'missionWin'}));}
-      else if(run.hero===0)funAudio.play('lose');
-    }
   }
 
   async function action(name){
@@ -755,15 +702,6 @@ const funUI=(()=>{
       case 'duel-next':game.duel.turn=1-game.duel.turn;await duelQuestion();return;
       case 'duel-again':{const duel=game.duel;duel.players.forEach(player=>{player.hearts=duel.max;player.hit=false;});delete duel.winner;duel.turn=0;await duelQuestion();return;}
       case 'duel-setup':stopTimer();game.duel={setup:true};return;
-      case 'mission-list':game.mission=null;return;
-      case 'mission-play':{
-        if(!data.missions.length)data.missions=await ctx.call('fun',{action:'missions'});
-        const mission=data.missions.find(item=>item.id===arg);
-        if(!mission)throw new Error('Esa misión ya no existe.');
-        gamesView='missions';game={mission:{mission,index:0,hero:3,rival:mission.questions.length,feedback:null}};return;
-      }
-      case 'mission-next':{const run=game.mission;run.index=(run.index+1)%run.mission.questions.length;run.feedback=null;run.flash='';return;}
-      case 'mission-delete':data.missions=await ctx.call('fun',{action:'deleteMission',id:arg});ctx.say('Misión borrada.');return;
       case 'tab':trophyTab=arg;chestReveal=null;return;
       case 'chest':{
         funAudio.play('chest');
@@ -786,13 +724,7 @@ const funUI=(()=>{
       case 'hat':await refreshSummary(await ctx.call('fun',{action:'dress',hat:arg}));funAudio.play('pop');return;
       case 'cards-level':cardLevel=Number(arg);if(cardLevel===3)await formulaLibrary.open();return;
       case 'formulas':cardLevel=3;await ctx.openPage('cards');if(arg&&arg!=='all')await formulaLibrary.open(arg);return;
-      case 'profile-switch':
-        data.profiles=await ctx.call('fun',{action:'switchProfile',id:Number(arg)});
-        await ctx.refresh();ctx.resetProfile();ctx.say('Ahora estás usando el perfil de '+data.profiles.find(item=>item.active)?.name+'.');return;
-      case 'profile-delete':
-        if(!confirm('¿Borrar este alumno y todo su progreso? No se puede deshacer.'))return;
         data.profiles=await ctx.call('fun',{action:'deleteProfile',id:Number(arg)});ctx.say('Alumno borrado.');return;
-      case 'report':{const result=await ctx.call('teacherReport');if(!result.canceled)ctx.say('Reporte guardado: '+result.name);return;}
       case 'eli10':explain={topic:arg,...await ctx.call('explainSimple',{topic:arg})};return;
       case 'photo':{
         const result=await ctx.call('photoProblem');
@@ -804,7 +736,7 @@ const funUI=(()=>{
   }
   async function submit(form,fields){
     switch(form){
-      case 'daily':case 'survival':case 'dungeon':case 'duel':case 'mission':await answer(form,fields.answer);return;
+      case 'daily':case 'survival':case 'dungeon':case 'duel':await answer(form,fields.answer);return;
       case 'survival-setup':{
         const scope=pickedScope(fields);
         if(!scope)return;
@@ -826,8 +758,6 @@ const funUI=(()=>{
         await duelQuestion();return;
       }
       case 'adopt':await refreshSummary(await ctx.call('fun',{action:'adopt',species:fields.species,name:fields.name}));funAudio.play('achievement');confetti(80);return;
-      case 'new-student':data.profiles=await ctx.call('fun',{action:'createProfile',name:fields.name});ctx.say('Alumno agregado.');return;
-      case 'mission':data.missions=await ctx.call('fun',{action:'saveMission',...fields});ctx.say('Misión guardada. Los alumnos la verán en Retos → Misiones del profe.');return;
     }
   }
 
@@ -940,7 +870,62 @@ const funUI=(()=>{
       if(document.body.dataset.reference!=='formulas'&&event.target.closest('button:not([disabled])'))funAudio.play('click');
     },true);
   }
-  function ready(){topbar();applyTheme();}
+  function ready(){topbar();applyTheme();welcome();}
+
+  // First visit: name, level and grade, and a quick look at what the app offers.
+  function welcome(){
+    const data=state();
+    if(!data||data.fun?.welcomed||data.attempts||data.demo||document.querySelector('.fun-welcome'))return;
+    const box=document.createElement('div');
+    box.className='fun-welcome';box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-labelledby','welcome-title');
+    const grades=(level,count)=>Array.from({length:count},(_,index)=>'<label class="survival-grade"><input type="radio" name="grade" value="'+level+'-'+(index+1)+'"'+
+      (level===1&&index===0?' checked':'')+'><span>'+(index+1)+'.º</span></label>').join('');
+    box.innerHTML='<form class="fun-welcome-card" novalidate>'+
+      '<section data-step="1"><span class="fun-welcome-emoji" aria-hidden="true">👋</span><h2 id="welcome-title">¡Hola! Bienvenido a MathPath</h2>'+
+        '<p>Aquí aprendes matemáticas jugando: misiones, jefes, mascotas y retos.</p>'+
+        '<label>¿Cómo te llamas?<input name="name" maxlength="40" autocomplete="off" placeholder="Escribe tu nombre"></label>'+
+        '<div class="row"><button type="button" class="btn primary" data-welcome="2">Siguiente →</button></div></section>'+
+      '<section data-step="2" hidden><span class="fun-welcome-emoji" aria-hidden="true">🎒</span><h2>¿En qué grado estás?</h2>'+
+        '<p>Te llevamos directo a tu mapa. Siempre puedes cambiarlo en <b>Niveles</b>.</p>'+
+        '<fieldset class="survival-level"><legend>Primaria</legend><div class="survival-grades">'+grades(1,6)+'</div></fieldset>'+
+        '<fieldset class="survival-level"><legend>Secundaria</legend><div class="survival-grades">'+grades(2,5)+'</div></fieldset>'+
+        '<div class="row"><button type="button" class="btn ghost" data-welcome="1">← Atrás</button><button type="button" class="btn primary" data-welcome="3">Siguiente →</button></div></section>'+
+      '<section data-step="3" hidden><span class="fun-welcome-emoji" aria-hidden="true">🗺️</span><h2>Así funciona</h2><ul class="fun-welcome-tour">'+
+        '<li><b>▤ Niveles</b>Tu mapa: cada misión es un duelo y cada grado termina con un jefe.</li>'+
+        '<li><b>◇ Profesor</b>Te explica cada tema con ejemplos paso a paso y videos.</li>'+
+        '<li><b>ϟ Retos</b>Reto del día, Supervivencia, Mazmorra y más.</li>'+
+        '<li><b>❦ Mascota</b>Te acompaña y crece contigo.</li>'+
+        '<li><b>🎤 Dictar</b>Si no quieres escribir, di tu respuesta en voz alta.</li></ul>'+
+        '<div class="row"><button type="button" class="btn ghost" data-welcome="2">← Atrás</button><button type="submit" class="btn primary">¡Empezar la aventura!</button></div></section>'+
+      '<button type="button" class="fun-welcome-skip" data-welcome="skip">Saltar</button></form>';
+    document.body.append(box);
+    const form=box.querySelector('form');
+    const show=step=>{form.querySelectorAll('[data-step]').forEach(section=>{section.hidden=section.dataset.step!==String(step);});
+      form.querySelector('[data-step="'+step+'"] input,[data-step="'+step+'"] button')?.focus();};
+    const finish=async(skip)=>{
+      const name=form.elements.name.value.trim();
+      const [stage,grade]=(form.querySelector('[name=grade]:checked')?.value||'1-1').split('-').map(Number);
+      box.remove();
+      await ctx.run(async()=>{
+        if(!skip&&name){const profile=state().profile;await ctx.call('settings',{...profile,name});}
+        await refreshSummary(await ctx.call('fun',skip?{action:'welcome'}:{action:'welcome',level:stage,unit:grade}));
+        await ctx.refresh();
+        if(!skip)ctx.openGrade(stage,grade);
+      });
+      if(!skip){funAudio.play('achievement');confetti(90);}
+    };
+    box.addEventListener('click',event=>{
+      const target=event.target.closest('[data-welcome]');
+      if(!target)return;
+      if(target.dataset.welcome==='skip')return void finish(true);
+      show(target.dataset.welcome);
+    });
+    form.addEventListener('submit',event=>{event.preventDefault();void finish(false);});
+    form.addEventListener('keydown',event=>{
+      if(event.key==='Enter'&&event.target.name==='name'){event.preventDefault();show(2);}
+    });
+    show(1);
+  }
   return {init,ready,pages,render,open,action,submit,afterRender,sync,duel,confetti,toast,petSvg,refreshHeader:topbar,getCardLevel:()=>cardLevel,
     leave:()=>{stopTimer();}};
 })();

@@ -91,7 +91,7 @@ class WorkerBridge {
 
 const worker = new WorkerBridge();
 const workerOperations = new Set(['status','lesson','solve','example','preview','graph','matrixStep','notebook','solved','practice','grade','adventure','village','hint','retry',
-  'activeExam','examStart','examSubmit','examDraft','examReview','settings','demo','study','teacher','validateSteps','note','editLesson','fun','speechStream']);
+  'activeExam','examStart','examSubmit','examDraft','examReview','settings','demo','study','teacher','validateSteps','note','fun','speechStream']);
 
 async function getAi(){
   return fs.readFile(aiFile,'utf8').then(JSON.parse).catch(error=>error.code==='ENOENT'?{}:Promise.reject(error));
@@ -292,36 +292,6 @@ async function dictateAnswer(args){
   return {heard,answer:cleanAnswer(text)||heard,source:'ia'};
 }
 
-async function teacherReport(){
-  const students=await worker.call('fun',{action:'profiles'});
-  const filename='MathPath - Reporte del aula.pdf';
-  const target=testing?{filePath:path.join(dataDir,filename)}:await dialog.showSaveDialog(mainWindow,{
-    title:'Exportar reporte del aula',defaultPath:filename,filters:[{name:'PDF',extensions:['pdf']}]});
-  if(target.canceled)return {canceled:true};
-  const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const rows=students.filter(student=>!student.demo).map(student=>'<tr><td>'+escape(student.name)+'</td><td>'+student.mastered+' / '+student.total+
-    '</td><td>'+(student.accuracy??'—')+(student.accuracy==null?'':' %')+'</td><td>'+student.attempts+'</td><td>'+student.level+
-    '</td><td>'+student.streak+'</td><td>'+student.wins+'</td><td>'+escape(student.last?new Date(student.last).toLocaleString('es-PE'):'—')+'</td></tr>').join('');
-  const html='<!doctype html><html lang="es"><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'">'+
-    '<style>@page{size:A4 landscape;margin:14mm}body{font:10.5pt/1.5 "Segoe UI",sans-serif;color:#263849}h1{margin:0 0 4px;font-size:20pt}'+
-    'small{color:#356958}table{width:100%;border-collapse:collapse;margin-top:14px}th,td{padding:7px 8px;border-bottom:1px solid #d9e2e5;text-align:left}'+
-    'th{background:#e6f0ee;color:#1d4f4b}</style><body><small>MathPath · Reporte del aula</small><h1>Progreso de los alumnos</h1>'+
-    '<p>Generado el '+escape(new Date().toLocaleString('es-PE'))+'</p><table><thead><tr><th>Alumno</th><th>Temas dominados</th><th>Precisión</th>'+
-    '<th>Intentos</th><th>Nivel</th><th>Racha</th><th>Duelos ganados</th><th>Última actividad</th></tr></thead><tbody>'+rows+'</tbody></table></body></html>';
-  const temporary=path.join(dataDir,'.reporte-'+randomUUID()+'.html');
-  const printable=new BrowserWindow({show:false,webPreferences:{sandbox:true,contextIsolation:true,javascript:false}});
-  try{
-    await fs.writeFile(temporary,html,{encoding:'utf8',flag:'wx'});
-    await printable.loadFile(temporary);
-    const pdf=await printable.webContents.printToPDF({pageSize:'A4',landscape:true,printBackground:true,preferCSSPageSize:true});
-    await fs.writeFile(target.filePath,pdf);
-    return {name:path.basename(target.filePath)};
-  }finally{
-    if(!printable.isDestroyed())printable.destroy();
-    await fs.rm(temporary,{force:true});
-  }
-}
-
 async function localFiles(name){
   if(name==='backup'){
     const target=await dialog.showSaveDialog(mainWindow,{title:'Guardar respaldo de MathPath',defaultPath:'MathPath-respaldo.sqlite',filters:[{name:'Base SQLite',extensions:['sqlite']}]});
@@ -396,7 +366,6 @@ function installIpc(){
     if(name==='photoProblem')return photoProblem();
     if(name==='answerFromImage')return answerFromImage(args);
     if(name==='dictateAnswer')return dictateAnswer(args);
-    if(name==='teacherReport')return teacherReport();
     if(name==='openVideo'){
       const id=args?.id;
       if(typeof id!=='string'||!/^[-\w]{11}$/.test(id))throw new Error('Video no válido.');
@@ -600,7 +569,7 @@ else {
           const answer=await waitFor('#solver-result math');
           if(answer.textContent!=='8')throw Error('Notación escolar en el solucionador');
           if(!document.querySelector('#solver-form [data-fun="photo"]'))throw Error('Botón de foto en el solucionador');
-          // Game layer: topbar, challenges, trophies, pet, cards and classroom.
+          // Game layer: topbar, challenges, trophies, pet and cards.
           await waitFor('#fun-topbar .fun-level-badge');
           (await waitFor('[data-page="games"]')).click();
           (await waitFor('[data-fun="game:daily"]')).click();

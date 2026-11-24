@@ -51,7 +51,6 @@ def dispatch(name,args):
         'teacher':lambda:service.teacher(args.get('topic'),str(args.get('question',''))[:500]),
         'validateSteps':lambda:service.validate_steps(str(args.get('lines',''))[:1200],args.get('variable','x')),
         'note':lambda:service.note(args.get('id'),args.get('note')),
-        'editLesson':lambda:service.edit_lesson(args.get('id'),args.get('theory'),args.get('formula'),args.get('reset') is True),
         'fun':lambda:service.fun.dispatch(args),
         'backup':lambda:service.backup(args['path']),
         'restore':lambda:service.restore(args['path']),

@@ -12,9 +12,6 @@ FUN_SCHEMA = """
 CREATE TABLE IF NOT EXISTS fun_state (
     profile_id INTEGER PRIMARY KEY REFERENCES profiles(id), body TEXT NOT NULL
 );
-CREATE TABLE IF NOT EXISTS custom_missions (
-    id TEXT PRIMARY KEY, title TEXT NOT NULL, rival TEXT NOT NULL, body TEXT NOT NULL, created TEXT NOT NULL
-);
 """
 
 XP_RULES = {'correct': 10, 'win': 25, 'boss': 60, 'daily': 40, 'survival': 3, 'dungeon': 15,
@@ -72,7 +69,6 @@ ACHIEVEMENTS = (
     ('grafica-5', 'Ojo de halcón', 'Supera 5 retos gráficos.', 'graphWins', 5, ''),
     ('examen-100', 'Matrícula de honor', 'Saca nota perfecta en una evaluación.', 'perfectExams', 1, ''),
     ('duelo2p-1', 'Rivalidad sana', 'Juega un duelo de dos jugadores.', 'duels2p', 1, ''),
-    ('profe-1', 'Misión especial', 'Completa una misión creada por tu profe.', 'customWins', 1, ''),
     ('solver-10', 'Investigador', 'Usa el solucionador 10 veces.', 'solves', 10, ''),
     ('nivel-10', 'Héroe de MathPath', 'Llega al nivel 10 de jugador.', 'level', 10, ''),
 )
@@ -372,7 +368,7 @@ class FunService:
             'dailyDone': state['daily'].get('date') == stamp and state['daily'].get('done', False),
             'survivalBest': state['counters'].get('survivalBest', 0), 'dungeonFloor': state['dungeon']['floor'],
             'survivalRecords': state.get('survivalRecords', {}),
-            'graphLevel': state['graphLevel'],
+            'graphLevel': state['graphLevel'], 'welcomed': bool(state.get('welcomed')),
         }
 
     def guide(self):
@@ -588,6 +584,20 @@ class FunService:
         self.save(state)
         return self.summary(state)
 
+    def welcome(self, level=None, unit=None):
+        """Mark the welcome as seen and remember the grade the student says they are in.
+        That grade and the earlier ones of the same level start open (no need to beat their bosses)."""
+        state = self.load()
+        state['welcomed'] = True
+        try:
+            level, unit = int(level), int(unit)
+        except (TypeError, ValueError):
+            level = unit = None
+        if level in (1, 2) and 1 <= unit <= (6 if level == 1 else 5):
+            state.setdefault('placement', {})[str(level)] = unit
+        self.save(state)
+        return self.summary(state)
+
     def switch_pet(self, species):
         """Choose which of your companions goes with you. Each one keeps its own level."""
         state = self.load()
@@ -697,114 +707,6 @@ class FunService:
         self.save(state)
         return self.summary(state)
 
-    # ---------- teacher missions ----------
-    def missions(self):
-        return [{'id': row['id'], 'title': row['title'], 'rival': row['rival'], **json.loads(row['body'])}
-                for row in self.db.execute('SELECT * FROM custom_missions ORDER BY created DESC')]
-
-    def save_mission(self, data):
-        title = str(data.get('title') or '').strip()[:80]
-        rival = data.get('rival') if data.get('rival') in {r['id'] for r in combat.RIVALS} else 'golem'
-        questions = []
-        for line in str(data.get('questions') or '').splitlines()[:20]:
-            if '|' not in line:
-                continue
-            question, problem = (part.strip() for part in line.split('|', 1))
-            if not question or not problem:
-                continue
-            item = {'problem': problem[:200], 'operation': 'auto', 'variable': 'x', 'argument': ''}
-            try:
-                self.service.calculate(item)
-            except Exception as error:
-                raise InputError(f'El motor no pudo resolver «{problem}»: {error}') from None
-            questions.append({'question': question[:240], 'problem': problem[:200]})
-        if not title or not questions:
-            raise InputError('Escribe un título y al menos una línea «pregunta | expresión».')
-        identity = 'mision-' + str(random.getrandbits(40))
-        self.db.execute('INSERT INTO custom_missions VALUES (?,?,?,?,?)',
-                        (identity, title, rival, json.dumps({'questions': questions}, ensure_ascii=False),
-                         datetime.now().isoformat()))
-        return self.missions()
-
-    def delete_mission(self, identity):
-        self.db.execute('DELETE FROM custom_missions WHERE id=?', (identity,))
-        return self.missions()
-
-    def mission_check(self, identity, index, answer):
-        mission = next((m for m in self.missions() if m['id'] == identity), None)
-        if not mission or not 0 <= int(index) < len(mission['questions']):
-            raise InputError('Esa misión ya no existe.')
-        question = mission['questions'][int(index)]
-        item = {'problem': question['problem'], 'operation': 'auto', 'variable': 'x', 'argument': ''}
-        result = self.service.mark(item, str(answer or '')[:200])
-        return {'correct': result['correct'], 'invalid': result['invalid'],
-                'answer': result['solution'].get('result', ''), 'message': result['feedback'].get('message', '')}
-
-    def mission_win(self):
-        state = self.load()
-        self.bump(state, 'customWins')
-        self.add_xp(state, XP_RULES['custom'])
-        self.check_achievements(state)
-        self.save(state)
-        return self.summary(state)
-
-    # ---------- classroom profiles ----------
-    def profiles(self):
-        service = self.service
-        active = service.profile_id
-        rows = self.db.execute('SELECT id,name FROM profiles ORDER BY id').fetchall()
-        result = []
-        try:
-            for row in rows:
-                self.db.execute("UPDATE config SET value=? WHERE key='profile'", (str(row['id']),))
-                attempts = service.attempts()
-                correct = sum(item['correct'] for item in attempts)
-                state = self.load()
-                last = self.db.execute('SELECT created FROM activities WHERE profile_id=? ORDER BY id DESC LIMIT 1',
-                                       (row['id'],)).fetchone()
-                result.append({'id': row['id'], 'name': row['name'], 'demo': row['id'] == 2, 'active': row['id'] == active,
-                               'mastered': len(service.mastery(attempts)), 'total': len(TOPICS),
-                               'attempts': len(attempts), 'accuracy': round(100 * correct / len(attempts)) if attempts else None,
-                               'level': level_for(state['xp']), 'xp': state['xp'], 'streak': self.streak(state),
-                               'wins': len(service.adventure_status()['wins']), 'last': last['created'] if last else None})
-        finally:
-            self.db.execute("UPDATE config SET value=? WHERE key='profile'", (str(active),))
-        return result
-
-    def create_profile(self, name):
-        name = str(name or '').strip()[:65]
-        if not name:
-            raise InputError('Escribe el nombre del alumno.')
-        identity = max(3, self.db.execute('SELECT COALESCE(MAX(id),0)+1 FROM profiles').fetchone()[0])
-        self.db.execute('INSERT INTO profiles(id,name) VALUES (?,?)', (identity, name))
-        return self.profiles()
-
-    def switch_profile(self, identity):
-        if self.service.active_exam():
-            raise InputError('Finaliza la evaluación antes de cambiar de alumno.')
-        if not self.db.execute('SELECT 1 FROM profiles WHERE id=?', (int(identity),)).fetchone():
-            raise InputError('Ese alumno no existe.')
-        self.db.execute("UPDATE config SET value=? WHERE key='profile'", (str(int(identity)),))
-        return self.profiles()
-
-    def delete_profile(self, identity):
-        identity = int(identity)
-        if identity in (1, 2):
-            raise InputError('El perfil principal y el DEMO no se pueden borrar.')
-        if identity == self.service.profile_id:
-            raise InputError('Cambia a otro alumno antes de borrar este perfil.')
-        for table in ('lesson_notes', 'lesson_content', 'solved', 'activities', 'adventure_battles', 'adventure_wins',
-                      'adventure_inventory', 'adventure_gear', 'university_notebook', 'fun_state'):
-            self.db.execute(f'DELETE FROM {table} WHERE profile_id=?', (identity,))
-        exercises = [row[0] for row in self.db.execute('SELECT id FROM exercises WHERE profile_id=?', (identity,))]
-        for exercise in exercises:
-            for table in ('responses', 'evaluation_drafts', 'evaluation_work', 'evaluation_items'):
-                self.db.execute(f'DELETE FROM {table} WHERE exercise_id=?', (exercise,))
-        self.db.execute('DELETE FROM evaluations WHERE profile_id=?', (identity,))
-        self.db.execute('DELETE FROM exercises WHERE profile_id=?', (identity,))
-        self.db.execute('DELETE FROM profiles WHERE id=?', (identity,))
-        return self.profiles()
-
     def pending(self):
         state = self.load()
         items = state['pending']
@@ -827,6 +729,7 @@ class FunService:
             'openChest': lambda: self.open_chest(int(args.get('index', -1))),
             'adopt': lambda: self.adopt(args.get('species'), args.get('name')),
             'switchPet': lambda: self.switch_pet(args.get('species')),
+            'welcome': lambda: self.welcome(args.get('level'), args.get('unit')),
             'feed': lambda: self.feed(),
             'dress': lambda: self.dress(args.get('hat')),
             'skill': lambda: self.learn_skill(args.get('skill')),
@@ -836,15 +739,6 @@ class FunService:
             'duelQuestion': lambda: self.duel_question(args.get('topic')),
             'duelCheck': lambda: self.duel_check(args.get('id'), args.get('answer')),
             'duelEnd': lambda: self.duel_end(),
-            'missions': lambda: self.missions(),
-            'saveMission': lambda: self.save_mission(args),
-            'deleteMission': lambda: self.delete_mission(args.get('id')),
-            'missionCheck': lambda: self.mission_check(args.get('id'), args.get('index', 0), args.get('answer')),
-            'missionWin': lambda: self.mission_win(),
-            'profiles': lambda: self.profiles(),
-            'createProfile': lambda: self.create_profile(args.get('name')),
-            'switchProfile': lambda: self.switch_profile(args.get('id')),
-            'deleteProfile': lambda: self.delete_profile(args.get('id')),
         }
         if action not in handlers:
             raise InputError('Acción de juego no disponible.')

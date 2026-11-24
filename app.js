@@ -49,7 +49,7 @@
   let teacherSearch='',teacherLevel=0,teacherUnit=0,teacherCatalogScroll=0;
   let practice=null,grade=null,hint=null,practiceTopic='',practiceDifficulty='auto';
   let mission=false,battle=null,duelAnswer='',duelEffect='',duelRetryAt=0,tacticPosition=0,progressStage=0;
-  let exam=null,examReview=null,examOptions=examDefaults(),noteTopic='',noteText='',lessonEdit=null;
+  let exam=null,examReview=null,examOptions=examDefaults(),noteTopic='',noteText='';
   let previewTimer,previewNumber=0;
   const topic=id=>state.topics.find(item=>item.id===id)||
     {id,name:'Tema retirado',goal:'',level:3,unit:1,area:'',mastered:false,missing:[],stars:0};
@@ -538,15 +538,15 @@
     const checker='<details class="study-disclosure"'+(stepsDraft||stepCheck?' open':'')+'><summary>Revisar mis pasos</summary>'+
       '<div class="toolrow">'+btn('sample-steps','Cargar ejemplo','small')+'</div>'+
       form('steps-form',area('Escribe una operación por línea','lines',stepsDraft,'maxlength="1200" rows="4" required placeholder="2 × x + 3 = 9&#10;2 × x = 6&#10;x = 3"'),'Comprobar pasos')+check+'</details>';
-    if(!stage)return '<div class="teacher-page teacher-entry">'+heading('Profesor','Elige un nivel para ver sus lecciones y videos.')+
+    if(!stage)return '<div class="teacher-page teacher-entry">'+heading('Profesor','Elige un nivel y te explico cada tema con ejemplos y videos.')+
       stageCards('teacher-level')+checker+'</div>';
     const ask='<form id="teacher-form" class="form">'+select('topic','Tema',[['','Detectar por nombre'],
       ...state.topics.filter(item=>item.level===stage.id).map(item=>[item.id,item.name])],teacherDraft.topic)+
       area('Pregunta','question',teacherDraft.question,'maxlength="500" rows="2" placeholder="Escribe tu duda"')+
       row('<button class="btn primary" name="mode" value="local">Ver explicación</button>'+
-      (ai.enabled?'<button class="btn" name="mode" value="online">Pedir pista con IA</button>':''))+'</form>';
+      '')+'</form>';
     const inLesson=result&&!result.clarify;
-    const back=inLesson?btn('teacher-topics','← Volver a los temas','ghost'):btn('teacher-levels','← Niveles de Profesor','ghost');
+    const back=inLesson?btn('teacher-topics','← Volver a los temas','ghost'):btn('teacher-levels','← Niveles del profesor','ghost');
     const header=inLesson?'<div class="teacher-lesson-path">Profesor / '+esc(stage.title)+'</div>':
       '<header class="teacher-level-heading stage-'+stage.id+'"><div><h1>'+esc(stage.title)+'</h1><p>'+esc(stage.description)+'</p></div>'+
       '<svg viewBox="0 0 64 64" fill="none" aria-hidden="true">'+stageArt[stage.id-1]+'</svg></header>';
@@ -1093,25 +1093,20 @@
       panel('Rendimiento por curso','<div class="university-study-table"><table><thead><tr><th scope="col">Curso</th><th scope="col">Dominados</th>'+
         '<th scope="col">Precisión</th><th scope="col">Por reforzar</th></tr></thead><tbody>'+courses+'</tbody></table></div>')+'</section>';
   }
+  // Student profile: name, preferences, personal notes and backups. No teacher or technical options.
   function settings(){
     const profile=state.profile;
-    const basics=form('settings-form','<div class="fields">'+field('Nombre','name',profile.name,'maxlength="65" required')+
-      select('preference','Explicación',[['guiado','Guiada'],['directo','Directa']],profile.preference)+select('difficulty','Dificultad predeterminada',difficulties,profile.difficulty)+
-      select('variable','Variable predeterminada',['x','t','y','z'].map(v=>[v,v]),profile.variable)+'</div>','Guardar perfil');
-    const configuration=form('ai-form','<label class="check-label"><input name="enabled" type="checkbox" '+(ai.enabled?'checked':'')+'> Activar IA para priorizar pistas</label>'+
-      field('Endpoint compatible con Chat Completions','endpoint',ai.endpoint,'type="url" placeholder="https://proveedor.example/v1/chat/completions"')+
-      field('Modelo','model',ai.model,'maxlength="120"')+field('Clave de API','key','','type="password" autocomplete="new-password" '+(ai.enabled?'placeholder="Deja vacío para conservar la clave"':'')),
-      'Guardar configuración de IA');
-    const notes=form('note-form',select('id','Lección',[['','Selecciona un tema'],...state.topics.map(item=>[item.id,item.name])],noteTopic)+
-      area('Apunte personal','note',noteText,'rows="3" maxlength="1500"'),'Guardar apunte')+
-      (lessonEdit?section(form('lesson-edit-form','<input type="hidden" name="id" value="'+esc(noteTopic)+'">'+
-        area('Explicación personalizada','theory',lessonEdit.theory,'rows="3" maxlength="1500" required')+
-        field('Fórmula personalizada','formula',lessonEdit.formula,'maxlength="300"'),'Guardar contenido local')+
-        (lessonEdit.hasCustom?section(btn('reset-lesson','Quitar contenido personalizado','small')):'')):'');
-    return heading('Configuración','Personaliza tu perfil y administra tus datos locales.')+
-      grid(panel('Perfil y motor',basics+section('<p class="muted">Motor local SymPy · Fórmulas MathML</p>'))+panel('IA opcional',configuration)+
-      panel('Copias de seguridad','<p class="muted">Guarda o restaura tu progreso, prácticas e historial.</p>'+section(row(btn('backup','Crear respaldo')+btn('restore','Restaurar respaldo'))))+
-      panel('Contenido de las lecciones',notes));
+    const basics=form('settings-form','<div class="fields">'+field('Tu nombre','name',profile.name,'maxlength="65" required')+
+      select('preference','¿Cómo prefieres las explicaciones?',[['guiado','Paso a paso'],['directo','Directas']],profile.preference)+
+      select('difficulty','Dificultad de los ejercicios',difficulties,profile.difficulty)+
+      select('variable','Letra que usas para la incógnita',['x','t','y','z'].map(v=>[v,v]),profile.variable)+'</div>','Guardar');
+    const notes=form('note-form',select('id','Tema',[['','Elige un tema'],...state.topics.map(item=>[item.id,item.name])],noteTopic)+
+      area('Tu apunte','note',noteText,'rows="3" maxlength="1500" placeholder="Escribe lo que quieras recordar de este tema"'),'Guardar apunte');
+    return heading('Mi perfil','Tu nombre, tus preferencias, tus apuntes y tu copia de seguridad.')+
+      grid(panel('Tus datos',basics)+
+      panel('Copia de seguridad','<p class="muted">Guarda tu progreso en un archivo para no perderlo, o recupéralo en otra computadora.</p>'+
+        section(row(btn('backup','Guardar copia')+btn('restore','Recuperar copia'))))+
+      panel('Mis apuntes',notes));
   }
 
   const renders={dashboard,learn:()=>lesson?lessonPage():learning(),solver:solverPage,teacher:teacherPage,practice:practicePage,
@@ -1365,7 +1360,7 @@
   }
   function resetProfileViews(){
     lesson=null;practice=null;grade=null;hint=null;mission=false;battle=null;duelAnswer='';duelRetryAt=0;stepCheck=null;exam=null;examReview=null;
-    solution=null;solved=[];noteTopic='';noteText='';lessonEdit=null;practiceTopic='';solver=emptySolver(state.profile.variable);
+    solution=null;solved=[];noteTopic='';noteText='';practiceTopic='';solver=emptySolver(state.profile.variable);
     selectTeacherLevel(0);
     academicLab.reset();graphWorkspace.resetWorkspace();book=null;bookUnit=1;bookDraft=null;graphContext=null;
     examOptions=examDefaults();
@@ -1593,11 +1588,6 @@
       hint:async()=>{hint=await call('hint',{id:practice.id});},
       'next-exercise':()=>mission?playAdventure('next'):newPractice(practice.topic,grade?.correct?practiceDifficulty:'fácil'),
       'resume-exam':showExam,
-      'reset-lesson':async()=>{
-        await call('editLesson',{id:noteTopic,reset:true});
-        lessonEdit={theory:'',formula:'',hasCustom:false};
-        say('Contenido personalizado retirado.');
-      },
       backup:async()=>{const result=await call('backup');if(!result.canceled)say('Respaldo guardado: '+result.name);},
       restore:async()=>{const result=await call('restore');if(!result.canceled){state=result.state;resetProfileViews();say('Respaldo restaurado.');}}
     };
@@ -1626,7 +1616,6 @@
     if(input.form?.id==='teacher-form')teacherDraft[input.name]=input.value;
     if(input.form?.id==='steps-form')stepsDraft=input.value;
     if(input.form?.id==='note-form'&&input.name==='note')noteText=input.value;
-    if(input.form?.id==='lesson-edit-form'&&input.name!=='id')lessonEdit[input.name]=input.value;
     if(input.form?.id==='book-entry-form')bookDraft[input.name]=input.value;
   });
   view.addEventListener('change',event=>{
@@ -1653,7 +1642,6 @@
       noteTopic=input.value;
       const content=noteTopic?await call('lesson',{id:noteTopic}):null;
       noteText=content?.note||'';
-      lessonEdit=content?{...(content.custom||{theory:'',formula:''}),hasCustom:Boolean(content.custom)}:null;
     });
   });
   view.addEventListener('keydown',event=>{
@@ -1713,17 +1701,12 @@
         }
         case 'settings-form':
           await call('settings',fields);await refresh();solver.variable=state.profile.variable;say('Perfil guardado.');break;
-        case 'ai-form':
-          ai=await call('setAi',{...fields,enabled:fields.enabled==='on'});
-          say(ai.enabled?'IA configurada. Puedes usarla desde Profesor inteligente.':'IA desactivada.');break;
         case 'book-entry-form':
           await call('notebook',{...bookDraft,...fields,action:'save',unit:bookUnit});
           await openNotebook(bookUnit);say('Entrada guardada.');
           break;
         case 'note-form':
           noteText=(await call('note',fields)).note;say('Apunte guardado.');break;
-        case 'lesson-edit-form':
-          lessonEdit={...(await call('editLesson',fields)).custom,hasCustom:true};say('Contenido local guardado.');break;
       }
     });
   });
@@ -1750,7 +1733,8 @@
   },15000);
   funUI.init({call,run,say,esc,exerciseText,getState:()=>state,getViewContext:headerContext,refresh,openPage,
     resetProfile:()=>{if(typeof resetProfileViews==='function')resetProfileViews();},
-    solve:async problem=>{solver={...solver,problem,operation:'auto',argument:''};solution=await call('solve',solver);solved=await call('solved');page='solver';}});
+    solve:async problem=>{solver={...solver,problem,operation:'auto',argument:''};solution=await call('solve',solver);solved=await call('solved');page='solver';},
+    openGrade:(stage,grade)=>{level=stage;unit=grade;lesson=null;page='learn';window.scrollTo(0,0);}});
   if(api)void run(async()=>{await refresh();solver.variable=state.profile.variable;funUI.ready();});
   else view.innerHTML=heading('MathPath','Abre la aplicación de escritorio con Abrir-MathPath.cmd para usar el motor y guardar el progreso.');
 })();

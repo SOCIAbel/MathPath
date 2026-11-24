@@ -402,6 +402,9 @@ class LearningService:
         duels of that grade before the story existed keep their access."""
         if unit <= 1:
             return True
+        # Grades up to the one chosen in the welcome start open.
+        if unit <= int(self.fun.load().get('placement', {}).get(str(level), 0)):
+            return True
         if (level, unit) == (1, 2):
             return self.second_grade_unlocked()
         previous = story.GRADE_BOSS_BY_GRADE[(level, unit-1)]['id']
@@ -937,19 +940,6 @@ class LearningService:
         self.get_lesson(topic_id)
         self.db.execute('INSERT INTO lesson_notes VALUES (?,?,?) ON CONFLICT(profile_id,topic_id) DO UPDATE SET body=excluded.body',
                         (self.profile_id,topic_id,clean(note,1500)))
-        return self.get_lesson(topic_id)
-
-    def edit_lesson(self,topic_id,theory,formula,reset=False):
-        self.get_lesson(topic_id)
-        if reset:
-            self.db.execute('DELETE FROM lesson_content WHERE profile_id=? AND topic_id=?',(self.profile_id,topic_id))
-        else:
-            theory,formula=clean(theory,1500),clean(formula,300)
-            if not theory:
-                raise InputError('Escribe una explicación personalizada o restablece el contenido.')
-            self.db.execute("""INSERT INTO lesson_content VALUES (?,?,?,?)
-                            ON CONFLICT(profile_id,topic_id) DO UPDATE SET theory=excluded.theory,formula=excluded.formula""",
-                            (self.profile_id,topic_id,theory,formula))
         return self.get_lesson(topic_id)
 
     def study(self,seconds):
