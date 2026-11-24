@@ -1,0 +1,18 @@
+{
+  "generator": "Built-in image_gen__imagegen",
+  "assets": [
+    {
+      "file": "../aldea/forge-room.png",
+      "prompt": "Use case: stylized-concept. Asset type: wide 16-bit pixel-art background for a children's medieval RPG blacksmith shop, landscape 1536 by 1024 composition. Create a cozy detailed interior forge with a friendly sturdy bearded blacksmith wearing a leather apron, visibly hammering at a glowing anvil on the RIGHT quarter. Orange furnace, hanging tongs, sword racks, wooden beams, stone walls, warm lanterns, copper highlights, moss green and dark teal shadows. The LEFT half and center foreground have a broad empty dark wooden workbench and shadowed wall, suitable for overlaying inventory cards in a real game. Camera straight-on slightly above eye level, complete coherent interior. Crisp attractive retro pixel art, chunky readable pixels, rich hand-painted game textures, wholesome friendly atmosphere. Full scene edge to edge, no UI, no lettering, no text, no logos, no border, no grids, no HUD. Large visual objects suited to first-grade children."
+    },
+    {
+      "file": "../aldea/armory-room.png",
+      "prompt": "Use case: stylized-concept. Asset type: landscape pixel-art background for the backpack / equipment screen of a children's medieval adventure RPG. A cozy knight's armory room inside a wooden stone cottage, 16-bit polished retro pixel art with clear individual pixels, warm gold lanterns, dark teal shadows and forest green details. A wooden armor stand, shields and swords hung on the far back wall, closed supply chests, potion shelf, open brown adventurer backpack on a stool toward the RIGHT. Sunbeam through a small window. The LEFT and CENTER foreground are a spacious empty wooden floor and relatively calm shadowed wall, leaving room for an overlaid large knight character and equipment menus. Perspective matches an eye-level game room. Charming welcoming, richly textured and clearly readable. Background only, full bleed, no text or numbers, no UI or symbols, no logos, no foreground human character, no borders."
+    },
+    {
+      "file": "../aldea/arsenal-atlas.png",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept. Asset type: ONE transparent inventory sprite atlas for a children's 16-bit medieval RPG. EXACT 4 columns by 3 rows with twelve equal square cells, each object fully inside its own cell with generous equal transparent margins. Uniform precisely aligned cell centers, no visible grid, no labels, no text. Cute polished pixel art matching a classic fantasy RPG, crisp outlines, bold colors and strong silhouettes, each icon readable at 72 pixels. Each cell contains exactly ONE complete isolated item. Row 1 left to right: a crossed PAIR OF SHORT BRONZE BLADES; an ICE BLUE FROST SWORD with icicle guard; a FIERY RED ORANGE BATTLE AXE; a GOLD AND CYAN LIGHTNING SPEAR. Row 2 left to right: a LARGE STONE WAR HAMMER with wooden handle; a GREEN WOODEN LONGBOW with a single arrow; a GREEN SCOUT CLOAK over a small leather tunic; a BLUE ICE KNIGHT CHEST ARMOR. Row 3 left to right: a RED EMBER KNIGHT CHEST ARMOR; a GOLD AND ROYAL BLUE KNIGHT CHEST ARMOR; a PURPLE CRYSTAL SHIELD; a GOLD ROYAL SHIELD with blue center. Chest armors have shoulder plates, no helmets, no characters. Weapons point diagonally from bottom left to top right, completely visible within their cells. Equal cell sizes, four columns and three rows, evenly spaced, transparent background throughout, no scene."
+    }
+  ]
+}

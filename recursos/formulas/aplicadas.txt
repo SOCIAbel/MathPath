@@ -1,0 +1,163 @@
+# tema | nombre | LaTeX | condiciones y uso | ejemplo opcional
+matrices|Suma matricial|(A+B)_{ij}=a_{ij}+b_{ij}|A y B tienen las mismas dimensiones.
+matrices|Producto por escalar|(\lambda A)_{ij}=\lambda a_{ij}|λ es un escalar.
+matrices|Matriz identidad|AI_n=A,\quad I_mA=A|A tiene dimensiones m×n; usa la identidad de tamaño compatible.
+determinantes|Determinante de orden dos|\det\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc|Matriz cuadrada 2×2.|det([[2,3],[1,4]])=5.
+determinantes|Determinante de un producto|\det(AB)=\det(A)\det(B)|Matrices cuadradas del mismo orden.
+determinantes|Matriz triangular|\det(A)=\prod_{i=1}^n a_{ii}|A triangular superior o inferior; incluye matrices diagonales.
+lineal|Sistema lineal invertible|Ax=b\ \Rightarrow\ x=A^{-1}b|A cuadrada con determinante distinto de cero.
+lineal|Regla de Cramer|x_i=\frac{\det(A_i)}{\det(A)}|A invertible; Aᵢ se obtiene sustituyendo su columna i por b.
+lineal|Rango y nulidad|\operatorname{rango}(A)+\dim\ker(A)=n|A tiene n columnas; el núcleo es el conjunto de soluciones de Ax=0.
+vectores|Producto escalar|u\cdot v=\sum_{i=1}^n u_i v_i|Vectores reales de la misma dimensión.
+vectores|Ángulo entre vectores|\cos\theta=\frac{u\cdot v}{\lVert u\rVert\lVert v\rVert}|Ambos vectores son no nulos; θ entre 0 y π.
+vectores|Proyección sobre un vector|\operatorname{proj}_v u=\frac{u\cdot v}{v\cdot v}v|v ≠ 0.
+vectores|Producto vectorial|u\times v=(u_2v_3-u_3v_2,\ u_3v_1-u_1v_3,\ u_1v_2-u_2v_1)|Solo en ℝ³; el orden determina el signo.
+matriz_inv|Inversa de orden dos|A^{-1}=\frac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}|A=[[a,b],[c,d]], con ad−bc ≠ 0.
+matriz_inv|Definición de inversa|AA^{-1}=A^{-1}A=I|Solo para matrices cuadradas invertibles.
+matriz_inv|Inversa de un producto|(AB)^{-1}=B^{-1}A^{-1}|A y B invertibles del mismo orden; el orden se invierte.
+producto_matricial|Fila por columna|(AB)_{ij}=\sum_{k=1}^n a_{ik}b_{kj}|A es m×n y B es n×p; el resultado es m×p.
+producto_matricial|Asociatividad|(AB)C=A(BC)|Dimensiones compatibles; no implica que AB=BA.
+producto_matricial|Distributividad|A(B+C)=AB+AC|Sumas y productos con dimensiones compatibles.
+transpuesta|Definición de transpuesta|(A^T)_{ij}=a_{ji}|Convierte una matriz m×n en una n×m.
+transpuesta|Transpuesta de un producto|(AB)^T=B^T A^T|Dimensiones compatibles; invierte el orden.
+transpuesta|Doble transposición|(A^T)^T=A|Válido para cualquier matriz.
+norma_vector|Norma euclidiana|\lVert v\rVert=\sqrt{\sum_{i=1}^n v_i^2}|v es un vector real.|‖(3,4)‖=5.
+norma_vector|Vector unitario|\widehat v=\frac{v}{\lVert v\rVert}|v ≠ 0; el resultado tiene norma 1.
+norma_vector|Distancia entre vectores|d(u,v)=\lVert u-v\rVert|Vectores reales de la misma dimensión.
+autovalores|Ecuación característica|\det(A-\lambda I)=0|A cuadrada; las raíces son sus autovalores, que pueden ser complejos.
+autovalores|Autovector|Av=\lambda v,\quad v\ne0|Resuelve (A−λI)v=0 para cada autovalor.
+autovalores|Triangular|\lambda_i=a_{ii}|En matrices triangulares, contando multiplicidades algebraicas.
+autovalores|Traza y determinante|\operatorname{tr}(A)=\sum_i\lambda_i,\quad\det(A)=\prod_i\lambda_i|Autovalores contados con su multiplicidad algebraica.
+superficies|Gráfica de una superficie|z=f(x,y)|Cada par (x,y) del dominio tiene una única altura.
+superficies|Paraboloide elíptico|z=ax^2+by^2|a,b > 0: se abre hacia arriba; si ambos son negativos, hacia abajo.
+superficies|Paraboloide hiperbólico|z=\frac{x^2}{a^2}-\frac{y^2}{b^2}|a,b > 0; superficie con forma de silla.
+derivada_parcial|Parcial respecto de x|f_x(x,y)=\lim_{h\to0}\frac{f(x+h,y)-f(x,y)}h|Mantén y constante; el límite debe existir.
+derivada_parcial|Potencia respecto de x|\frac{\partial}{\partial x}(x^m y^n)=m x^{m-1}y^n|En puntos donde las potencias sean reales y derivables.
+derivada_parcial|Parciales mixtas|f_{xy}=f_{yx}|Si las segundas parciales mixtas son continuas en un entorno del punto.
+parcial_y|Parcial respecto de y|f_y(x,y)=\lim_{h\to0}\frac{f(x,y+h)-f(x,y)}h|Mantén x constante; el límite debe existir.
+parcial_y|Potencia respecto de y|\frac{\partial}{\partial y}(x^m y^n)=n x^m y^{n-1}|En puntos donde las potencias sean reales y derivables.
+parcial_y|Cadena multivariable|\frac{dz}{dt}=f_x\frac{dx}{dt}+f_y\frac{dy}{dt}|z=f(x(t),y(t)); funciones diferenciables, parciales evaluadas sobre la trayectoria.
+multivariable|Gradiente|\nabla f=(f_x,f_y,f_z)|En dos variables omite la tercera componente; f diferenciable para interpretar el cambio direccional.
+multivariable|Diferencial total|df=f_x\,dx+f_y\,dy|f diferenciable; los parciales se evalúan en el punto de referencia.
+multivariable|Regla de la cadena espacial|\frac{df}{dt}=\nabla f\cdot r'(t)|r(t) es una trayectoria diferenciable en el dominio de f.
+curvas_nivel|Definición de curva de nivel|f(x,y)=c|c es una altura fija.
+curvas_nivel|Niveles de un paraboloide|x^2+y^2=c,\quad r=\sqrt c|c > 0 da una circunferencia; c=0 un punto; c < 0 no tiene soluciones reales.
+curvas_nivel|Ortogonalidad del gradiente|\nabla f(r(t))\cdot r'(t)=0|r(t) sigue una curva de nivel diferenciable; gradiente no nulo para una dirección normal definida.
+plano_tangente|Plano tangente|z=f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b)|f diferenciable en (a,b).
+plano_tangente|Linealización|f(a+h,b+k)\approx f(a,b)+f_x(a,b)h+f_y(a,b)k|Incrementos h y k pequeños; f diferenciable en (a,b).
+plano_tangente|Superficie implícita|\nabla F(P)\cdot((x,y,z)-P)=0|Plano tangente a F(x,y,z)=0; F de clase C¹ y ∇F(P) ≠ 0.
+derivada_direccional|Derivada en dirección unitaria|D_u f(P)=\nabla f(P)\cdot u|f diferenciable y ‖u‖=1.
+derivada_direccional|Normalizar la dirección|u=\frac{v}{\lVert v\rVert}|v ≠ 0; normaliza antes de calcular la tasa por unidad de distancia.
+derivada_direccional|Máxima tasa de aumento|\max_{\lVert u\rVert=1}D_u f(P)=\lVert\nabla f(P)\rVert|Si el gradiente es no nulo, ocurre en su dirección; si es nulo, todas las direcciones dan 0.
+puntos_criticos_mv|Sistema estacionario|f_x(a,b)=0,\quad f_y(a,b)=0|Candidatos interiores cuando f es diferenciable; revisa también fronteras y puntos singulares.
+puntos_criticos_mv|Discriminante del Hessiano|D=f_{xx}f_{yy}-f_{xy}^2|Evalúa en el punto crítico; segundas parciales continuas cerca del punto.
+puntos_criticos_mv|Criterio de mínimo local|D>0,\quad f_{xx}>0|En un punto crítico con f de clase C². Para D > 0 y fₓₓ < 0 hay máximo; D < 0 indica silla; D=0 no decide.
+integral_doble|Integral iterada en un rectángulo|\iint_R f\,dA=\int_a^b\int_c^d f(x,y)\,dy\,dx|R=[a,b]×[c,d]; por ejemplo, f continua en R.
+integral_doble|Función separable|\iint_R g(x)h(y)\,dA=\left(\int_a^b g(x)dx\right)\left(\int_c^d h(y)dy\right)|Rectángulo R=[a,b]×[c,d], con factores integrables.
+integral_doble|Coordenadas polares|\iint_R f\,dA=\iint_S f(r\cos\theta,r\sin\theta)\,r\,dr\,d\theta|r ≥ 0; dominio polar sin doble conteo y función integrable. No olvides el factor r.
+diferenciales|Crecimiento proporcional|y'=ky\ \Rightarrow\ y=Ce^{kx}|k constante; C puede ser 0.
+diferenciales|Ecuación separable|\int\frac{dy}{h(y)}=\int g(x)\,dx+C|Para y′=g(x)h(y), donde h(y) ≠ 0. Revisa aparte las soluciones constantes h(y)=0.
+diferenciales|Ecuación lineal de primer orden|y=\frac1\mu\left(\int\mu q\,dx+C\right),\quad\mu=e^{\int p\,dx}|Para y′+p(x)y=q(x), con p y q continuas en un intervalo.
+edo_inicial|Valor inicial exponencial|y(x)=y_0e^{k(x-x_0)}|Para y′=ky con y(x₀)=y₀.
+edo_inicial|Constante con dato inicial|C=y_0e^{-kx_0}|En la solución y=Ce^(kx).
+edo_inicial|Solución por integración|y(x)=y_0+\int_{x_0}^x g(t)\,dt|Para y′=g(x), g continua y dato y(x₀)=y₀.
+edo_equilibrio|Altura de equilibrio|F(y_*)=0|Para una ecuación autónoma y′=F(y), la solución constante es y=y*.
+edo_equilibrio|Equilibrio estable|F'(y_*)<0|F de clase C¹ cerca de y*: equilibrio localmente asintóticamente estable; F′ > 0 indica inestabilidad.
+edo_equilibrio|Modelo logístico|y'=ry\left(1-\frac yK\right),\quad y_*=0,K|r > 0 y K > 0; 0 es inestable y K localmente asintóticamente estable.
+vida_media|Modelo de decaimiento|Q(t)=Q_0e^{-kt}|Q₀ > 0 y k > 0.
+vida_media|Vida media|t_{1/2}=\frac{\ln2}{k}|Mismo modelo de decaimiento; unidades de k inversas a las de t.
+vida_media|Después de n vidas medias|Q(n t_{1/2})=\frac{Q_0}{2^n}|n entero no negativo.
+euler|Paso de Euler|y_{n+1}=y_n+h f(x_n,y_n)|Aproxima y′=f(x,y), con dato inicial y paso h.
+euler|Malla uniforme|x_n=x_0+nh|h constante; n entero no negativo.
+euler|Pendiente de Euler|m_n=f(x_n,y_n)|Usa la pendiente al inicio del paso. Error global de orden h bajo regularidad y estabilidad adecuadas.
+combinaciones|Combinaciones sin repetición|\binom nk=\frac{n!}{k!(n-k)!}|n y k enteros, 0 ≤ k ≤ n; el orden no importa.
+combinaciones|Permutaciones de k elementos|P(n,k)=\frac{n!}{(n-k)!}|Sin repetición; el orden sí importa; 0 ≤ k ≤ n.
+combinaciones|Regla del producto|N=n_1n_2\cdots n_m|En cada etapa hay nᵢ opciones para cada elección previa.
+binomial|Probabilidad binomial|P(X=k)=\binom nk p^k(1-p)^{n-k}|n ensayos independientes, éxito con probabilidad p constante; k=0,…,n, 0≤p≤1.
+binomial|Media binomial|E[X]=np|X binomial con parámetros n y p.
+binomial|Varianza binomial|\operatorname{Var}(X)=np(1-p)|X binomial con parámetros n y p.
+condicional|Probabilidad condicionada|P(A\mid B)=\frac{P(A\cap B)}{P(B)}|P(B) > 0.
+condicional|Regla del producto|P(A\cap B)=P(A\mid B)P(B)|P(B) > 0.
+condicional|Independencia|P(A\cap B)=P(A)P(B)|Caracteriza la independencia de los sucesos A y B.
+bayes|Teorema de Bayes|P(A\mid B)=\frac{P(B\mid A)P(A)}{P(B)}|P(A) > 0 y P(B) > 0.
+bayes|Probabilidad total|P(B)=\sum_i P(B\mid A_i)P(A_i)|Los Aᵢ forman una partición disjunta del espacio, con P(Aᵢ)>0.
+bayes|Bayes para una partición|P(A_j\mid B)=\frac{P(B\mid A_j)P(A_j)}{\sum_i P(B\mid A_i)P(A_i)}|Partición disjunta, probabilidades de los Aᵢ positivas y denominador mayor que cero.
+esperanza_discreta|Esperanza discreta|E[X]=\sum_i x_i p_i|pᵢ=P(X=xᵢ). En una suma infinita, exige integrabilidad para una esperanza finita.
+esperanza_discreta|Varianza|\operatorname{Var}(X)=E[X^2]-(E[X])^2|X con segundo momento finito.
+esperanza_discreta|Transformación afín|E[aX+b]=aE[X]+b|X integrable; a,b constantes.
+bernoulli|Probabilidades de Bernoulli|P(X=1)=p,\quad P(X=0)=1-p|0 ≤ p ≤ 1.
+bernoulli|Media de Bernoulli|E[X]=p|X toma únicamente valores 0 y 1.
+bernoulli|Varianza de Bernoulli|\operatorname{Var}(X)=p(1-p)|X toma únicamente valores 0 y 1.
+normal_z|Estandarización|Z=\frac{X-\mu}{\sigma}|σ > 0. Si X es normal de media μ y varianza σ², Z es normal estándar.
+normal_z|Densidad normal|f(x)=\frac1{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}|σ > 0; x real.
+normal_z|Probabilidad en un intervalo|P(a<X<b)=\Phi\left(\frac{b-\mu}{\sigma}\right)-\Phi\left(\frac{a-\mu}{\sigma}\right)|X normal, σ > 0 y a < b; Φ es la función acumulada normal estándar.
+error_estandar|Error estándar con sigma conocida|\operatorname{EE}(\overline X)=\frac{\sigma}{\sqrt n}|n observaciones independientes con la misma varianza poblacional σ².
+error_estandar|Error estándar estimado|\widehat{\operatorname{EE}}(\overline X)=\frac{s}{\sqrt n}|s es la desviación estándar muestral; n > 1.
+error_estandar|Desviación estándar muestral|s=\sqrt{\frac{\sum_{i=1}^n(x_i-\overline x)^2}{n-1}}|n > 1.
+confianza_media|Intervalo normal para la media|\overline x\pm z_{1-\alpha/2}\frac{\sigma}{\sqrt n}|σ conocida; muestra independiente de población normal, o aproximación por muestra suficientemente grande.
+confianza_media|Intervalo de Student|\overline x\pm t_{1-\alpha/2,n-1}\frac{s}{\sqrt n}|σ desconocida; muestra aleatoria independiente de población normal, n > 1.
+confianza_media|Margen al 95 por ciento|E\approx1.96\frac{\sigma}{\sqrt n}|Intervalo bilateral normal con σ conocida; conserva las hipótesis de muestreo.
+recta_analitica|Pendiente entre puntos|m=\frac{y_2-y_1}{x_2-x_1}|x₂ ≠ x₁; en caso contrario, la recta es vertical.
+recta_analitica|Forma punto-pendiente|y-y_1=m(x-x_1)|Recta no vertical que pasa por (x₁,y₁).
+recta_analitica|Distancia de un punto a una recta|d=\frac{\lvert Ax_0+By_0+C\rvert}{\sqrt{A^2+B^2}}|Recta Ax+By+C=0, con (A,B) ≠ (0,0).
+elipse_analitica|Elipse horizontal|\frac{(x-h)^2}{a^2}+\frac{(y-k)^2}{b^2}=1|a > b > 0; centro (h,k).
+elipse_analitica|Distancia focal|c=\sqrt{a^2-b^2}|a es el semieje mayor y b el menor; los focos están a distancia c del centro.
+elipse_analitica|Excentricidad|e=\frac ca|Elipse no degenerada: 0 ≤ e < 1. En la circunferencia, e=0.
+parabola_foco|Parábola vertical|(x-h)^2=4p(y-k)|p ≠ 0; vértice (h,k), foco (h,k+p), directriz y=k−p.
+parabola_foco|Parábola horizontal|(y-k)^2=4p(x-h)|p ≠ 0; foco (h+p,k), directriz x=h−p.
+parabola_foco|Distancia focal de una cuadrática|p=\frac1{4a}|Para y=a(x−h)²+k, con a ≠ 0; p tiene signo.
+distancia_espacial|Distancia euclidiana 3D|d=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}|Puntos del espacio euclidiano.
+distancia_espacial|Punto medio espacial|M=\left(\frac{x_1+x_2}2,\frac{y_1+y_2}2,\frac{z_1+z_2}2\right)|Promedia cada coordenada por separado.
+distancia_espacial|Recta paramétrica|r(t)=P+t v|v ≠ 0 es un vector director; t real.
+plano_espacial|Ecuación general|Ax+By+Cz+D=0|El vector normal (A,B,C) es no nulo.
+plano_espacial|Forma punto-normal|n\cdot((x,y,z)-P)=0|P pertenece al plano y n es un vector normal no nulo.
+plano_espacial|Distancia de punto a plano|d=\frac{\lvert Ax_0+By_0+Cz_0+D\rvert}{\sqrt{A^2+B^2+C^2}}|(A,B,C) ≠ (0,0,0).
+limite_sucesion|Definición de convergencia|\lim_{n\to\infty}a_n=L|Para todo ε>0 existe N tal que n>N implica abs(aₙ−L)<ε.
+limite_sucesion|Recíproco de una potencia|\lim_{n\to\infty}\frac1{n^p}=0|p > 0.
+limite_sucesion|Sucesión geométrica|\lim_{n\to\infty}r^n=0|abs(r) < 1.
+serie_geometrica|Suma geométrica finita|\sum_{k=0}^n ar^k=a\frac{1-r^{n+1}}{1-r}|r ≠ 1; para r=1 la suma es a(n+1).
+serie_geometrica|Suma geométrica infinita|\sum_{k=0}^\infty ar^k=\frac a{1-r}|abs(r) < 1.|1+1/2+1/4+…=2.
+serie_geometrica|Condición necesaria|\sum a_n\text{ converge}\ \Rightarrow\ \lim a_n=0|La condición no es suficiente: la serie armónica diverge.
+serie_geometrica|Criterio de series p|\sum_{n=1}^\infty\frac1{n^p}\text{ converge si y solo si }p>1|Series de términos positivos.
+serie_telescopica|Suma parcial telescópica|\sum_{k=m}^N(b_k-b_{k+1})=b_m-b_{N+1}|N ≥ m; cancelación de términos consecutivos.
+serie_telescopica|Ejemplo de telescopía|\sum_{k=m}^\infty\frac1{k(k+1)}=\frac1m|m entero positivo; usa 1/[k(k+1)]=1/k−1/(k+1).
+serie_telescopica|Criterio de la razón|L=\lim_{n\to\infty}\left\lvert\frac{a_{n+1}}{a_n}\right\rvert|Si el límite existe y aₙ≠0 desde algún punto: L<1 da convergencia absoluta; L>1 da divergencia; L=1 no decide.
+taylor|Polinomio de Taylor|T_n(x)=\sum_{k=0}^n\frac{f^{(k)}(a)}{k!}(x-a)^k|f tiene las derivadas necesarias cerca del centro a.
+taylor|Resto de Lagrange|R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}|f de clase C^(n+1) en el segmento; ξ está entre a y x. f=Tₙ+Rₙ.
+taylor|Serie exponencial|e^x=\sum_{n=0}^\infty\frac{x^n}{n!}|Converge para todo x real.
+taylor|Serie del seno|\sin x=\sum_{n=0}^\infty\frac{(-1)^n x^{2n+1}}{(2n+1)!}|Todo x real, en radianes.
+taylor|Serie del coseno|\cos x=\sum_{n=0}^\infty\frac{(-1)^n x^{2n}}{(2n)!}|Todo x real, en radianes.
+taylor|Serie del logaritmo|\ln(1+x)=\sum_{n=1}^\infty\frac{(-1)^{n+1}x^n}{n}|−1 < x ≤ 1; en x=1 converge condicionalmente.
+series_potencias|Serie centrada en a|\sum_{n=0}^\infty c_n(x-a)^n|Converge absolutamente para abs(x−a)<R; revisa los extremos por separado.
+series_potencias|Radio por cociente|R=\lim_{n\to\infty}\left\lvert\frac{c_n}{c_{n+1}}\right\rvert|Cuando el límite existe y el cociente está definido desde algún índice; admite R=0 o infinito.
+series_potencias|Derivación término a término|\frac d{dx}\sum_{n=0}^\infty c_n(x-a)^n=\sum_{n=1}^\infty n c_n(x-a)^{n-1}|Solo en el interior del intervalo de convergencia; los extremos deben revisarse de nuevo.
+biseccion|Punto medio|x_n=\frac{a_{n-1}+b_{n-1}}2|f continua en [a₀,b₀], con f(a₀)f(b₀)<0; conserva un subintervalo con cambio de signo.
+biseccion|Cota del error|\lvert x_n-r\rvert\le\frac{b_0-a_0}{2^n}|x₁ es el primer punto medio, n≥1 y r es una raíz del subintervalo conservado.
+biseccion|Iteraciones suficientes|N\ge\max\left\{1,\left\lceil\log_2\frac{b_0-a_0}{\varepsilon}\right\rceil\right\}|Para garantizar el error absoluto ≤ ε; ε > 0 y se conservan las hipótesis de bisección.
+newton|Iteración de Newton|x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}|f′(xₙ) ≠ 0. La convergencia depende del punto inicial y de la función.
+newton|Parada por residuo|\lvert f(x_n)\rvert<\varepsilon|Criterio numérico de residuo; un residuo pequeño no garantiza por sí solo un error pequeño en x.
+newton|Error relativo entre iteraciones|e_n=\frac{\lvert x_n-x_{n-1}\rvert}{\lvert x_n\rvert}|xₙ ≠ 0; es un indicador de cambio, no una cota universal del error real.
+trapecio|Trapecio simple|T=\frac{b-a}2(f(a)+f(b))|Aproxima ∫ de a a b usando una recta entre extremos.
+trapecio|Trapecio compuesto|T_n=\frac h2\left[f(a)+2\sum_{i=1}^{n-1}f(a+ih)+f(b)\right]|h=(b−a)/n; n entero positivo.
+trapecio|Cota del error del trapecio|\left\lvert\int_a^b f(x)dx-T_n\right\rvert\le\frac{(b-a)h^2}{12}M_2|a < b, f de clase C² y abs(f″)≤M₂ en [a,b].
+simpson|Simpson simple|S=\frac{b-a}6\left[f(a)+4f\left(\frac{a+b}2\right)+f(b)\right]|Aproxima la integral con una parábola; exacta para polinomios de grado ≤ 3.
+simpson|Simpson compuesto|S_n=\frac h3\left[f(a)+4\sum_{i\ \mathrm{impar}}f(a+ih)+2\sum_{i\ \mathrm{par}}f(a+ih)+f(b)\right]|n par; h=(b−a)/n; ambas sumas solo recorren índices interiores i=1,…,n−1.
+simpson|Cota del error de Simpson|\left\lvert\int_a^b f(x)dx-S_n\right\rvert\le\frac{(b-a)h^4}{180}M_4|a < b, n par, f de clase C⁴ y abs(f^(4))≤M₄ en [a,b].
+fin_interes|Valor futuro compuesto|VF=VP(1+i)^n|Tasa efectiva i por período y n períodos; i > −1. Sin flujos intermedios.
+fin_interes|Valor presente compuesto|VP=\frac{VF}{(1+i)^n}|La tasa y el plazo usan el mismo período; i > −1.
+fin_interes|Interés simple|VF=VP(1+in)|Modelo de interés simple: el interés no se capitaliza.
+fin_tasas|Nominal a efectiva|i_{\mathrm{anual}}=\left(1+\frac jm\right)^m-1|j es tasa nominal anual convertible m veces al año; m entero positivo y 1+j/m>0.
+fin_tasas|Tasa por subperíodo|i_p=(1+i_a)^{1/m}-1|iₐ es efectiva anual, m períodos por año e iₐ > −1.
+fin_tasas|Tasa continua equivalente|\delta=\ln(1+i)|i es efectiva para el mismo período e i > −1.
+fin_cuota|Cuota de una anualidad vencida|C=P\frac{i}{1-(1+i)^{-n}}|Pagos iguales al final de cada período, tasa fija, n≥1, i>−1 e i≠0. P es el capital financiado.
+fin_cuota|Cuota con tasa cero|C=\frac Pn|n pagos iguales, sin interés ni otros cargos en el modelo.
+fin_cuota|Valor futuro de pagos iguales|VF=C\frac{(1+i)^n-1}{i}|Pagos al final del período, tasa fija i>−1 e i≠0; con i=0, VF=nC.
+fin_amortizacion|Interés del período|I_k=iS_{k-1}|Sₖ₋₁ es el saldo antes del pago k; tasa por período i constante.
+fin_amortizacion|Amortización de capital|A_k=C-I_k|C es la cuota del período; modelo sin cargos adicionales.
+fin_amortizacion|Saldo tras un pago|S_k=S_{k-1}(1+i)-C|Cuota vencida constante; aplica después de calcular el interés del período.
+fin_van|Valor actual neto|VAN=-I_0+\sum_{t=1}^n\frac{F_t}{(1+i)^t}|I₀ es el desembolso inicial positivo; Fₜ son flujos netos al final de t; i>−1.
+fin_van|Flujos iguales|VAN=-I_0+F\frac{1-(1+i)^{-n}}i|F constante al final de cada período; i>−1 e i≠0.
+fin_van|Valor presente de un flujo|VP_t=\frac{F_t}{(1+i)^t}|El índice t y la tasa i deben usar la misma unidad temporal; i>−1.
+fin_tir|Definición de TIR|0=-I_0+\sum_{t=1}^n\frac{F_t}{(1+r)^t}|r > −1 es una raíz del VAN; puede haber varias TIR o ninguna.
+fin_tir|Un flujo a un período|r=\frac{F_1}{I_0}-1|I₀ > 0 y F₁ > 0; un único cobro al final del período.
+fin_tir|Un flujo a n períodos|r=\left(\frac{F_n}{I_0}\right)^{1/n}-1|I₀,Fₙ > 0; n entero positivo; sin flujos intermedios.

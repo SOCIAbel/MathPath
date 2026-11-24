@@ -1,0 +1,11 @@
+# Dependencias que se instalan (ver README)
+vendor/
+node_modules/
+__pycache__/
+*.pyc
+
+# Datos generados por pruebas y copias locales
+.qa/
+.respaldo/
+*.sqlite
+*.sqlite-journal

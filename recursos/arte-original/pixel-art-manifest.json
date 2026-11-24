@@ -1,0 +1,549 @@
+{
+  "generator": "built-in image_gen",
+  "assets": [
+    {
+      "asset": "recursos/mascotas/draco-1.webp",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-993c7508-4cfc-4d2c-a335-2fd4997b729b.png",
+      "prompt": "Dragoncito cría: pixel art chibi 16 bits, verde esmeralda, barriga crema, alas naranjas, cuernitos crema, ojos tiernos, feliz, mirando a la derecha; PNG transparente, 512×512, sin texto.",
+      "width": 512,
+      "height": 512,
+      "sha256": "fcd0b2206a8aefb2c0d5a570f585ee4fb0c41e3926ffc89b9096f38281bdfd9b"
+    },
+    {
+      "asset": "recursos/mascotas/buho-1.webp",
+      "prompt": "Use case: stylized-concept. Asset type: one game sprite, NOT a sprite sheet. Pixel art chibi RPG de 16 bits, cheerful saturated colors, distinct logical pixel clusters, dark one-pixel logical outlines, 2–3 tones per material, matching MathPath's cute blue armored knight. Transparent background, square 512×512, centered full subject occupying 75% of canvas, entire silhouette visible with margin, no text, no frame, no scenery, no ground. A single adorable BABY owl pet, café plumage and cream chest and eye discs, giant warm black eyes, yellow beak, tiny feather ear tufts, large round head, round little body, small wings, pink cheeks, happy, three-quarter view looking RIGHT. Stage 1 hatchling. No hat or glasses, keep space above head for app accessories.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-db2429e5-6b0f-4356-94ce-8a4364fad567.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "1473b30daee652ad0ae99a4dc291f4185b4a009be2469b4ad568941890b1d10f"
+    },
+    {
+      "asset": "recursos/mascotas/slime-1.webp",
+      "prompt": "Use case: stylized-concept. Asset type: one game sprite, NOT a sprite sheet. Pixel art chibi RPG de 16 bits, cheerful saturated colors, distinct logical pixel clusters, dark one-pixel logical outlines, 2–3 tones per material, matching MathPath's cute blue armored knight. Transparent background, square 512×512, centered full subject occupying 75% of canvas, entire silhouette visible with margin, no text, no frame, no scenery, no ground. A single adorable BABY sky-blue translucent slime pet, big expressive eyes looking RIGHT, white shine, pink cheeks and happy little smile, very round small jelly shape, three-quarter view. Stage 1 hatchling, no mini-slimes yet. No accessories, keep space above head for app accessories.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-0f318554-a4e4-42c8-9565-b983757ef8ef.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "9381930f22f2ff4419407915be152f1395f83437ce6e534bf47a0f6019de3355"
+    },
+    {
+      "asset": "recursos/cofres/epico.webp",
+      "prompt": "Use case: stylized-concept. Asset type: one game sprite, NOT a sprite sheet. Pixel art chibi RPG de 16 bits, cheerful saturated colors, distinct logical pixel clusters, dark one-pixel logical outlines, 2–3 tones per material, matching MathPath's cute blue armored knight. Transparent background, square 512×512, centered full subject occupying 75% of canvas, entire silhouette visible with margin, no text, no frame, no scenery, no ground. A single closed EPIC treasure chest, purple wooden planks, elaborate golden bands and corners, amethyst gemstones, magical purple discrete pixel sparkle aura, 3/4 front view, charming chunky proportions. No coins, no ground.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-6b9b91e4-4e25-4257-9a58-74717759af04.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "0632f529039615d8092ea56cec000c121df60fc79ca460baff8afcc495b67200"
+    },
+    {
+      "asset": "recursos/cofres/comun.webp",
+      "prompt": "Use case: stylized-concept. Asset type: one game sprite, NOT a sprite sheet. Pixel art chibi RPG de 16 bits, cheerful saturated colors, distinct logical pixel clusters, dark one-pixel logical outlines, 2–3 tones per material, matching MathPath's cute blue armored knight. Transparent background, square 512×512, centered full subject occupying 75% of canvas, entire silhouette visible with margin, no text, no frame, no scenery, no ground. A single closed COMMON treasure chest, brown wooden planks, dark iron bands, chunky gold keyhole clasp, 3/4 front view, charming chunky proportions, sturdy simple starter chest. No gems, no coins, no ground.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-8babbb59-ebe3-49fc-b4f6-79ea630919fe.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "bc4ca4fde1fc93922bc32c0a066051f5c5e2ba4ca5d62348f1ca0894bd96c6b9"
+    },
+    {
+      "asset": "recursos/aldea/aldea-panorama.webp",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Asset type: ultra-wide panorama background for a side-scrolling 16-bit chibi medieval RPG. Panorama 1600×260, very wide and shallow, full-bleed pixel art with crisp logical pixels. Exactly TWELVE distinct little buildings arranged in ONE single continuous horizontal row, each occupies one equal-width twelfth of the image, all buildings fully visible, separate silhouettes with small gaps, level grass baseline at 90% height. Left to right: cottage, blacksmith forge with small chimney smoke, bakery, market stall, inn, windmill, library, stable, potion shop, stone watchtower, watermill, castle gate. Blue sky occupies top quarter, rolling grassy hills behind, warm joyful cozy colors, dark outlines and 2–3 shades, same game art world as a cute blue armored chibi knight. No text, no signage lettering, no characters, no UI, no border, no foreground objects covering buildings. Extremely horizontal composition, no second row.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-d3403c95-92bc-4a72-bd2d-880c7caed177.png",
+      "width": 1600,
+      "height": 260,
+      "sha256": "b0cb5c939111557b7eeb64ead5d64eee45ce99a7c7b9dc20a7a648d522462cfe"
+    },
+    {
+      "asset": "recursos/cofres/raro.webp",
+      "prompt": "Use case: stylized-concept. Asset type: one game sprite, NOT a sprite sheet. Pixel art chibi RPG de 16 bits, cheerful saturated colors, distinct logical pixel clusters, dark one-pixel logical outlines, 2–3 tones per material, matching MathPath's cute blue armored knight. Transparent background, square 512×512, centered full subject occupying 75% of canvas, entire silhouette visible with margin, no text, no frame, no scenery, no ground. A single closed RARE treasure chest, rich blue wooden planks, silver metal bands and corners, cyan crystal lock, tiny blue sparkle accents, 3/4 front view, charming chunky proportions. No coins, no ground.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-fdb209c4-c4f6-4923-b31a-05e2c53b75f8.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "048a5c1f0f9a36e5b1a52c45a943e09505e87029ca7eef2f931bfa51b5128dc4"
+    },
+    {
+      "asset": "recursos/mascotas/draco-4.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-993c7508-4cfc-4d2c-a335-2fd4997b729b.png",
+      "prompt": "Use case: style-transfer. Asset type: one transparent pixel-art game pet variant. Edit the supplied reference pet to its evolution stage 4. Preserve this species' identity, face design, dark outlines, crisp logical pixel clusters and cheerful chibi 16-bit RPG style. Species: dragoncito verde esmeralda, barriga crema, alas naranjas, cuernitos crema, ojos tiernos. Requested evolution: LEGENDARIO: versión dorada y brillante del adulto de la misma especie, mantiene su silueta y rasgos reconocibles, paleta oro cálido, crema y acentos de su color original, aura con chispas pixeladas y partículas mágicas discretas. Sin corona ni sombrero. El búho lleva lentes redondos. El slime tiene mini-slimes dorados. Full subject visible, centered, looking RIGHT, square 512×512, transparent background, no text, no border, no scenery. Put feet/base near 90% canvas height; reserve the top 18% as transparent space for hats drawn by the app. Maintain readable silhouette at 96px. This is one single evolution sprite, no sheet or multiple evolution stages.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-5e602107-93a1-4936-8173-adfeacb9d942.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "a06373373412a94805ed5fbde4741f5d5044c6788735eb1aad0bd4315e1f259d"
+    },
+    {
+      "asset": "recursos/mascotas/slime-0.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-0f318554-a4e4-42c8-9565-b983757ef8ef.png",
+      "prompt": "Use case: style-transfer. Asset type: one transparent pixel-art game pet variant. Edit the supplied reference pet to its evolution stage 0. Preserve this species' identity, face design, dark outlines, crisp logical pixel clusters and cheerful chibi 16-bit RPG style. Species: slime azul cielo translúcido con brillo blanco, mejillas rosadas y sonrisa. Requested evolution: HUEVO: un huevo ovalado color crema con manchas del color de la especie, parte superior un poco agrietada, dos ojitos tiernos asomando por la grieta. No cuerpo completo fuera del huevo. Full subject visible, centered, looking RIGHT, square 512×512, transparent background, no text, no border, no scenery. Put feet/base near 90% canvas height; reserve the top 18% as transparent space for hats drawn by the app. Maintain readable silhouette at 96px. This is one single evolution sprite, no sheet or multiple evolution stages.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-3c2be568-3a31-4012-a5b7-547564d48a8a.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "d51df592d3a52643dabafa81fe9fd7033758ed330bc794a13c336507686bebe1"
+    },
+    {
+      "asset": "recursos/mascotas/draco-0.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-993c7508-4cfc-4d2c-a335-2fd4997b729b.png",
+      "prompt": "Use case: style-transfer. Asset type: one transparent pixel-art game pet variant. Edit the supplied reference pet to its evolution stage 0. Preserve this species' identity, face design, dark outlines, crisp logical pixel clusters and cheerful chibi 16-bit RPG style. Species: dragoncito verde esmeralda, barriga crema, alas naranjas, cuernitos crema, ojos tiernos. Requested evolution: HUEVO: un huevo ovalado color crema con manchas del color de la especie, parte superior un poco agrietada, dos ojitos tiernos asomando por la grieta. No cuerpo completo fuera del huevo. Full subject visible, centered, looking RIGHT, square 512×512, transparent background, no text, no border, no scenery. Put feet/base near 90% canvas height; reserve the top 18% as transparent space for hats drawn by the app. Maintain readable silhouette at 96px. This is one single evolution sprite, no sheet or multiple evolution stages.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-7ac3c816-b1aa-4050-9656-a7e0e5dc8b18.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "37e6bc709ca14ccbd101b82fbdd3e081a6324c46810bdf29311ac8260a479be2"
+    },
+    {
+      "asset": "recursos/mascotas/buho-3.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-5f783e32-094a-4a47-9f2d-f0ff2fd8cc14.png",
+      "prompt": "Use case: precise-object-edit. Edit this game sprite with ONLY this correction: Remove ALL the tiny gold slime creatures at the bottom beside the owl's feet. Only one adult brown owl with small round glasses; preserve the main owl exactly. Preserve the original character's pixel-art chibi 16-bit style, colors, pose, size, logical dark outline, square canvas and full transparency. Clean fully transparent pixels where the removed parts were. No text, no frame, no ground, no additional creatures or props. The top of the head remains empty for the app to overlay optional hats.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-54335e74-3181-463c-9d69-4b0c04c2a05e.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "8452c99be3d7700963a53c4608406bb97c14274bc7aa7f2d6f43685888ce4760"
+    },
+    {
+      "asset": "recursos/mascotas/buho-4.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-6e970b93-2fb5-49d0-ab30-1bb28568dfe1.png",
+      "prompt": "Use case: precise-object-edit. Edit this game sprite with ONLY this correction: Remove ALL the tiny gold slime creatures at the bottom beside the owl's feet. Only one legendary gold owl with small round glasses and magic sparkles; preserve the main owl exactly. Preserve the original character's pixel-art chibi 16-bit style, colors, pose, size, logical dark outline, square canvas and full transparency. Clean fully transparent pixels where the removed parts were. No text, no frame, no ground, no additional creatures or props. The top of the head remains empty for the app to overlay optional hats.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-ea6465fe-0753-4597-aad1-e2a8d7a6adb0.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "9f915b14b6b7704011855038f76389de288e7079b5c135cae48e4159b921d2b7"
+    },
+    {
+      "asset": "recursos/mascotas/buho-2.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-a50a41c2-dfac-427f-b216-d6a56e1ff308.png",
+      "prompt": "Use case: precise-object-edit. Edit this game sprite with ONLY this correction: Remove the tiny separate baby owl next to the large owl. Only one young owl; preserve the main owl exactly. Preserve the original character's pixel-art chibi 16-bit style, colors, pose, size, logical dark outline, square canvas and full transparency. Clean fully transparent pixels where the removed parts were. No text, no frame, no ground, no additional creatures or props. The top of the head remains empty for the app to overlay optional hats.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-0bb5ae78-7bc3-446d-ad7a-a2b792a6b9e7.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "4861ecf773f48a8c58e640092ff2303a96103e58ed907fcc1a7fddbc9c5da3da"
+    },
+    {
+      "asset": "recursos/mascotas/draco-3.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-993c7508-4cfc-4d2c-a335-2fd4997b729b.png",
+      "prompt": "Use case: style-transfer. Asset type: one transparent pixel-art game pet variant. Edit the supplied reference pet to its evolution stage 3. Preserve this species' identity, face design, dark outlines, crisp logical pixel clusters and cheerful chibi 16-bit RPG style. Species: dragoncito verde esmeralda, barriga crema, alas naranjas, cuernitos crema, ojos tiernos. Requested evolution: ADULTO: pose orgullosa pero amistosa, más grande, alas o extremidades desarrolladas y detalles elaborados. El búho lleva lentes redondos pequeños bien legibles; el slime lleva dos mini-slimes junto a su base. Full subject visible, centered, looking RIGHT, square 512×512, transparent background, no text, no border, no scenery. Put feet/base near 90% canvas height; reserve the top 18% as transparent space for hats drawn by the app. Maintain readable silhouette at 96px. This is one single evolution sprite, no sheet or multiple evolution stages.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-8b3548a8-54f0-49db-a0b8-b9fcd60d2570.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "148b86272a8617d388feb8a6b1660aa32e4ebd5de52c8c0d652c4abfd045f8cd"
+    },
+    {
+      "asset": "recursos/mascotas/buho-0.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-db2429e5-6b0f-4356-94ce-8a4364fad567.png",
+      "prompt": "Use case: style-transfer. Asset type: one transparent pixel-art game pet variant. Edit the supplied reference pet to its evolution stage 0. Preserve this species' identity, face design, dark outlines, crisp logical pixel clusters and cheerful chibi 16-bit RPG style. Species: búho café con pecho crema, círculos claros alrededor de los ojos enormes, pico amarillo y orejas de plumas. Requested evolution: HUEVO: un huevo ovalado color crema con manchas del color de la especie, parte superior un poco agrietada, dos ojitos tiernos asomando por la grieta. No cuerpo completo fuera del huevo. Full subject visible, centered, looking RIGHT, square 512×512, transparent background, no text, no border, no scenery. Put feet/base near 90% canvas height; reserve the top 18% as transparent space for hats drawn by the app. Maintain readable silhouette at 96px. This is one single evolution sprite, no sheet or multiple evolution stages.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-c0e4f0ea-421d-4b3d-92a9-d003e8d574fc.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "1b78fa4786451c29ff849c8cfe66197e8499159bb92515c92c8cad97ed7a69c3"
+    },
+    {
+      "asset": "recursos/mascotas/draco-2.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-e384c6a8-bc7f-44d1-be6f-b7b81ed44ba5.png",
+      "prompt": "Use case: precise-object-edit. Edit this game sprite with ONLY this correction: Remove the tiny separate green slime creature beside the dragon's feet. Only one green young dragon; preserve the main dragon exactly. Preserve the original character's pixel-art chibi 16-bit style, colors, pose, size, logical dark outline, square canvas and full transparency. Clean fully transparent pixels where the removed parts were. No text, no frame, no ground, no additional creatures or props. The top of the head remains empty for the app to overlay optional hats.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-26d91482-880e-4ffa-9362-22d6437d2a40.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e6dd519a434db35dac5bd1f4a128a84da6c01b376e705930a191463b1647cb36"
+    },
+    {
+      "asset": "recursos/mascotas/slime-2.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-847e5b50-3243-4f54-a25a-6abfe1aae5f2.png",
+      "prompt": "Use case: precise-object-edit. Edit this game sprite with ONLY this correction: Remove the angel wings and the protruding arm-like appendages from the big slime. It must be a rounded young BLUE JELLY blob, with the one tiny blue slime beside it remaining. Keep the face, smile, pink cheeks, shine and jelly material. No wings, no clothing, no glasses. Preserve the original character's pixel-art chibi 16-bit style, colors, pose, size, logical dark outline, square canvas and full transparency. Clean fully transparent pixels where the removed parts were. No text, no frame, no ground, no additional creatures or props. The top of the head remains empty for the app to overlay optional hats.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-c386d401-84ee-4979-9ac4-bc948c5bc1fc.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "5fd3b54c2f76a0b8220ee4f7877bed7c9f2aae2a4edaec6656169308e97b34fd"
+    },
+    {
+      "asset": "recursos/mascotas/slime-3.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-fbba823f-0549-410a-aa46-25a310d6f4a5.png",
+      "prompt": "Use case: precise-object-edit. Edit this game sprite with ONLY this correction: Remove glasses, wings, crown, necklace and cape from the main blue slime. It must be an adult rounded BLUE JELLY blob, larger and proud, with the two little blue slime companions at its base remaining. Keep the expressive face, white shine, pink cheeks, friendly smile and translucent blue material. No accessories or clothing on any slime. Preserve the original character's pixel-art chibi 16-bit style, colors, pose, size, logical dark outline, square canvas and full transparency. Clean fully transparent pixels where the removed parts were. No text, no frame, no ground, no additional creatures or props. The top of the head remains empty for the app to overlay optional hats.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-61d055fc-e7f4-43d5-9d06-b79750d57feb.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "1543e8d71cb9ed79af9b562ec81395550d018fa5e3e7f3bc8f09acc4a9c231ab"
+    },
+    {
+      "asset": "recursos/mascotas/slime-4.webp",
+      "reference": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-0f318554-a4e4-42c8-9565-b983757ef8ef.png",
+      "prompt": "Use case: style-transfer. Asset type: one transparent pixel-art game pet variant. Edit the supplied reference pet to its evolution stage 4. Preserve this species' identity, face design, dark outlines, crisp logical pixel clusters and cheerful chibi 16-bit RPG style. Species: slime azul cielo translúcido con brillo blanco, mejillas rosadas y sonrisa. Requested evolution: LEGENDARIO: versión dorada y brillante del adulto de la misma especie, mantiene su silueta y rasgos reconocibles, paleta oro cálido, crema y acentos de su color original, aura con chispas pixeladas y partículas mágicas discretas. Sin corona ni sombrero. El búho lleva lentes redondos. El slime tiene mini-slimes dorados. Full subject visible, centered, looking RIGHT, square 512×512, transparent background, no text, no border, no scenery. Put feet/base near 90% canvas height; reserve the top 18% as transparent space for hats drawn by the app. Maintain readable silhouette at 96px. This is one single evolution sprite, no sheet or multiple evolution stages.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-e1b2b236-3d85-4085-b2ec-7e7eb71588fe.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "22657f093a272a36dd95fabf689544d28d5c893df4f88f20ed5ef1063d639951"
+    },
+    {
+      "asset": "arena/golem-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/golem.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-3cf60d61-f3c3-48f0-80bc-6310df640040.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "395ab027ed16e28ec603abdc62b3b8bde524e04b11080f096a5c8dd924b2a1f0"
+    },
+    {
+      "asset": "arena/mushroom-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/mushroom.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-7a8176a8-05ca-4323-b197-4a644d581e9e.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "ae227577dc83f5f232ec3f4723477843b3711f1089fbb3653e55c0b0397a980c"
+    },
+    {
+      "asset": "arena/beetle-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/beetle.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-406d02b2-c76c-4cdb-9c3a-c906beeea9b7.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "f7d4eb51c9c68146bbe15fe88241363b0756fe7ec05dad4227c5d52a0943842d"
+    },
+    {
+      "asset": "arena/yeti-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/yeti.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-10002c6b-463a-4b58-8b56-1985833e8ee9.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "b2027ef076c93a8c8178eadcc25b8490abdc9453e6f5b2a334d0223cc8d4ef71"
+    },
+    {
+      "asset": "arena/lizard-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/lizard.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-e042e908-5917-4ff0-a2a9-a414b62eb955.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "866076241871990980591ea2505293d9d74a49ebbe0aa1f8036851ff796d685a"
+    },
+    {
+      "asset": "arena/frog-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/frog.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-8b4e42aa-b522-43ad-9d89-d07f91df952c.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "75c2ac57432832c4291e1d2f525ddba60a6a7e52e9fcbf95589d65fb257a1e34"
+    },
+    {
+      "asset": "arena/armor-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/armor.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-c66200d6-b367-4c86-b65a-198a13fcb794.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "426b776ef6ef426cc462f7d108ce6e57a74f5669338c16b7acc92b7f9ae7f7fc"
+    },
+    {
+      "asset": "arena/sphinx-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/sphinx.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-3fed1c73-7303-4a1a-a8eb-aa5f53b90417.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "b9429e277a39473f984d73a817bf3c24e2cd9f94e9a9055c47d031eb2c4fa37d"
+    },
+    {
+      "asset": "arena/scarecrow-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/scarecrow.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-5b8c23d9-7f1d-435c-a2a4-17eef1fc9e5b.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "9b1c560ce95401034af643e377d41490660692fa7f52ae66179e8fcd7c4bd040"
+    },
+    {
+      "asset": "arena/amethyst-bat-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/amethyst-bat.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-fcd634f8-cc3d-4aea-87c6-812a2632b4e4.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "b7030d1ec2b04ecd5c23df0f86fb0cecee020c9ed7f6ca623f79d1520a963208"
+    },
+    {
+      "asset": "arena/blizzard-wolf-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/blizzard-wolf.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-347e3e59-9eaf-46cf-a5d1-8cf4f09fa5e2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "7579f68f3d52891d0a4c461c0a5aa97a9dad4f4782f664a88fc5703f69ad33ca"
+    },
+    {
+      "asset": "arena/moss-turtle-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/moss-turtle.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-13612ae1-bf4c-4c5d-a8e0-e8e43fb04051.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "bceb5290ff1e38f2e39c97c09503dd575e9e9e962adb5c3f0009b020cdeb9f23"
+    },
+    {
+      "asset": "arena/solar-scorpion-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/solar-scorpion.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-29363e08-8436-4c90-b199-0c0597f1ea60.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "f567ba9af058a282b1742fe18ec9a9b52aa5d515a45589243309289ee866298b"
+    },
+    {
+      "asset": "arena/copper-owl-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/copper-owl.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-9c0cbc0f-2ea0-41f4-b35f-24db35295e2a.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "efe7a868f0fb68db3ecd3865ddc835d661abb05b48067b7d50f6ceeab508a08c"
+    },
+    {
+      "asset": "arena/thorn-stag-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/thorn-stag.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-a9b8ac62-eb1b-4b83-aff0-76d56d3520af.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "875150ac222623d2e5c3a9275dcf0cf3bf42899ed131b1c179470226983c91ff"
+    },
+    {
+      "asset": "arena/obsidian-ram-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/obsidian-ram.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-6159e2dc-7335-40fc-b615-fcc8a04d230f.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "79497b86a35f839f365d444f2c6657fccb3fa771e17f6d2836362585791f76fb"
+    },
+    {
+      "asset": "arena/quartz-crab-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/quartz-crab.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-dd7c43e3-afcf-44d8-bf04-4a30a98a5bf1.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e8725b5b0e792a72a42b1a31b33b691798d60589a497f4a98087b073ea1851a9"
+    },
+    {
+      "asset": "arena/crest-griffin-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/crest-griffin.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-53aa6e4a-fbb3-4acf-a28e-6f04b03b9fdf.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "2c9a18d97783d991e2ddc76b95af462ba9bd11e27be4184e5dc29a28b4a6d085"
+    },
+    {
+      "asset": "arena/ice-walrus-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/ice-walrus.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-2fe042ab-2e60-459a-94e9-5261b53a7703.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "41ea773802fffa71b6151e09869eec6ddfb3bf4f252d18ecc235254c0c1427c6"
+    },
+    {
+      "asset": "arena/canopy-spider-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/canopy-spider.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-6028ceb4-2097-4439-ac6c-925cedb11799.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "14847c70488c9f40afb5aaa4b285cd01157191193b67d967bc277e31073884fe"
+    },
+    {
+      "asset": "arena/polar-hare-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/polar-hare.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-442af626-e70b-4863-9d06-aeb7cafa90e2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "7ff0d03feb5cf645540ddce3d90e312f266184b7e1256b8a761211f87a1efafb"
+    },
+    {
+      "asset": "arena/miller-fox-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/miller-fox.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-b48cec40-95c8-4dc8-81a7-9e46a986360c.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "52d73bc081f414f8ffe256bb8140eeab3e646265eb9818a8a91acebb29e98cbd"
+    },
+    {
+      "asset": "arena/geode-slug-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/geode-slug.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-8aeaa382-475e-41e4-9f33-3116ebf69e55.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "795091a7e2893820962a9b526877e607f4fdf824bea8c087bcec852709728c27"
+    },
+    {
+      "asset": "arena/dunes-vulture-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/dunes-vulture.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-5b0bbd3d-d622-4a35-b797-b40ffe8bcd1e.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "8f23887fc51173a45d3507ed29472aed5628fdad45b3c782ecb23bc161e9edd3"
+    },
+    {
+      "asset": "arena/bell-gargoyle-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/bell-gargoyle.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-21e4efc2-d3c7-4aad-8249-8bce09420abc.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "bd0720225d91f989a4132676c2ef767d6fc0c6430901baee14a1b9ee84bc6a87"
+    },
+    {
+      "asset": "arena/swamp-caiman-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/swamp-caiman.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-89d49658-3fa9-4b08-8daf-9567e055d534.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "70b4d320bb68aa1272791978c488f7c94a1395bc6f42f62eb9c8af2ad4dc5846"
+    },
+    {
+      "asset": "arena/miller-puppet-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/miller-puppet.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-6e9377bf-80a7-4c12-90c6-b50f39afd76e.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "7058b7e380309ea8a54319d21b17e68181c7812616b980ec3ae869be4fc43a48"
+    },
+    {
+      "asset": "arena/crystal-mole-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/crystal-mole.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-e1af1c9c-5ee5-4a69-a575-1f791710d443.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "f0d01be308a81cf43b624d15ec350aa13164158b161dcbe992cd5b17f9a91cd9"
+    },
+    {
+      "asset": "arena/caldera-ape-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/caldera-ape.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-1ea9641a-06c9-44ef-95ce-fbfee87c6b97.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "bf6d8c6d69a44afb451430a4492344bb4f1981c6fe6ff824ac1abbe90374bb73"
+    },
+    {
+      "asset": "arena/oak-hornet-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/oak-hornet.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-c4934d5c-7370-4f9c-a450-aad31b05bf31.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "bba9a71c937d3186c8cc6b17585a34637be9f109e04245e9a2183fc881c23e64"
+    },
+    {
+      "asset": "recursos/logros/llama.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel an orange-red flame. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-56d84833-fadb-4189-842a-2fe7bf954247.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "1f50b0e9792348311bdf7322b66c8b4aefb6c8574b29cf8c1c1fdaa8230e70fe"
+    },
+    {
+      "asset": "recursos/logros/estrella.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel a five-point bright gold star. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-61066d08-a7b3-4ff4-80b8-cf1fb136ba1d.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "80f3bb735a60b5dba8b39936702fcfc33c41c1e843a98e035ea0e797c281afa2"
+    },
+    {
+      "asset": "recursos/logros/espada.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel a steel sword with blue hilt. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-46e653bb-1b3c-4b66-ad70-929f858cbb5e.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "2a203c978e6b7fc679b403bece379bf9da0dc52eff7332440dcb0d045f1fa1a2"
+    },
+    {
+      "asset": "recursos/logros/rayo.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel an electric cyan lightning bolt. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-7140bd2b-4797-422b-9a3a-b814349e2d23.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "20153ea207e8814871c06a1be20d95c94da16e4833d699e1d8e0b8cdc13d4acf"
+    },
+    {
+      "asset": "recursos/logros/carta.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel a purple collectible formula card marked only with a small magical diamond, no writing. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-20580a0c-8588-47f0-a10c-03e37360f349.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "9a56f4abcdee86325068786627cfa26ecd351b23499d1a0554358795a0afb46d"
+    },
+    {
+      "asset": "recursos/logros/corona.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel a royal gold crown with ruby. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-ed3c60bb-9960-4f05-88e6-8a326b560f5f.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "3c3f43c169b33a459489581e02b91e9505fb4fd97da4e7a8f833f3d04cc822e0"
+    },
+    {
+      "asset": "recursos/logros/llave.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel an antique gold key. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-0860e1d6-1b4d-414c-88b8-668d73436fe3.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "ecbfd2e20c710e53bac0931d5a5d2ca69fbb3195a0ccd2e3411354bd4810ea25"
+    },
+    {
+      "asset": "recursos/logros/libro.webp",
+      "prompt": "Use case: stylized-concept. Asset type: ONE achievement medal icon for a children's medieval RPG MathPath. Pixel art 16-bit style, 128×128 square, crisp visible square pixel clusters, dark logical one-pixel outline, two or three shades per material, cheerful vibrant colors. A round embossed medal with a thick shiny GOLD rim, tiny glint highlights, central colored enamel an open cream book with blue cover. Centered and occupying 80% canvas. Fully transparent background, no lettering, no numbers, no text, no frame around the canvas, no extra icons, no scenery. Reads clearly at 48×48. Consistent cute retro game inventory style.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-1f1554ee-13fc-469e-b9cf-ece15a39cb63.png",
+      "width": 128,
+      "height": 128,
+      "sha256": "86cde1515cba0a1d3cd64385bd9befa04743fd22a014362959016dbe8031d09b"
+    },
+    {
+      "asset": "arena/temple-cobra-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/temple-cobra.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-6d96e843-ddc9-4066-bac1-4294bda229aa.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "a056d74baf5968a409c1c6926d247e4196d48671c0328445c5755c6b8827d5b6"
+    },
+    {
+      "asset": "arena/oak-boar-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/oak-boar.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-2aa68a3e-24c1-462a-90b2-f055b8aa11eb.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "f05a6b13cf419792f8dfa8b729097b9606315adbe3d91e13b4073633f8ae0d8d"
+    },
+    {
+      "asset": "arena/moss-witch-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/moss-witch.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-5a4fec95-6f2d-43e9-a7f5-75bf793a0e9d.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e9315889dd393a01e4d27e31540c281d389c08caed4003651e612e594e6530fb"
+    },
+    {
+      "asset": "arena/ash-phoenix-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/ash-phoenix.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-4c3f63fd-f0d4-4227-9688-d721616ee2d3.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "fbef8b1a3e1b9cf838a947fe6bf4386011da1b0c516330028de104d57be25ca8"
+    },
+    {
+      "asset": "arena/wind-badger-rey.webp",
+      "reference": "D:/7MO/SOW II/desktop/mathpath/arena/wind-badger.webp",
+      "prompt": "Use case: precise-object-edit. Asset type: ONE unique world-boss sprite for the children's medieval math RPG MathPath, not a sprite sheet. Input image is the edit target: keep this creature's exact species, recognizable face, characteristic body shape, signature colors, existing weapon/props and facing direction. Transform it into a more imposing royal KING version: an ornate gold crown fitted to its head, a short rich crimson or royal purple cape with cream trim, confident proud expression and brighter eyes, a little larger and more detailed but still cute and child-friendly. Preserve the original crisp 16-bit chibi RPG pixel-art style, dark logical pixel outlines and 2–3-tone shading. Full body and all crown/cape/limbs visible, one centered character on a square 512×512 canvas, margin around silhouette. Completely transparent background, remove any colored bands or scenery from the reference. No text, no frame, no extra characters, no floor. This specific creature's identity must remain unmistakable, no replacing it with a different animal or human.",
+      "source": "C:\\Users\\LENOVO\\.codex\\generated_images\\01a1d589-4c6b-7891-ab60-deeffe3a52f6\\exec-e26f77a2-05fb-4a34-b212-31e8b18f8d00.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "3156bc2d29f3c84542c20595994fcd0b7201e35959e6011fb5778ee17b825d41"
+    }
+  ]
+}

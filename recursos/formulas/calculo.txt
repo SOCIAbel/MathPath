@@ -1,0 +1,136 @@
+# tema | nombre | LaTeX | condiciones y uso | ejemplo opcional
+dominio|Cociente de funciones|D_{f/g}=\{x\in D_f\cap D_g:g(x)\ne0\}|Excluye todos los ceros del denominador.|1/(x−2): x ≠ 2.
+dominio|Raíz de índice par|D_{\sqrt[2n]{g}}=\{x\in D_g:g(x)\ge0\}|Funciones reales; n es un entero positivo.|√(x−3): x ≥ 3.
+dominio|Argumento del logaritmo|D_{\ln g}=\{x\in D_g:g(x)>0\}|El argumento debe ser estrictamente positivo.|ln(x+1): x > −1.
+composicion|Composición|(f\circ g)(x)=f(g(x))|Primero aplica g y después f.|f(x)=x², g(x)=x+1: (f∘g)(x)=(x+1)².
+composicion|Dominio de una composición|D_{f\circ g}=\{x\in D_g:g(x)\in D_f\}|La salida de la función interior debe pertenecer al dominio de la exterior.
+composicion|Asociatividad|f\circ(g\circ h)=(f\circ g)\circ h|En los puntos donde todas las composiciones están definidas; el orden no se puede intercambiar en general.
+inversa_funcion|Inversa de una función afín|f^{-1}(x)=\frac{x-b}{a}|Para f(x)=ax+b, con a ≠ 0. El exponente −1 indica función inversa.
+inversa_funcion|Composición con la inversa|f^{-1}(f(x))=x|f debe ser biyectiva entre el dominio y el codominio considerados.
+inversa_funcion|Inversa exponencial|\log_a(a^x)=x,\quad a^{\log_a y}=y|a > 0, a ≠ 1; y > 0.
+transformaciones|Traslaciones|g(x)=f(x-h)+k|h desplaza horizontalmente y k verticalmente.|(x−2)²+3: vértice (2,3).
+transformaciones|Cambio de escala vertical|g(x)=A f(x)|Si A < 0 también hay reflexión respecto del eje x; escala vertical de factor abs(A).
+transformaciones|Cambio de escala horizontal|g(x)=f(Bx)|B ≠ 0; escala horizontal de factor 1/abs(B). Si B < 0 también refleja respecto del eje y.
+transformaciones|Vértice de una parábola|y=A(x-h)^2+k,\quad V=(h,k)|A ≠ 0. Abre hacia arriba si A > 0 y hacia abajo si A < 0.
+asintotas|Asíntota horizontal|\lim_{x\to\pm\infty}f(x)=L\ \Rightarrow\ y=L|El límite puede ser distinto en +∞ y −∞.
+asintotas|Asíntota vertical|\lim_{x\to a^+}f(x)=\pm\infty\ \Rightarrow\ x=a|Basta un límite lateral infinito; también puede usarse el lateral izquierdo.
+asintotas|Cociente de igual grado|\lim_{x\to\pm\infty}\frac{a_nx^n+\cdots}{b_nx^n+\cdots}=\frac{a_n}{b_n}|Polinomios de igual grado con bₙ ≠ 0.|(2x²+1)/(3x²−5) → 2/3.
+asintotas|Asíntota oblicua|m=\lim_{x\to\infty}\frac{f(x)}x,\quad b=\lim_{x\to\infty}(f(x)-mx)|Si ambos límites son finitos y m ≠ 0, la asíntota es y=mx+b; comprueba también −∞.
+trig_periodo|Período del seno y coseno|T=\frac{2\pi}{\lvert b\rvert}|Para sin(bx+c) o cos(bx+c), con b ≠ 0. Ángulos en radianes.
+trig_periodo|Período de la tangente|T=\frac{\pi}{\lvert b\rvert}|Para tan(bx+c), con b ≠ 0.
+trig_periodo|Grados y radianes|\theta_{\mathrm{rad}}=\frac{\pi}{180}\theta_{\mathrm{grados}}|Usa radianes en las fórmulas de derivadas, integrales y límites trigonométricos.
+funcion_exponencial|Modelo exponencial discreto|P(t)=P_0q^t|P₀ es el valor inicial y q > 0 es el factor por período.|Con P₀=100 y q=1.05, P(2)=110.25.
+funcion_exponencial|Modelo exponencial continuo|P(t)=P_0e^{kt}|k es una tasa continua; k > 0 implica crecimiento y k < 0 decaimiento.
+funcion_exponencial|Duplicación|t_2=\frac{\ln2}{k}|Modelo continuo con k > 0 y P₀ > 0.
+funcion_exponencial|Tasa a partir de dos valores|k=\frac{\ln(P(t)/P_0)}{t}|Modelo continuo; t ≠ 0 y ambas cantidades positivas.
+logaritmos|Definición de logaritmo|\log_a x=y\ \Longleftrightarrow\ a^y=x|a > 0, a ≠ 1 y x > 0.|log₂(8)=3 porque 2³=8.
+logaritmos|Logaritmo de un producto|\log_a(xy)=\log_a x+\log_a y|x,y > 0; a > 0, a ≠ 1.
+logaritmos|Logaritmo de un cociente|\log_a\frac{x}{y}=\log_a x-\log_a y|x,y > 0; a > 0, a ≠ 1.
+logaritmos|Logaritmo de una potencia|\log_a(x^r)=r\log_a x|x > 0; a > 0, a ≠ 1; r real.
+logaritmos|Cambio de base|\log_a x=\frac{\ln x}{\ln a}|a > 0, a ≠ 1 y x > 0.
+logaritmos|Valores básicos|\log_a1=0,\quad\log_a a=1|a > 0 y a ≠ 1.
+logaritmos|Logaritmo natural y exponencial|\ln(e^x)=x,\quad e^{\ln x}=x|La segunda identidad requiere x > 0.
+logaritmos|Resolver una exponencial|a^x=b\ \Rightarrow\ x=\frac{\ln b}{\ln a}|a,b > 0 y a ≠ 1.
+trig_identidades|Identidad pitagórica|\sin^2x+\cos^2x=1|Todo x real.
+trig_identidades|Tangente y secante|1+\tan^2x=\sec^2x|cos(x) ≠ 0.
+trig_identidades|Cotangente y cosecante|1+\cot^2x=\csc^2x|sin(x) ≠ 0.
+trig_identidades|Seno de una suma|\sin(a+b)=\sin a\cos b+\cos a\sin b|Ángulos en una misma unidad.
+trig_identidades|Coseno de una suma|\cos(a+b)=\cos a\cos b-\sin a\sin b|Ángulos en una misma unidad.
+trig_identidades|Ángulo doble|\sin(2x)=2\sin x\cos x|Todo x real.
+trig_identidades|Reducción del seno al cuadrado|\sin^2x=\frac{1-\cos(2x)}2|Útil para integrar potencias trigonométricas.
+trig_identidades|Reducción del coseno al cuadrado|\cos^2x=\frac{1+\cos(2x)}2|Útil para integrar potencias trigonométricas.
+limites|Límite de una suma|\lim_{x\to a}(f+g)=L+M|Si f(x) → L y g(x) → M, con L y M finitos.
+limites|Límite de un cociente|\lim_{x\to a}\frac{f(x)}{g(x)}=\frac{L}{M}|Si los límites L y M son finitos y M ≠ 0.
+limites|Límite trigonométrico fundamental|\lim_{x\to0}\frac{\sin x}{x}=1|x medido en radianes.
+limites|Límite exponencial fundamental|\lim_{x\to0}\frac{e^x-1}{x}=1|Variable real.
+limites|Límite logarítmico fundamental|\lim_{x\to0}\frac{\ln(1+x)}x=1|Considera x > −1, donde está definido el logaritmo.
+limites|Forma del número e|\lim_{x\to0}(1+x)^{1/x}=e|La base 1+x debe ser positiva.
+continuidad|Continuidad en un punto|\lim_{x\to a}f(x)=f(a)|f(a) existe y los dos límites laterales coinciden con ese valor.
+continuidad|Igualdad de límites laterales|\lim_{x\to a^-}f(x)=\lim_{x\to a^+}f(x)=L|Caracteriza un límite bilateral finito en un punto interior.
+continuidad|Regla de L'Hôpital|\lim\frac{f(x)}{g(x)}=\lim\frac{f'(x)}{g'(x)}|Solo formas 0/0 o ∞/∞, funciones derivables cerca del punto, g′ ≠ 0 y límite de las derivadas existente, finito o infinito.
+limite_infinito|Potencias recíprocas|\lim_{x\to\infty}\frac1{x^p}=0|p > 0.
+limite_infinito|Exponencial frente a potencias|\lim_{x\to\infty}\frac{x^p}{e^{kx}}=0|k > 0; p real.
+limite_infinito|Logaritmo frente a potencias|\lim_{x\to\infty}\frac{\ln x}{x^p}=0|p > 0.
+limite_infinito|Grado menor en el numerador|\lim_{x\to\pm\infty}\frac{P(x)}{Q(x)}=0|Polinomios con grado(P) < grado(Q), Q no nulo.
+derivadas|Definición de derivada|f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}h|El límite debe existir y ser finito en el punto considerado.
+derivadas|Constante|\frac{d}{dx}c=0|c no depende de x.
+derivadas|Potencia|\frac{d}{dx}x^n=nx^{n-1}|En un intervalo donde la potencia sea real y derivable.|d(x⁵)/dx=5x⁴.
+derivadas|Exponencial natural|\frac{d}{dx}e^x=e^x|Todo x real.
+derivadas|Exponencial de base a|\frac{d}{dx}a^x=a^x\ln a|a > 0 es constante.
+derivadas|Logaritmo natural|\frac{d}{dx}\ln\lvert x\rvert=\frac1x|x ≠ 0.
+derivadas|Logaritmo en base a|\frac{d}{dx}\log_a x=\frac1{x\ln a}|x > 0; a > 0, a ≠ 1.
+derivadas|Seno|\frac{d}{dx}\sin x=\cos x|Ángulos en radianes.
+derivadas|Coseno|\frac{d}{dx}\cos x=-\sin x|Ángulos en radianes.
+derivadas|Tangente|\frac{d}{dx}\tan x=\sec^2x|cos(x) ≠ 0; radianes.
+derivadas|Cotangente|\frac{d}{dx}\cot x=-\csc^2x|sin(x) ≠ 0; radianes.
+derivadas|Secante|\frac{d}{dx}\sec x=\sec x\tan x|cos(x) ≠ 0; radianes.
+derivadas|Cosecante|\frac{d}{dx}\csc x=-\csc x\cot x|sin(x) ≠ 0; radianes.
+derivadas|Arcoseno|\frac{d}{dx}\arcsin x=\frac1{\sqrt{1-x^2}}|−1 < x < 1.
+derivadas|Arcocoseno|\frac{d}{dx}\arccos x=-\frac1{\sqrt{1-x^2}}|−1 < x < 1.
+derivadas|Arcotangente|\frac{d}{dx}\arctan x=\frac1{1+x^2}|Todo x real.
+derivadas|Linealidad|\frac{d}{dx}(af+bg)=af'+bg'|a y b constantes; f y g derivables.
+derivadas|Derivada de una inversa|\left(f^{-1}\right)'(y)=\frac1{f'(f^{-1}(y))}|f invertible localmente y derivable, con f′ ≠ 0 en el punto.
+regla_cadena|Cadena|\frac{d}{dx}f(g(x))=f'(g(x))g'(x)|Ambas funciones derivables en los puntos correspondientes.
+regla_cadena|Potencia de una función|\frac{d}{dx}u^n=nu^{n-1}u'|Donde la potencia y u sean derivables.|d((3x+1)⁴)/dx=12(3x+1)³.
+regla_cadena|Logaritmo de una función|\frac{d}{dx}\ln\lvert u\rvert=\frac{u'}u|u ≠ 0 y u derivable.
+regla_cadena|Exponencial de una función|\frac{d}{dx}e^u=e^u u'|u derivable.
+regla_producto|Producto de dos factores|(uv)'=u'v+uv'|u y v derivables.
+regla_producto|Producto de tres factores|(uvw)'=u'vw+uv'w+uvw'|Los tres factores son derivables.
+regla_producto|Segunda derivada de un producto|(uv)''=u''v+2u'v'+uv''|Ambos factores tienen dos derivadas.
+regla_cociente|Cociente|\left(\frac uv\right)'=\frac{u'v-uv'}{v^2}|v ≠ 0; u y v derivables.
+regla_cociente|Recíproco|\left(\frac1u\right)'=-\frac{u'}{u^2}|u ≠ 0 y u derivable.
+regla_cociente|Derivación implícita|\frac{dy}{dx}=-\frac{F_x}{F_y}|Para F(x,y)=0, con parciales continuas y Fᵧ ≠ 0 en el punto.
+recta_tangente|Ecuación de la tangente|y-f(a)=f'(a)(x-a)|f derivable en a y pendiente finita.
+recta_tangente|Recta normal|y-f(a)=-\frac1{f'(a)}(x-a)|f′(a) ≠ 0. Si f′(a)=0, la normal es x=a.
+recta_tangente|Aproximación lineal|f(a+h)\approx f(a)+f'(a)h|h pequeño; f derivable en a.
+ap_deriv|Velocidad y aceleración|v(t)=s'(t),\quad a(t)=s''(t)|s es la posición; conserva unidades de tiempo consistentes.
+ap_deriv|Razón media de cambio|\frac{\Delta f}{\Delta x}=\frac{f(b)-f(a)}{b-a}|a ≠ b; es la pendiente de la secante.
+ap_deriv|Diferencial|dy=f'(x)\,dx|Aproxima el cambio de f para un incremento pequeño dx.
+ap_deriv|Teorema del valor medio|f'(c)=\frac{f(b)-f(a)}{b-a}|f continua en [a,b] y derivable en (a,b); existe c interior, con a < b.
+optimizacion|Punto crítico estacionario|f'(c)=0|Para extremos interiores de una función derivable; revisa también puntos no derivables.
+optimizacion|Criterio de mínimo|f'(c)=0,\quad f''(c)>0|Con f de clase C² cerca de c, c es un mínimo local estricto.
+optimizacion|Criterio de máximo|f'(c)=0,\quad f''(c)<0|Con f de clase C² cerca de c, c es un máximo local estricto.
+optimizacion|Vértice de una cuadrática|x_v=-\frac b{2a}|Para ax²+bx+c con a ≠ 0. Mínimo si a > 0; máximo si a < 0.
+optimizacion|Extremos en un intervalo cerrado|\min f,\max f\in\{f(a),f(b),f(c_1),\ldots\}|f continua en [a,b]; evalúa extremos y todos los puntos críticos interiores, incluidos los no derivables.
+integrales|Potencia|\int x^n\,dx=\frac{x^{n+1}}{n+1}+C|n ≠ −1; en un intervalo donde la potencia sea real.|∫x² dx=x³/3+C.
+integrales|Recíproco|\int\frac1x\,dx=\ln\lvert x\rvert+C|En cada intervalo que no contenga 0.
+integrales|Exponencial natural|\int e^{ax}\,dx=\frac{e^{ax}}a+C|a es constante y a ≠ 0.
+integrales|Exponencial en base a|\int a^x\,dx=\frac{a^x}{\ln a}+C|a > 0, a ≠ 1.
+integrales|Seno|\int\sin(ax)\,dx=-\frac{\cos(ax)}a+C|a ≠ 0; radianes.
+integrales|Coseno|\int\cos(ax)\,dx=\frac{\sin(ax)}a+C|a ≠ 0; radianes.
+integrales|Secante al cuadrado|\int\sec^2x\,dx=\tan x+C|En intervalos donde cos(x) ≠ 0.
+integrales|Cosecante al cuadrado|\int\csc^2x\,dx=-\cot x+C|En intervalos donde sin(x) ≠ 0.
+integrales|Secante por tangente|\int\sec x\tan x\,dx=\sec x+C|En intervalos donde cos(x) ≠ 0.
+integrales|Cosecante por cotangente|\int\csc x\cot x\,dx=-\csc x+C|En intervalos donde sin(x) ≠ 0.
+integrales|Forma de arcotangente|\int\frac{dx}{a^2+x^2}=\frac1a\arctan\frac xa+C|a > 0.
+integrales|Forma de arcoseno|\int\frac{dx}{\sqrt{a^2-x^2}}=\arcsin\frac xa+C|a > 0 y abs(x) < a.
+integrales|Tangente|\int\tan x\,dx=-\ln\lvert\cos x\rvert+C|En intervalos donde cos(x) ≠ 0.
+integrales|Cotangente|\int\cot x\,dx=\ln\lvert\sin x\rvert+C|En intervalos donde sin(x) ≠ 0.
+integrales|Linealidad|\int(af+bg)\,dx=a\int f\,dx+b\int g\,dx|a y b constantes; una constante arbitraria absorbe las constantes del resultado.
+integrales|Forma logarítmica cuadrática|\int\frac{dx}{x^2-a^2}=\frac1{2a}\ln\left\lvert\frac{x-a}{x+a}\right\rvert+C|a > 0; en intervalos que excluyan ±a.
+ap_int|Teorema fundamental|\int_a^b f(x)\,dx=F(b)-F(a)|f continua en [a,b] y F′=f.
+ap_int|Acumulación y derivada|\frac{d}{dx}\int_a^x f(t)\,dt=f(x)|f continua en el intervalo considerado.
+ap_int|Cambio neto|\int_a^b v(t)\,dt=s(b)-s(a)|Si v=s′ y se cumplen las hipótesis del teorema fundamental.
+ap_int|Distancia recorrida|d=\int_a^b\lvert v(t)\rvert\,dt|a ≤ b; v es la velocidad. Divide en tramos cuando cambie de signo.
+sustitucion|Cambio de variable|\int f(g(x))g'(x)\,dx=F(g(x))+C|F′=f; g derivable, con las expresiones definidas.
+sustitucion|Cambio de límites|\int_a^b f(g(x))g'(x)\,dx=\int_{g(a)}^{g(b)}f(u)\,du|g de clase C¹ y f continua en un intervalo que contenga su imagen.
+sustitucion|Logaritmo por sustitución|\int\frac{u'}u\,dx=\ln\lvert u\rvert+C|u no se anula en el intervalo.|∫2x/(x²+1) dx=ln(x²+1)+C.
+sustitucion|Potencia de una función|\int u^n u'\,dx=\frac{u^{n+1}}{n+1}+C|n ≠ −1; potencia real y definida en el intervalo.
+integracion_partes|Integración por partes|\int u\,dv=uv-\int v\,du|Funciones suficientemente regulares; elige u y dv antes de integrar.
+integracion_partes|Por partes definida|\int_a^b u v'\,dx=[uv]_a^b-\int_a^b u'v\,dx|u y v de clase C¹ en [a,b].
+integracion_partes|Integral del logaritmo|\int\ln x\,dx=x\ln x-x+C|x > 0; toma u=ln(x) y dv=dx.
+fracciones_parciales|Dos factores distintos|\frac1{(x-a)(x-b)}=\frac1{a-b}\left(\frac1{x-a}-\frac1{x-b}\right)|a ≠ b y x distinto de a y b.
+fracciones_parciales|Factor lineal repetido|\frac{P(x)}{(x-a)^m}=Q(x)+\sum_{k=1}^m\frac{A_k}{(x-a)^k}|Divide primero si es una fracción impropia; m entero positivo.
+fracciones_parciales|Factor cuadrático irreducible|\frac{Ax+B}{x^2+px+q}|Es la forma del numerador parcial sobre un factor cuadrático real irreducible; p²−4q < 0.
+area_curvas|Área entre dos gráficas|A=\int_a^b\lvert f(x)-g(x)\rvert\,dx|a ≤ b; si se cruzan, separa los intervalos o conserva el valor absoluto.
+area_curvas|Curva superior menos inferior|A=\int_a^b(f(x)-g(x))\,dx|f(x) ≥ g(x) en todo [a,b].
+area_curvas|Integración horizontal|A=\int_c^d(x_{\mathrm{der}}(y)-x_{\mathrm{izq}}(y))\,dy|Curvas derecha e izquierda bien identificadas; c ≤ d.
+volumen_revolucion|Método de discos|V=\pi\int_a^b R(x)^2\,dx|Radio R ≥ 0 al girar alrededor del eje x.
+volumen_revolucion|Método de arandelas|V=\pi\int_a^b(R(x)^2-r(x)^2)\,dx|R ≥ r ≥ 0; radios medidos desde el mismo eje.
+volumen_revolucion|Capas cilíndricas|V=2\pi\int_a^b r(x)h(x)\,dx|Radio r ≥ 0 y altura h ≥ 0; las capas no deben contar dos veces el mismo volumen.
+valor_medio_integral|Valor medio|f_{\mathrm{med}}=\frac1{b-a}\int_a^b f(x)\,dx|a < b; f integrable.
+valor_medio_integral|Teorema del valor medio integral|\int_a^b f(x)\,dx=f(c)(b-a)|f continua en [a,b], a < b; existe c en ese intervalo.
+integrales_impropias|Intervalo infinito|\int_a^\infty f(x)\,dx=\lim_{b\to\infty}\int_a^b f(x)\,dx|Converge si el límite es finito.
+integrales_impropias|Singularidad en un extremo|\int_a^b f(x)\,dx=\lim_{t\to a^+}\int_t^b f(x)\,dx|Para una singularidad en a. Una singularidad interior exige dos integrales convergentes por separado.
+integrales_impropias|Prueba p en el infinito|\int_1^\infty\frac{dx}{x^p}=\frac1{p-1}|Solo p > 1; diverge cuando p ≤ 1.
+integrales_impropias|Prueba p cerca de cero|\int_0^1\frac{dx}{x^p}=\frac1{1-p}|Solo p < 1; diverge cuando p ≥ 1.
