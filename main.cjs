@@ -423,8 +423,8 @@ else {
           const roster=[...state.adventureGuide.rivals,state.adventureGuide.dragon];
           if(Object.keys(state.adventureGuide.heroAttacks).length!==4||roster.some(rival=>rival.attacks.length<4))
             throw Error('Cuatro ataques por combatiente');
-          // Original school lessons have a curated video; the newer ones (p1_…, s1_…) offer a YouTube search instead.
-          if(state.topics.some(topic=>topic.level<3&&!/^[ps][0-9]_/.test(topic.id)&&!youtubeLessons[topic.id]))throw Error('Lecciones de YouTube del catálogo escolar');
+          // Every school lesson has a curated YouTube video.
+          if(state.topics.some(topic=>topic.level<3&&!youtubeLessons[topic.id]))throw Error('Lecciones de YouTube del catálogo escolar');
           if(state.gradeBosses.length!==11||state.gradeBosses.some(boss=>!boss.intro||!boss.victory))throw Error('Historia y jefes por grado');
           if(state.levels.map(level=>level.title).join(',')!=='Primaria,Secundaria,Universitario')throw Error('Mapa de niveles');
           (await waitFor('[data-page="progress"]')).click();
