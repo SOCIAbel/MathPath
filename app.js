@@ -97,13 +97,26 @@
   }
 
   function dashboard(){
-    const suggested=topic(state.recommended);
+    const suggested=state.topics.find(item=>item.id===state.recommended);
+    const companion=state.fun?.pet;
+    const streak=state.fun?.streak;
     const stars=state.topics.filter(item=>item.level<3).reduce((total,item)=>total+item.stars,0);
+    const flame='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3c1 5-4 5-2 9 1-2 3-2 4-5 3 3 5 6 4 9a6.3 6.3 0 0 1-12 0c-1-4 1-7 3-9-1 4 1 5 1 5"/></svg>';
     return '<div class="home-page">'+
-      heading('Elige tu nivel','Selecciona un nivel para ver sus grados o cursos.')+stageCards()+
+      '<header class="home-hero"><div class="home-intro"><p class="home-kicker">TU ESPACIO PARA APRENDER</p>'+
+      '<h1 id="home-greeting">¡Hola, '+esc(state.profile.name)+'!</h1><p class="home-subtitle">Un paso más para entenderlo mejor.</p>'+
+      (typeof streak==='number'?'<div class="home-streak">'+flame+'<span><strong>'+streak+'</strong> '+(streak===1?'día':'días')+' de racha</span></div>':'')+
+      '</div><aside class="home-companion'+(companion?'':' home-companion-empty')+'">'+
+      '<div class="home-companion-art" aria-hidden="true">'+(companion?funUI.petSvg(companion,108):
+        '<img src="recursos/mascotas/draco-0.webp" width="120" height="120" alt="">')+'</div>'+
+      '<div class="home-companion-copy"><small>'+(companion?'TU COMPAÑERO':'UN AMIGO PARA TU AVENTURA')+'</small>'+
+      (companion?'<strong>'+esc(companion.name)+'</strong><span>'+esc(companion.stageName)+' · Nivel '+companion.level+'</span>'+link('pet','Ver mi mascota','small ghost'):
+        '<strong>¿Quién te acompañará?</strong>'+link('pet','Elegir mascota','small'))+'</div></aside></header>'+
       (suggested?'<section class="continue-card"><div><small>'+esc(state.levels[suggested.level-1].title)+' · '+
         esc(state.levels[suggested.level-1].units[suggested.unit-1])+'</small><h2>'+esc(suggested.name)+'</h2></div>'+
-        lessonButton(suggested.id,state.attempts?'Continuar →':'Empezar →','primary')+'</section>':'')+
+        lessonButton(suggested.id,'Continuar donde me quedé','primary home-continue-button')+'</section>':
+        '<section class="continue-card"><div><small>TU SIGUIENTE PASO</small><h2>Sigue explorando las matemáticas</h2></div>'+link('learn','Elegir un nivel','primary')+'</section>')+
+      '<div class="home-level-heading"><h2>Explora tus niveles</h2><p>Elige un grado o un curso para seguir aprendiendo.</p></div>'+stageCards()+
       (stars?'<div class="home-progress"><span>★ '+stars+(stars===1?' estrella':' estrellas')+'</span>'+
         link('progress','Ver mi progreso','small ghost')+'</div>':'')+'</div>';
   }
@@ -1102,11 +1115,11 @@
       select('variable','Letra que usas para la incógnita',['x','t','y','z'].map(v=>[v,v]),profile.variable)+'</div>','Guardar');
     const notes=form('note-form',select('id','Tema',[['','Elige un tema'],...state.topics.map(item=>[item.id,item.name])],noteTopic)+
       area('Tu apunte','note',noteText,'rows="3" maxlength="1500" placeholder="Escribe lo que quieras recordar de este tema"'),'Guardar apunte');
-    return heading('Mi perfil','Tu nombre, tus preferencias, tus apuntes y tu copia de seguridad.')+
+    return '<div class="profile-page">'+heading('Mi perfil','Tu nombre, tus preferencias, tus apuntes y tu copia de seguridad.')+
       grid(panel('Tus datos',basics)+
       panel('Copia de seguridad','<p class="muted">Guarda tu progreso en un archivo para no perderlo, o recupéralo en otra computadora.</p>'+
         section(row(btn('backup','Guardar copia')+btn('restore','Recuperar copia'))))+
-      panel('Mis apuntes',notes));
+      panel('Mis apuntes',notes))+'</div>';
   }
 
   const renders={dashboard,learn:()=>lesson?lessonPage():learning(),solver:solverPage,teacher:teacherPage,practice:practicePage,
