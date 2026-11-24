@@ -520,3 +520,39 @@ dialog::backdrop { background: #0d2526a6; backdrop-filter: blur(3px); }
 
 :root[data-mode="dark"] .lounge-team-pet.active { border-color:var(--accent-ink); } :root[data-mode="dark"] .lounge-team-pet.active small { color:var(--accent-ink); }
 :root[data-mode="dark"] .fun-scope { background:var(--pale); color:var(--accent-ink); }
+
+/* Stage 5: readable labels, keyboard focus and restrained motion. */
+small { font-size: var(--text-xs); }
+.formula-card > footer small { color: var(--muted); }
+.formula-topic-section > header small, .formula-conditions > b { color: var(--muted); }
+.home-kicker { letter-spacing: .035em; }
+:root :is(button, a[href], input, select, textarea, summary, [role="button"], [tabindex="0"]):focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+.graph-studio :is(button, input, select, textarea):focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.sidebar :is(button, summary, [role="button"]):focus-visible { outline-color: #b8e7ce; }
+.btn, .nav-button, .stage-card, .university-topic, .teacher-catalog-topic, .lounge-mode, .formula-card {
+  transition: border-color var(--duration-fast), box-shadow var(--duration-base), transform var(--duration-fast) var(--ease-ui);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .btn:hover:enabled { transform: translateY(-1px); }
+  .stage-card:hover, .lounge .lounge-mode:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+  .btn:active:enabled, .stage-card:active { transform: translateY(1px); box-shadow: none; }
+}
+#content > :is(.home-page, .lounge, .teacher-page, .university-page, .profile-page, .progress-page, .practice-board, .calculator-workspace) { animation: page-arrive var(--duration-base) var(--ease-ui); }
+@keyframes page-arrive { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+:root[data-mode="dark"] .stage-1 { --stage-bg: #3c3222; --stage-highlight: #6a5327; --stage-ink: #f4d08b; }
+:root[data-mode="dark"] .stage-2 { --stage-bg: #1c3d35; --stage-highlight: #205849; --stage-ink: #a2e3cc; }
+:root[data-mode="dark"] .stage-3 { --stage-bg: #27354e; --stage-highlight: #344b70; --stage-ink: #bcd0ff; }
+:root[data-mode="dark"] .stage-art { background: linear-gradient(145deg, var(--stage-bg), var(--stage-highlight)); }
+:root[data-mode="dark"] .count-visual { background: var(--color-warning-bg); color: var(--color-warning); }
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-fast: 0s; --duration-base: 0s; scroll-behavior: auto; }
+  :root *, :root *::before, :root *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .lounge .lounge-mode:hover, .stage-card:hover, .btn:hover:enabled { transform: none; }
+}
+@media print {
+  body[data-reference="formulas"], body[data-reference="formulas"] .formula-reference { --ink: #182b32; --muted: #42565d; --surface: #fff; --base: #fff; --line: #bac9c7; color: #182b32; background: #fff; }
+  body[data-reference="formulas"] .formula-card { color: #182b32; background: #fff; box-shadow: none; break-inside: avoid; }
+}

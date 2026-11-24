@@ -18,7 +18,7 @@
   image-rendering:pixelated;transform-origin:center bottom}
 .pixel-town-building.built{animation:pixel-build .55s var(--build-delay) ease-out backwards}
 .pixel-town-building.planned{filter:grayscale(.9);opacity:.28;border-left:1px dashed #42637c}
-.pixel-town-building>b{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font-size:clamp(10px,1.3vw,19px)}
+.pixel-town-building>b{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font-size:clamp(14px,1.3vw,19px)}
 .fun-pet-art>svg{transform:translate(var(--hat-x,0%),var(--hat-y,0%))}
 .fun-chest:hover .fun-chest-art{animation:fun-wiggle .8s}
 .fun-reveal>.fun-chest-art{width:132px;height:132px;object-fit:contain;animation:pixel-treasure .8s ease-out both}

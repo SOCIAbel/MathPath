@@ -189,7 +189,7 @@
   height: 100%;
   animation: village-knight-breathe 2.6s steps(5,end) infinite;
 }
-.village-equip-timing { display: block; text-align: center; color: #e1d2a8; font-size: 11px; }
+.village-equip-timing { display: block; text-align: center; color: #e1d2a8; font-size: var(--text-xs); }
 .village-gear-slots { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; margin-top: 7px; }
 .rpg-village .village-slot {
   position: relative;
@@ -200,9 +200,9 @@
   background: #112923c7;
   text-align: center;
 }
-.rpg-village .village-slot > span:first-child { display: block; color: #d9c89c; font-size: 10px; }
+.rpg-village .village-slot > span:first-child { display: block; color: #d9c89c; font-size: var(--text-xs); }
 .rpg-village .village-slot > .village-art { --art-size: 56px; }
-.rpg-village .village-slot > b { position: absolute; right: 3px; top: 15px; color: #b8f6b9; font-size: 12px; }
+.rpg-village .village-slot > b { position: absolute; right: 3px; top: 15px; color: #b8f6b9; font-size: var(--text-xs); }
 .rpg-village .village-slot:not(.has-item):not(.slot-sword) > .village-art { opacity: .3; filter: grayscale(1); }
 .village-bag-panel, .forge-catalog { padding: 10px; }
 .village-categories { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 4px; margin-bottom: 11px; }
@@ -221,7 +221,7 @@
   cursor: pointer;
 }
 .village-categories button .village-art { --art-size: 33px; }
-.village-categories button span:last-child { font-size: 9px; font-weight: 750; }
+.village-categories button span:last-child { font-size: var(--text-xs); font-weight: 750; }
 .village-categories button[aria-pressed="true"] { border-color: #f2d086; background: #466042; color: #ffefb6; }
 .village-inventory, .rpg-village .village-items { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
 .village-inventory-item, .rpg-village .village-item {
@@ -241,7 +241,7 @@
   cursor: pointer;
 }
 .village-inventory-item .village-art, .rpg-village .village-item > .village-art { --art-size: 69px; }
-.village-inventory-item strong, .rpg-village .village-item strong { font-size: 12px; color: inherit; }
+.village-inventory-item strong, .rpg-village .village-item strong { font-size: var(--text-xs); color: inherit; }
 .village-inventory-item:disabled { opacity: 1; }
 .village-inventory-item.is-equipped { border-color: #a2dab5; background: #345a42; }
 .rpg-village .village-item:hover, .village-inventory-item:hover:enabled { border-color: #f2d28b; background: #655b3c; }
@@ -257,13 +257,13 @@
 .village-icon-stats { display: flex; flex-wrap: wrap; gap: 5px 8px; align-items: center; justify-content: center; margin-top: 5px; color: #f7dfa5; font-weight: 750; font-size: 16px; }
 .village-icon-stats > span { display: inline-flex; align-items: center; gap: 3px; }
 .village-icon-stats .village-art { --art-size: 23px; }
-.village-inventory-item .village-icon-stats { font-size: 12px; }
+.village-inventory-item .village-icon-stats { font-size: var(--text-xs); }
 .village-inventory-item .village-icon-stats .village-art { --art-size: 18px; }
 .forge-recipe { position: sticky; top: 12px; padding: 12px; border-color: #d7b16b; background: linear-gradient(145deg,#55462df5,#24372cf5); }
 .forge-recipe > header { display: flex; justify-content: space-between; gap: 5px; align-items: center; }
 .forge-recipe > header > .village-art { --art-size: 28px; }
 .forge-recipe h2 { color: #ffe5a7; font-size: 24px; }
-.forge-recipe h3 { text-align: center; font-size: 13px; color: #ecdcba; margin: 12px 0 6px; }
+.forge-recipe h3 { text-align: center; font-size: var(--text-xs); color: #ecdcba; margin: 12px 0 6px; }
 .forge-demo { margin: 9px -3px 3px; border-radius: 9px; background: radial-gradient(ellipse at 50% 80%,#9f8c554d,transparent 70%); overflow: hidden; }
 .forge-demo > .combat-preview { width: 100%; max-width: none; height: 134px; }
 .forge-equipment-preview { height: 143px; margin: 9px -3px 3px; border-radius: 9px; background: radial-gradient(ellipse at 50% 80%,#9f8c554d,transparent 70%); }
@@ -272,11 +272,11 @@
 .forge-costs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 5px; margin: 0; padding: 0; list-style: none; }
 .forge-costs li { position: relative; display: grid; justify-items: center; min-width: 0; padding: 5px 2px; background: #10221dd1; border: 1px solid #6f8c64; border-radius: 7px; }
 .forge-costs .village-art { --art-size: 37px; }
-.forge-costs strong { color: #bfe5aa; font-size: 13px; }
+.forge-costs strong { color: #bfe5aa; font-size: var(--text-xs); }
 .forge-costs strong span { opacity: .8; font-weight: 500; }
 .forge-costs .is-missing { border-color: #b16f50; background: #46271f99; }
 .forge-costs .is-missing strong { color: #ffb697; }
-.forge-costs li > b { position: absolute; top: 2px; right: 4px; font-size: 12px; color: #b8e7a7; }
+.forge-costs li > b { position: absolute; top: 2px; right: 4px; font-size: var(--text-xs); color: #b8e7a7; }
 .forge-costs .is-missing > b { color: #ffb697; }
 .forge-create.btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 5px; min-height: 49px; margin-top: 13px; background: #43805a; color: #fff4c9; border: 2px solid #e1bc6e; border-radius: 9px; box-shadow: 0 3px 0 #142a21; font-size: 17px; }
 .forge-create .village-art { --art-size: 31px; }
@@ -302,8 +302,8 @@
   .rpg-village { padding: 10px; min-height: 780px; border-radius: 13px; }
   .village-room-content, .village-game-header, .rpg-village .village-stock { max-width: 100%; }
   .village-game-header { gap: 7px; justify-content: space-between; }
-  .village-game-header > .btn { padding: 7px 5px; font-size: 12px; }
-  .rpg-village .village-view-button { min-height: 43px; padding: 4px 6px; font-size: 12px; }
+  .village-game-header > .btn { padding: 7px 5px; font-size: var(--text-xs); }
+  .rpg-village .village-view-button { min-height: 43px; padding: 4px 6px; font-size: var(--text-xs); }
   .rpg-village .village-view-button .village-art { --art-size: 25px; }
   .rpg-village .village-stock { gap: 3px; }
   .rpg-village .village-stock-tile { flex-direction: column; gap: 0; padding: 3px 1px; }
@@ -319,7 +319,7 @@
   .village-knight { height: 164px; }
   .village-gear-slots { margin: 0; grid-template-columns: minmax(0,1fr); gap: 4px; }
   .rpg-village .village-slot { display: flex; align-items: center; justify-content: space-around; padding: 3px; }
-  .rpg-village .village-slot > span:first-child { font-size: 10px; }
+  .rpg-village .village-slot > span:first-child { font-size: var(--text-xs); }
   .rpg-village .village-slot > .village-art { --art-size: 38px; }
   .rpg-village .village-slot > b { position: static; }
   .village-paperdoll > .village-aids { grid-column: 1/-1; margin-top: 4px; }
@@ -327,7 +327,7 @@
   .village-inventory, .rpg-village .village-items { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 5px; }
   .village-categories button { min-height: 58px; }
   .village-categories button .village-art { --art-size: 30px; }
-  .village-categories button span:last-child { font-size: 10px; }
+  .village-categories button span:last-child { font-size: var(--text-xs); }
   .village-inventory-item .village-art, .rpg-village .village-item > .village-art { --art-size: 62px; }
   .village-inventory-item, .rpg-village .village-item { min-height: 92px; padding: 6px 2px; }
   .forge-recipe { position: static; display: block; padding: 10px; scroll-margin: 12px; }
@@ -338,7 +338,7 @@
   .forge-recipe > .village-icon-stats { font-size: 14px; margin: 0; }
   .forge-costs { gap: 3px; }
   .forge-costs .village-art { --art-size: 27px; }
-  .forge-costs strong { font-size: 11px; }
+  .forge-costs strong { font-size: var(--text-xs); }
   .forge-create.btn { grid-column: 1/-1; margin-top: 1px; min-height: 47px; }
   .forge-success { grid-column: 1/-1; }
 }
