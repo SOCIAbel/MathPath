@@ -1,7 +1,8 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
 // Answer by voice or by scanning handwriting. The AI only transcribes; the local engine grades the answer.
-const answerCapture=(()=>{
+const abelAnswerCapture=(()=>{
   let call=null,lastInput=null,voiceSession=null,camera=null;
   let voiceDevice='';
   try{voiceDevice=localStorage.getItem('mathpath-microphone')||'';}catch{}
@@ -83,11 +84,11 @@ const answerCapture=(()=>{
     input.focus();
     status(input,source+' → '+value+'. Revisa y pulsa Comprobar.','ok');
     preview(input);
-    funAudio?.play?.('pop');
+    abelFunAudio?.play?.('pop');
     // Bring the check button into view so the student validates the transcription.
     input.form?.querySelector('button:not([type="button"])')?.scrollIntoView({block:'nearest',behavior:'smooth'});
   }
-  const failure=(input,error)=>{if(!input.isConnected)input=document.querySelector('form input[name="answer"]')||input;status(input,String(error.message||error).replace(/^Error invoking remote method '[^']+': (Error: )?/,''),'error');funAudio?.play?.('wrong');};
+  const failure=(input,error)=>{if(!input.isConnected)input=document.querySelector('form input[name="answer"]')||input;status(input,String(error.message||error).replace(/^Error invoking remote method '[^']+': (Error: )?/,''),'error');abelFunAudio?.play?.('wrong');};
 
   // ---- voice ----
   function voicePanel(input){
@@ -327,7 +328,7 @@ const answerCapture=(()=>{
         const image=canvas.toDataURL('image/jpeg',.85);
         const target=camera.target;
         camera.close();
-        funAudio?.play?.('click');
+        abelFunAudio?.play?.('click');
         void readImage(target,image,'Leí en la cámara');
       }
     });

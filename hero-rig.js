@@ -1,7 +1,8 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
 // Equipment is attached in sprite coordinates, including the fingers in front of each grip.
-const heroRig=(()=>{
+const abelHeroRig=(()=>{
   let serial=0;
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const weapons={

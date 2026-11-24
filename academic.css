@@ -1,3 +1,4 @@
+/* MathPath · Autor: Abel Josué Colquehuanca Humpiri */
 .university-tools {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Offline voice and handwriting recognition for answers.
 
 Voice: Vosk (small Spanish model) turns audio into words and `spoken_to_expression` turns the words

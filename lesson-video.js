@@ -1,4 +1,5 @@
-class LessonVideoPlayer {
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
+class AbelLessonVideoPlayer {
   constructor(dialog) {
     this.dialog = dialog;
     this.title = dialog.querySelector('#lesson-video-title');

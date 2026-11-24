@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Story, grade bosses and the extra rivals of the school adventure.
 
 Primary (1.º–6.º): "Los Cristales de Numeria". Secondary (1.º–5.º): "El Eclipse de Aritmia".

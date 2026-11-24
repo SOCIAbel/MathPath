@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Bounded real-valued sampling for MathPath's interactive graphs."""
 
 import ast
@@ -5,7 +6,7 @@ import math
 import operator
 import re
 
-from engine import ExpressionParser, InputError
+from engine import AbelExpressionParser, AbelInputError
 
 
 AXIS_LIMIT = 1_000_000
@@ -26,10 +27,10 @@ SUPERSCRIPTS = str.maketrans('⁻⁰¹²³⁴⁵⁶⁷⁸⁹', '-0123456789')
 
 def graph_function(expression, mode):
     if not isinstance(expression, str) or len(expression) > 220:
-        raise InputError('Cada expresión debe tener hasta 220 caracteres.')
+        raise AbelInputError('Cada expresión debe tener hasta 220 caracteres.')
     prefix = r'^\s*(?:y|[fgh]\s*\(\s*x\s*\))\s*=\s*' if mode == 2 else r'^\s*(?:z|f\s*\(\s*x\s*,\s*y\s*\))\s*=\s*'
     expression = re.sub(r'[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+', lambda match: '^('+match[0].translate(SUPERSCRIPTS)+')', expression)
-    parser = ExpressionParser(re.sub(prefix, '', expression))
+    parser = AbelExpressionParser(re.sub(prefix, '', expression))
 
     def compile_node(node):
         if isinstance(node, ast.Constant) and type(node.value) in (int, float):
@@ -58,7 +59,7 @@ def graph_function(expression, mode):
                 calculate = FUNCTIONS[name]
                 return lambda x, y: calculate(*(arg(x, y) for arg in evaluate))
         variables = 'x' if mode == 2 else 'x e y'
-        raise InputError(f'Usa {variables}, constantes y funciones como sin, sqrt, log o exp.')
+        raise AbelInputError(f'Usa {variables}, constantes y funciones como sin, sqrt, log o exp.')
 
     evaluate = compile_node(parser.root)
 
@@ -76,11 +77,11 @@ def graph_function(expression, mode):
 
 def axis_bounds(raw):
     if not isinstance(raw, list) or len(raw) != 4:
-        raise InputError('Indica el mínimo y máximo de ambos ejes.')
+        raise AbelInputError('Indica el mínimo y máximo de ambos ejes.')
     if any(type(value) not in (float, int) or not -AXIS_LIMIT <= value <= AXIS_LIMIT for value in raw):
-        raise InputError('Usa límites de eje entre −1 000 000 y 1 000 000.')
+        raise AbelInputError('Usa límites de eje entre −1 000 000 y 1 000 000.')
     if raw[1]-raw[0] < MIN_SPAN or raw[3]-raw[2] < MIN_SPAN:
-        raise InputError('Cada máximo debe superar a su mínimo en al menos 0.0001.')
+        raise AbelInputError('Cada máximo debe superar a su mínimo en al menos 0.0001.')
     return raw[:]
 
 
@@ -138,7 +139,7 @@ def sample_graph(args):
     mode = args.get('mode')
     expressions = args.get('expressions')
     if mode not in (2, 3) or not isinstance(expressions, list) or not 1 <= len(expressions) <= (3 if mode == 2 else 1):
-        raise InputError('Introduce hasta tres funciones en 2D o una superficie en 3D.')
+        raise AbelInputError('Introduce hasta tres funciones en 2D o una superficie en 3D.')
     bounds = axis_bounds(args.get('bounds'))
     functions = [graph_function(expr, mode) for expr in expressions]
     if mode == 2:

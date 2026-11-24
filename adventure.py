@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Combat rules, rival roster and equipment for the school adventure."""
 
 from itertools import groupby
@@ -6,7 +7,7 @@ import re
 import time
 
 from curriculum import TOPICS
-from engine import InputError
+from engine import AbelInputError
 from school_extra import NEW_SCHOOL_IDS
 import story
 
@@ -278,7 +279,7 @@ def world_boss_rival(topic_id):
     """Crowned, tougher version of the rival guarding a stretch of three missions."""
     suffix = str(topic_id).removeprefix('jefe-mundo-')
     if not is_world_boss(topic_id) or not suffix.isdecimal() or not 0 <= int(suffix) < len(RIVALS):
-        raise InputError('Elige un jefe del mapa de Primaria o Secundaria.')
+        raise AbelInputError('Elige un jefe del mapa de Primaria o Secundaria.')
     if topic_id not in BOSS_RIVALS:
         group = int(topic_id.rsplit('-',1)[1])
         base = RIVALS[group]
@@ -302,7 +303,7 @@ def rival_for(topic_id):
     if topic_id in GRADE_RIVALS:
         return GRADE_RIVALS[topic_id]
     if topic_id not in GROUPS:
-        raise InputError('Elige una misión de Primaria o Secundaria.')
+        raise AbelInputError('Elige una misión de Primaria o Secundaria.')
     return RIVALS[GROUPS[topic_id]]
 
 
@@ -390,9 +391,9 @@ def forecast(battle, rival):
 def choose_attack(battle, identity):
     technique=HERO_ATTACKS.get(identity)
     if not technique:
-        raise InputError('Elige uno de los cuatro ataques de tu caballero.')
+        raise AbelInputError('Elige uno de los cuatro ataques de tu caballero.')
     if battle['energy']<technique['cost']:
-        raise InputError('Recupera energía con el primer ataque.')
+        raise AbelInputError('Recupera energía con el primer ataque.')
     battle['heroMove']=identity
 
 

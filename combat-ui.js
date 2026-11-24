@@ -1,6 +1,7 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
-const combatUI=(()=>{
+const abelCombatUI=(()=>{
   const colors={
     slash:['#fff4a8','#f1ae40','#a95a25'],double:['#e6fcff','#67d5f5','#347fc6'],
     vault:['#e8fff4','#6ee6ba','#29947b'],wave:['#fff0ff','#b899ff','#6953d1'],
@@ -39,7 +40,7 @@ const combatUI=(()=>{
 
   function preview(kind,rival,side='hero',weapon='wood',item='starter-sword',equipment={}){
     return '<span class="combat-preview preview-'+kind+' preview-side-'+side+'" data-weapon="'+weapon+'" aria-hidden="true">'+
-      '<span class="preview-knight">'+heroRig.render({pose:'attack',weapon:equipment.sword||item,
+      '<span class="preview-knight">'+abelHeroRig.render({pose:'attack',weapon:equipment.sword||item,
         armor:equipment.armor||null,shield:equipment.shield||null,label:'Tu caballero'})+'</span>'+
       '<img class="preview-rival" src="arena/'+rival+'-attack.webp" alt="">'+
       '<i class="preview-swing"></i><i class="preview-swing swing-two"></i>'+
@@ -56,7 +57,7 @@ const combatUI=(()=>{
     const jump=id==='vault';
     return '<span class="combat-preview combat-attack-icon move-'+id+' preview-'+form.animation+' preview-side-hero" data-weapon="'+style+'" aria-hidden="true">'+
       '<i class="attack-icon-shadow"></i><span class="preview-knight">'+
-      heroRig.render({pose:jump||id==='wave'?'ready':'attack',weapon:equipment.sword||profile.item,
+      abelHeroRig.render({pose:jump||id==='wave'?'ready':'attack',weapon:equipment.sword||profile.item,
         armor:equipment.armor||null,shield:equipment.shield||null,label:'Tu caballero'})+'</span>'+
       (jump?'<svg class="attack-jump-arrow" viewBox="0 0 24 32" fill="none"><path d="M7 27V16Q7 7 17 6M12 2l6 4-5 6"/></svg>':'')+
       '<i class="preview-swing"></i><i class="preview-swing swing-two"></i><i class="preview-orb"></i></span>';

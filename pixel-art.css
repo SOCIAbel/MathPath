@@ -1,3 +1,4 @@
+/* MathPath · Autor: Abel Josué Colquehuanca Humpiri */
 /* Generated pixel art, scoped to game decorations. */
 .pixel-medal,.pixel-boss-portrait{display:block;object-fit:contain;image-rendering:pixelated}
 .fun-medal[data-pixel-art]{position:relative;flex:0 0 56px;width:56px;line-height:1;filter:none}

@@ -1,6 +1,7 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
-const academicLabs = {
+const abelAcademicLabs = {
   gradient:['Descenso de gradiente','Cálculo multivariable'],
   production:['Optimización de producción','Investigación de operaciones'],
   matrix:['Operaciones por filas','Álgebra lineal'],
@@ -120,7 +121,7 @@ function labRegression(pairs) {
   return {slope,intercept,r2:total?Math.max(0,1-error/total):NaN,predict:value=>slope*value+intercept};
 }
 
-class AcademicLab {
+class AbelAcademicLab {
   constructor(call,esc) {
     this.call=call;
     this.esc=esc;
@@ -147,13 +148,13 @@ class AcademicLab {
   }
 
   open(key) {
-    if (Object.hasOwn(academicLabs,key)) this.active=key;
+    if (Object.hasOwn(abelAcademicLabs,key)) this.active=key;
   }
 
-  get title() {return academicLabs[this.active][0];}
+  get title() {return abelAcademicLabs[this.active][0];}
 
   render() {
-    const tabs=Object.entries(academicLabs).map(([key,[title,course]])=>
+    const tabs=Object.entries(abelAcademicLabs).map(([key,[title,course]])=>
       '<button type="button" class="lab-tab" data-open-lab="'+key+'" aria-pressed="'+(key===this.active)+
       '"><strong>'+title+'</strong><small>'+course+'</small></button>').join('');
     return '<div class="academic-page"><div class="subnav"><button type="button" class="btn ghost" data-action="back-university">← Universitario</button></div>'+

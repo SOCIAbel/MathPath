@@ -1,7 +1,8 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
 // Game layer UI: challenges, trophies, pet, cards, effects, themes and whiteboard.
-const funUI=(()=>{
+const abelFunUI=(()=>{
   let ctx=null;
   const pages=new Set(['games','trophies','pet','cards']);
   let gamesView='hub',trophyTab='logros',cardLevel=1,chestReveal=null,explain=null;
@@ -155,7 +156,7 @@ const funUI=(()=>{
         {transform:'translate('+(end.left-x)+'px,'+(end.top-y)+'px) scale(.5)',opacity:.3}],
         {duration:700+i*70,easing:'cubic-bezier(.5,-.3,.7,1)',fill:'forwards'}).onfinish=()=>coin.remove();
     }
-    setTimeout(()=>funAudio.play('coin'),500);
+    setTimeout(()=>abelFunAudio.play('coin'),500);
   }
 
   // ---------------------------------------------------------------- theme, topbar, sync
@@ -195,8 +196,8 @@ const funUI=(()=>{
         headerIcon('star')+'<span>Nv '+summary.level+'</span>'+bar(xpInLevel,xpNeeded,'Experiencia')+'</button>'+
       (summary.chests.length?'<button type="button" class="fun-chip fun-chests" data-fun="page:trophies:cofres" title="Cofres por abrir" aria-label="'+summary.chests.length+' cofres por abrir">'+
         headerIcon('chest')+'<span>'+summary.chests.length+'</span></button>':'')+
-      '<button type="button" class="fun-icon" data-fun="toggle-sound" aria-label="Sonido" aria-pressed="'+!funAudio.muted+'" title="'+(funAudio.muted?'Activar sonido':'Silenciar sonido')+'">'+headerIcon(funAudio.muted?'muted':'sound')+'</button>'+
-      '<button type="button" class="fun-icon" data-fun="toggle-music" aria-label="Música" aria-pressed="'+funAudio.musicOn+'" title="'+(funAudio.musicOn?'Desactivar música':'Activar música')+'">'+headerIcon(funAudio.musicOn?'music':'musicOff')+'</button>'+
+      '<button type="button" class="fun-icon" data-fun="toggle-sound" aria-label="Sonido" aria-pressed="'+!abelFunAudio.muted+'" title="'+(abelFunAudio.muted?'Activar sonido':'Silenciar sonido')+'">'+headerIcon(abelFunAudio.muted?'muted':'sound')+'</button>'+
+      '<button type="button" class="fun-icon" data-fun="toggle-music" aria-label="Música" aria-pressed="'+abelFunAudio.musicOn+'" title="'+(abelFunAudio.musicOn?'Desactivar música':'Activar música')+'">'+headerIcon(abelFunAudio.musicOn?'music':'musicOff')+'</button>'+
       '<button type="button" class="fun-icon" data-fun="toggle-dark" aria-label="Modo oscuro" aria-pressed="'+Boolean(summary.avatar.dark)+'" title="'+(summary.avatar.dark?'Activar modo claro':'Activar modo oscuro')+'">'+headerIcon(summary.avatar.dark?'sun':'moon')+'</button>'+
       '<button type="button" class="fun-icon" data-fun="board" aria-label="Abrir pizarra" title="Pizarra">'+headerIcon('pen')+'</button>';
   }
@@ -214,22 +215,22 @@ const funUI=(()=>{
       for(const item of events){
         toast(item);
         if(['achievement','level','boss','record'].includes(item.kind))party=true;
-        funAudio.play(item.kind==='level'?'levelup':item.kind==='achievement'?'achievement':'coin');
+        abelFunAudio.play(item.kind==='level'?'levelup':item.kind==='achievement'?'achievement':'coin');
       }
       if(party)confetti();
-      if(previous&&summary.xp>previous.xp&&!events.length)funAudio.play('pop');
+      if(previous&&summary.xp>previous.xp&&!events.length)abelFunAudio.play('pop');
     }catch{}
   }
 
   // ---------------------------------------------------------------- duel hooks
   function duel(battle){
     const impact=battle.impact||{};
-    if(battle.event==='hit')funAudio.play(impact.crit?'crit':impact.combo?'combo':'hit');
-    else if(battle.event==='hurt')funAudio.play('hurt');
-    else if(battle.event==='blocked')funAudio.play('blocked');
-    else if(battle.event==='break')funAudio.play('hit');
-    if(battle.rival===0){setTimeout(()=>{funAudio.play('win');confetti();coins(8);},650);}
-    else if(battle.hero===0)setTimeout(()=>funAudio.play('lose'),650);
+    if(battle.event==='hit')abelFunAudio.play(impact.crit?'crit':impact.combo?'combo':'hit');
+    else if(battle.event==='hurt')abelFunAudio.play('hurt');
+    else if(battle.event==='blocked')abelFunAudio.play('blocked');
+    else if(battle.event==='break')abelFunAudio.play('hit');
+    if(battle.rival===0){setTimeout(()=>{abelFunAudio.play('win');confetti();coins(8);},650);}
+    else if(battle.hero===0)setTimeout(()=>abelFunAudio.play('lose'),650);
   }
   function afterRender(page,view,info){
     topbar();
@@ -240,7 +241,7 @@ const funUI=(()=>{
     }
     const reference=page==='cards'&&cardLevel===3;
     document.body.dataset.reference=reference?'formulas':'';
-    if(reference){formulaLibrary.bind();document.querySelector('#breadcrumb').textContent='MathPath / Formulario universitario';}
+    if(reference){abelFormulaLibrary.bind();document.querySelector('#breadcrumb').textContent='MathPath / Formulario universitario';}
     const summary=fun();
     // Show the selected title under the profile name.
     if(schoolContext()&&summary?.avatar?.title){
@@ -251,7 +252,7 @@ const funUI=(()=>{
     if(arena&&info.battle){
       const battle=info.battle;
       const boss=arena.classList.contains('arena-boss');
-      funAudio.music(boss?'boss':arena.dataset.arenaWorld);
+      abelFunAudio.music(boss?'boss':arena.dataset.arenaWorld);
       if(summary?.pet){
         const companion=document.createElement('div');
         companion.className='fun-companion'+(info.effect==='hit'?' cheer':info.effect==='hurt'?' worried':'');
@@ -280,13 +281,13 @@ const funUI=(()=>{
         help.insertAdjacentHTML('afterbegin','<button type="button" class="btn small fun-pet-hint" data-action="adventure-pet-hint">🐾 Pista de '+
           esc(summary.pet.name)+'</button>');
       }
-    }else funAudio.stopMusic();
+    }else abelFunAudio.stopMusic();
     if(page==='village')villageTown(view);
     if(page==='learn'&&info.lesson)lessonExtras(view,info.lesson);
     const practiceForm=view.querySelector('#practice-answer');
     if(practiceForm&&info.level)practiceForm.dataset.level=info.level;
     if(practiceForm&&info.variable)practiceForm.dataset.variable=info.variable;
-    if(typeof answerCapture!=='undefined')answerCapture.decorate(view);
+    if(typeof abelAnswerCapture!=='undefined')abelAnswerCapture.decorate(view);
     if(page==='solver'){
       const form=view.querySelector('#solver-form');
       if(form&&!form.querySelector('[data-fun="photo"]'))
@@ -360,7 +361,7 @@ const funUI=(()=>{
   const heading=(title,text,emoji)=>'<div class="fun-heading"><span class="fun-heading-emoji" aria-hidden="true">'+emoji+'</span><div><h1>'+title+'</h1><p>'+text+'</p></div></div>';
 
   function gamesPage(){
-    if(gamesView==='hub')return studentLounge.games(fun());
+    if(gamesView==='hub')return abelStudentLounge.games(fun());
     const back=button('hub','← Retos','ghost');
     const views={daily:dailyView,survival:survivalView,dungeon:dungeonView,graph:graphView,duel:duelView};
     return '<div class="fun-page fun-game">'+'<div class="subnav">'+back+'</div>'+views[gamesView]()+'</div>';
@@ -503,7 +504,7 @@ const funUI=(()=>{
       status.dataset.solved=game.graph.solved?'1':'0';
       status.innerHTML=game.graph.solved?'<p class="fun-done">🎯 ¡La curva pasa por todos los puntos!</p>'+button('graph-win','Siguiente nivel →','primary'):
         '<p class="muted">Los círculos se vuelven verdes cuando la curva pasa por ellos.</p>';
-      if(game.graph.solved&&!was)funAudio.play('correct');
+      if(game.graph.solved&&!was)abelFunAudio.play('correct');
     }
   }
 
@@ -539,7 +540,7 @@ const funUI=(()=>{
   // Trophies, chests, skills, avatar -----------------------------------------
   function trophiesPage(){
     const body={logros:achievementsTab,cofres:chestsTab,habilidades:skillsTab,avatar:avatarTab}[trophyTab]();
-    return studentLounge.trophies(fun(),guide(),trophyTab,body);
+    return abelStudentLounge.trophies(fun(),guide(),trophyTab,body);
   }
   function achievementsTab(){
     const summary=fun(),counters=summary.counters;
@@ -553,7 +554,7 @@ const funUI=(()=>{
     }).join('')+'</div>';
   }
   const unlockName=unlock=>{const [kind,id]=unlock.split(':');return (kind==='theme'?'Tema ':'Accesorio ')+(kind==='theme'?guide().themes:guide().hats)[id];};
-  function chestsTab(){return studentLounge.chests(fun(),chestReveal,state().adventureGuide.resources);}
+  function chestsTab(){return abelStudentLounge.chests(fun(),chestReveal,state().adventureGuide.resources);}
   function skillsTab(){
     const summary=fun();
     const skills=Object.entries(guide().skills).map(([id,skill])=>{
@@ -585,14 +586,14 @@ const funUI=(()=>{
   }
 
   // Pet ------------------------------------------------------------------------
-  function petPage(){return studentLounge.pet(fun(),guide(),petSvg,state().village);}
+  function petPage(){return abelStudentLounge.pet(fun(),guide(),petSvg,state().village);}
 
   // Cards ----------------------------------------------------------------------
   function cardsPage(){
     const tabs=state().levels.map(level=>'<button type="button" role="tab" aria-selected="'+(cardLevel===level.id)+'" data-fun="cards-level:'+level.id+'">'+
       esc(level.id===3?'Universidad · Formulario':level.title)+'</button>').join('');
-    if(cardLevel===3)return formulaLibrary.render(tabs);
-    return studentLounge.cards(data.cards,cardLevel,tabs);
+    if(cardLevel===3)return abelFormulaLibrary.render(tabs);
+    return abelStudentLounge.cards(data.cards,cardLevel,tabs);
   }
 
   // Classroom ------------------------------------------------------------------
@@ -600,7 +601,7 @@ const funUI=(()=>{
   async function open(page){
     if(page==='cards'){
       if(ctx.getViewContext?.().contentLevel===3)cardLevel=3;
-      data.cards=await ctx.call('fun',{action:'cards'});if(cardLevel===3)await formulaLibrary.open();
+      data.cards=await ctx.call('fun',{action:'cards'});if(cardLevel===3)await abelFormulaLibrary.open();
     }
     if(page==='games'){gamesView='hub';stopTimer();game=null;}
     if(page==='trophies')chestReveal=null;
@@ -617,15 +618,15 @@ const funUI=(()=>{
   async function survivalStep(step){
     const result=await ctx.call('fun',{action:'survival',step,scope:survivalScope});
     game.survival={...result,feedback:null};
-    if(result.over){stopTimer();if(result.record)confetti();funAudio.play(result.record?'win':'lose');return;}
+    if(result.over){stopTimer();if(result.record)confetti();abelFunAudio.play(result.record?'win':'lose');return;}
     survivalTimer();
   }
   function survivalTimer(){
     startTimer(30,()=>ctx.run(async()=>{
-      funAudio.play('wrong');
+      abelFunAudio.play('wrong');
       const next=await ctx.call('fun',{action:'survival',step:'timeout'});
       game.survival={...next,feedback:null};
-      if(next.over){funAudio.play('lose');stopTimer();return;}
+      if(next.over){abelFunAudio.play('lose');stopTimer();return;}
       ctx.say('⏰ ¡Se acabó el tiempo! Perdiste una vida.');
       survivalTimer();
     }));
@@ -640,7 +641,7 @@ const funUI=(()=>{
     if(form==='daily'){
       const grade=await ctx.call('grade',{id:game.daily.exercise.id,answer:value});
       if(grade.invalid){ctx.say(grade.feedback.message,true);return;}
-      funAudio.play(grade.correct?'correct':'wrong');
+      abelFunAudio.play(grade.correct?'correct':'wrong');
       game.daily=await ctx.call('fun',{action:'daily'});
       if(grade.correct)coins(6);
       await ctx.refresh();
@@ -651,7 +652,7 @@ const funUI=(()=>{
       const grade=await ctx.call('grade',{id:run.exercise.id,answer:value});
       if(grade.invalid){ctx.say(grade.feedback.message,true);return;}
       stopTimer();
-      funAudio.play(grade.correct?'correct':'wrong');
+      abelFunAudio.play(grade.correct?'correct':'wrong');
       if(grade.correct){await survivalStep('next');ctx.say('✅ ¡Correcto! +1 punto');return;}
       run.lives-=1;run.feedback=gradeView(grade);
       if(run.lives<=0)await survivalStep('end');
@@ -661,7 +662,7 @@ const funUI=(()=>{
       const dungeon=game.dungeon;
       const grade=await ctx.call('grade',{id:dungeon.exercise.id,answer:value});
       if(grade.invalid){ctx.say(grade.feedback.message,true);return;}
-      funAudio.play(grade.correct?'correct':'wrong');
+      abelFunAudio.play(grade.correct?'correct':'wrong');
       dungeon.feedback=gradeView(grade);
       if(grade.correct)dungeon.floor+=1;
       return;
@@ -673,9 +674,9 @@ const funUI=(()=>{
       if(result.invalid){ctx.say(result.message,true);startTimer(Math.max(5,Math.ceil((game.deadline-Date.now())/1000)),()=>ctx.run(()=>answer('duel','')));return;}
       duel.feedback=result;
       if(result.correct){
-        const foe=duel.players[1-duel.turn];foe.hearts-=1;foe.hit=true;funAudio.play('hit');
-        if(foe.hearts<=0){duel.winner=duel.turn;funAudio.play('win');confetti();await refreshSummary(await ctx.call('fun',{action:'duelEnd'}));}
-      }else funAudio.play('wrong');
+        const foe=duel.players[1-duel.turn];foe.hearts-=1;foe.hit=true;abelFunAudio.play('hit');
+        if(foe.hearts<=0){duel.winner=duel.turn;abelFunAudio.play('win');confetti();await refreshSummary(await ctx.call('fun',{action:'duelEnd'}));}
+      }else abelFunAudio.play('wrong');
       return;
     }
   }
@@ -684,8 +685,8 @@ const funUI=(()=>{
     const [kind,arg,extra]=name.split(':');
     switch(kind){
       case 'page':trophyTab=extra||trophyTab;await ctx.openPage(arg);return;
-      case 'toggle-sound':funAudio.setMuted(!funAudio.muted);if(!funAudio.muted)funAudio.play('correct');topbar();return;
-      case 'toggle-music':funAudio.setMusic(!funAudio.musicOn);topbar();return;
+      case 'toggle-sound':abelFunAudio.setMuted(!abelFunAudio.muted);if(!abelFunAudio.muted)abelFunAudio.play('correct');topbar();return;
+      case 'toggle-music':abelFunAudio.setMusic(!abelFunAudio.musicOn);topbar();return;
       case 'toggle-dark':await refreshSummary(await ctx.call('fun',{action:'avatar',dark:!fun().avatar.dark}));return;
       case 'board':openBoard();return;
       case 'hub':stopTimer();game=null;gamesView='hub';return;
@@ -697,14 +698,14 @@ const funUI=(()=>{
       case 'survival-end':await survivalStep('end');return;
       case 'dungeon-next':game.dungeon=await ctx.call('fun',{action:'dungeon',scope:dungeonScope});return;
       case 'dungeon-setup':game.dungeon=null;return;
-      case 'graph-win':funAudio.play('levelup');confetti(90);await refreshSummary(await ctx.call('fun',{action:'graphWin'}));game.graph=null;return;
+      case 'graph-win':abelFunAudio.play('levelup');confetti(90);await refreshSummary(await ctx.call('fun',{action:'graphWin'}));game.graph=null;return;
       case 'graph-setup':game={graphReady:false};return;
       case 'duel-next':game.duel.turn=1-game.duel.turn;await duelQuestion();return;
       case 'duel-again':{const duel=game.duel;duel.players.forEach(player=>{player.hearts=duel.max;player.hit=false;});delete duel.winner;duel.turn=0;await duelQuestion();return;}
       case 'duel-setup':stopTimer();game.duel={setup:true};return;
       case 'tab':trophyTab=arg;chestReveal=null;return;
       case 'chest':{
-        funAudio.play('chest');
+        abelFunAudio.play('chest');
         chestReveal=await ctx.call('fun',{action:'openChest',index:Number(arg)});
         await refreshSummary(chestReveal.summary);
         if(chestReveal.rarity==='épico'||chestReveal.prizes.length)confetti();
@@ -713,17 +714,17 @@ const funUI=(()=>{
         return;
       }
       case 'chest-ok':chestReveal=null;return;
-      case 'skill':await refreshSummary(await ctx.call('fun',{action:'skill',skill:arg}));funAudio.play('levelup');return;
+      case 'skill':await refreshSummary(await ctx.call('fun',{action:'skill',skill:arg}));abelFunAudio.play('levelup');return;
       case 'reset-skills':await refreshSummary(await ctx.call('fun',{action:'resetSkills'}));await ctx.refresh();ctx.say('Árbol reiniciado. Puedes repartir tus puntos de nuevo.');return;
       case 'theme':await refreshSummary(await ctx.call('fun',{action:'avatar',theme:arg}));return;
-      case 'pet-switch':await refreshSummary(await ctx.call('fun',{action:'switchPet',species:arg}));funAudio.play('pop');return;
+      case 'pet-switch':await refreshSummary(await ctx.call('fun',{action:'switchPet',species:arg}));abelFunAudio.play('pop');return;
       case 'pet-adopt':
         await refreshSummary(await ctx.call('fun',{action:'adopt',species:arg}));
-        funAudio.play('achievement');confetti(80);window.scrollTo(0,0);return;
-      case 'feed':await refreshSummary(await ctx.call('fun',{action:'feed'}));funAudio.play('pop');await ctx.refresh();return;
-      case 'hat':await refreshSummary(await ctx.call('fun',{action:'dress',hat:arg}));funAudio.play('pop');return;
-      case 'cards-level':cardLevel=Number(arg);if(cardLevel===3)await formulaLibrary.open();return;
-      case 'formulas':cardLevel=3;await ctx.openPage('cards');if(arg&&arg!=='all')await formulaLibrary.open(arg);return;
+        abelFunAudio.play('achievement');confetti(80);window.scrollTo(0,0);return;
+      case 'feed':await refreshSummary(await ctx.call('fun',{action:'feed'}));abelFunAudio.play('pop');await ctx.refresh();return;
+      case 'hat':await refreshSummary(await ctx.call('fun',{action:'dress',hat:arg}));abelFunAudio.play('pop');return;
+      case 'cards-level':cardLevel=Number(arg);if(cardLevel===3)await abelFormulaLibrary.open();return;
+      case 'formulas':cardLevel=3;await ctx.openPage('cards');if(arg&&arg!=='all')await abelFormulaLibrary.open(arg);return;
         data.profiles=await ctx.call('fun',{action:'deleteProfile',id:Number(arg)});ctx.say('Alumno borrado.');return;
       case 'eli10':explain={topic:arg,...await ctx.call('explainSimple',{topic:arg})};return;
       case 'photo':{
@@ -757,7 +758,7 @@ const funUI=(()=>{
         game.duel={players:[{name:fields.a||'Jugador 1',hearts:max},{name:fields.b||'Jugador 2',hearts:max}],max,turn:0,topic:fields.topic};
         await duelQuestion();return;
       }
-      case 'adopt':await refreshSummary(await ctx.call('fun',{action:'adopt',species:fields.species,name:fields.name}));funAudio.play('achievement');confetti(80);return;
+      case 'adopt':await refreshSummary(await ctx.call('fun',{action:'adopt',species:fields.species,name:fields.name}));abelFunAudio.play('achievement');confetti(80);return;
     }
   }
 
@@ -816,14 +817,14 @@ const funUI=(()=>{
     board.fit=fit;
   }
   function openBoard(){
-    if(!board.open){if(typeof answerCapture!=='undefined')answerCapture.prepareBoard(board);board.show();requestAnimationFrame(board.fit);}
+    if(!board.open){if(typeof abelAnswerCapture!=='undefined')abelAnswerCapture.prepareBoard(board);board.show();requestAnimationFrame(board.fit);}
     else board.close();
   }
 
   // ---------------------------------------------------------------- init
   function init(context){
     ctx=context;
-    formulaLibrary.init(context);
+    abelFormulaLibrary.init(context);
     toastBox=document.createElement('div');toastBox.className='fun-toasts';toastBox.setAttribute('aria-live','polite');document.body.append(toastBox);
     confettiCanvas=document.createElement('canvas');confettiCanvas.className='fun-confetti';confettiCanvas.hidden=true;confettiCanvas.setAttribute('aria-hidden','true');document.body.append(confettiCanvas);
     createBoard();
@@ -851,7 +852,7 @@ const funUI=(()=>{
       if(event.target.matches('.survival-grade input')&&event.target.checked)
         event.target.form.querySelector('[name=mode][value=grades]').checked=true;
     });
-    if(typeof answerCapture!=='undefined')answerCapture.init(ctx.call);
+    if(typeof abelAnswerCapture!=='undefined')abelAnswerCapture.init(ctx.call);
     probeArt();
     document.addEventListener('input',event=>{
       const slider=event.target.closest('[data-fun-slider]');
@@ -867,7 +868,7 @@ const funUI=(()=>{
       if(event.target.matches('[data-fun-dark]'))ctx.run(async()=>refreshSummary(await ctx.call('fun',{action:'avatar',dark:event.target.checked})));
     });
     document.addEventListener('click',event=>{
-      if(document.body.dataset.reference!=='formulas'&&event.target.closest('button:not([disabled])'))funAudio.play('click');
+      if(document.body.dataset.reference!=='formulas'&&event.target.closest('button:not([disabled])'))abelFunAudio.play('click');
     },true);
   }
   function ready(){topbar();applyTheme();welcome();}
@@ -912,7 +913,7 @@ const funUI=(()=>{
         await ctx.refresh();
         if(!skip)ctx.openGrade(stage,grade);
       });
-      if(!skip){funAudio.play('achievement');confetti(90);}
+      if(!skip){abelFunAudio.play('achievement');confetti(90);}
     };
     box.addEventListener('click',event=>{
       const target=event.target.closest('[data-welcome]');

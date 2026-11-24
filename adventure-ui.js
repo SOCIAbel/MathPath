@@ -1,6 +1,7 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
-const adventureUI=(()=>{
+const abelAdventureUI=(()=>{
   const resourceArt={coins:'coin-stack',wood:'wood-logs',ore:'iron-ore',fiber:'fiber-bundle',gem:'purple-crystal',scale:'dragon-scale'};
   const labels={
     coins:['moneda','monedas'],wood:['madera','madera'],ore:['mineral','minerales'],
@@ -66,7 +67,7 @@ const adventureUI=(()=>{
   }
 
   function knightMarkup(equipment,label='Tu caballero'){
-    return heroRig.render({pose:'ready',weapon:equipment.sword||'starter-sword',
+    return abelHeroRig.render({pose:'ready',weapon:equipment.sword||'starter-sword',
       armor:equipment.armor||null,shield:equipment.shield||null,label});
   }
 
@@ -111,7 +112,7 @@ const adventureUI=(()=>{
     const missing=Object.entries(item.cost).some(([key,amount])=>village.stock[key]<amount);
     const style=Object.keys(guide.weapons).find(key=>guide.weapons[key].item===id);
     const previewEquipment={...village.equipped,[item.slot]:id};
-    const preview=style?'<div class="forge-demo" aria-label="Así ataca esta arma">'+combatUI.weaponPreview(style,guide,village.equipped)+
+    const preview=style?'<div class="forge-demo" aria-label="Así ataca esta arma">'+abelCombatUI.weaponPreview(style,guide,village.equipped)+
       '</div>':item.slot==='armor'||item.slot==='shield'?'<div class="forge-equipment-preview">'+
       knightMarkup(previewEquipment,'Tu caballero con '+item.name)+'</div>':'<div class="forge-item-large">'+itemArt(id)+'</div>';
     const operation=owns?'equip':'craft';

@@ -1,3 +1,4 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
 const graphColors = ['#1467ac', '#ad4a32', '#715aa9'];
@@ -138,7 +139,7 @@ function drawSurfacePlot(ctx, width, height, view, trail = []) {
   return [zmin,zmax];
 }
 
-class GraphWorkspace {
+class AbelGraphWorkspace {
   constructor(dialog, call) {
     this.dialog = dialog;
     this.call = call;

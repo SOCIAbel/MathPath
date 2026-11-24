@@ -1,6 +1,7 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
-const StudioGeometry=(()=>{
+const AbelStudioGeometry=(()=>{
   const pointKinds=new Set(['point','midpoint','intersection']);
   const lineKinds=new Set(['line','segment','perpendicular','parallel']);
   const sub=(a,b)=>[a[0]-b[0],a[1]-b[1]];

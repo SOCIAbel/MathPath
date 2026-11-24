@@ -1,6 +1,7 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
-const studentLounge=(()=>{
+const abelStudentLounge=(()=>{
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const image=(file,cls='',size=100)=>'<img class="'+cls+'" src="'+file+'" alt="" width="'+size+'" height="'+size+'" draggable="false">';
   const item=id=>'recursos/aldea/'+id+'.webp';

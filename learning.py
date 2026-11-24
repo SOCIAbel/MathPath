@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """SQLite data model and offline learning flows for MathPath."""
 import json
 import os
@@ -18,7 +19,7 @@ from adventure import ADVENTURE_SECONDS, FIRST_GRADE_BOSS, FIRST_GRADE_TOPICS
 import fun as game
 import story
 from curriculum import TOPICS, LEVELS, DIFFICULTIES, exercise_for, lesson
-from engine import (InputError, ExpressionParser, OPERATIONS, ResultValidator, RELATION, StepGenerator, display_math,
+from engine import (AbelInputError, AbelExpressionParser, OPERATIONS, AbelResultValidator, RELATION, AbelStepGenerator, display_math,
                     exercise_formula, format_value, math_preview, solve_problem, verify_answer, feedback_for)
 
 SCHEMA_VERSION=1
@@ -128,7 +129,7 @@ def bounded_int(value,default,minimum,maximum):
         return default
 
 
-class LearningService:
+class AbelLearningService:
     def __init__(self,filename):
         self.filename=Path(filename).resolve()
         self.filename.parent.mkdir(parents=True,exist_ok=True)
@@ -137,11 +138,11 @@ class LearningService:
         self.db.execute('PRAGMA trusted_schema=OFF')
         version=self.db.execute('PRAGMA user_version').fetchone()[0]
         if version not in (0,SCHEMA_VERSION):
-            raise InputError('La base local corresponde a otra versión de MathPath.')
+            raise AbelInputError('La base local corresponde a otra versión de MathPath.')
         self.db.executescript(SCHEMA)
         self.db.execute(f'PRAGMA user_version={SCHEMA_VERSION}')
         self.seed_catalog()
-        self.fun=game.FunService(self)
+        self.fun=game.AbelFunService(self)
         self.db.commit()
 
     def seed_catalog(self):
@@ -299,7 +300,7 @@ class LearningService:
 
     def get_lesson(self,topic_id,record=False):
         if topic_id not in TOPICS:
-            raise InputError('Selecciona un tema del catálogo.')
+            raise AbelInputError('Selecciona un tema del catálogo.')
         data=json.loads(self.db.execute('SELECT body FROM lessons WHERE topic_id=?',(topic_id,)).fetchone()[0])
         data['example']=with_exercise_formula(data['example'])
         note=self.db.execute('SELECT body FROM lesson_notes WHERE profile_id=? AND topic_id=?',(self.profile_id,topic_id)).fetchone()
@@ -313,11 +314,11 @@ class LearningService:
 
     def require_unlocked(self,topic_id):
         if topic_id not in TOPICS:
-            raise InputError('Selecciona un tema válido.')
+            raise AbelInputError('Selecciona un tema válido.')
         mastered=self.mastery()
         missing=[TOPICS[item]['name'] for item in TOPICS[topic_id]['requires'] if item not in mastered]
         if missing and topic_id not in mastered:
-            raise InputError('Domina primero: '+', '.join(missing)+'.')
+            raise AbelInputError('Domina primero: '+', '.join(missing)+'.')
 
     def effective_difficulty(self,requested='auto',topic_id=None):
         if requested in DIFFICULTIES:
@@ -374,16 +375,16 @@ class LearningService:
         item_id=payload.get('item')
         item=combat.ITEMS.get(item_id)
         if not item or action not in {'craft','equip'}:
-            raise InputError('Elige una mejora de la aldea.')
+            raise AbelInputError('Elige una mejora de la aldea.')
         if not self.db.in_transaction:
             self.db.execute('BEGIN IMMEDIATE')
         gear=self.village_ledger(self.adventure_status()['wins'])
         slot=item['slot']
         if action=='craft':
             if item_id in gear['owned']:
-                raise InputError('Ya fabricaste esta pieza. Puedes equiparla en el taller.')
+                raise AbelInputError('Ya fabricaste esta pieza. Puedes equiparla en el taller.')
             if any(gear['stock'][key]<amount for key,amount in item['cost'].items()):
-                raise InputError('Te faltan monedas o materiales para fabricar esta pieza.')
+                raise AbelInputError('Te faltan monedas o materiales para fabricar esta pieza.')
             for key,amount in item['cost'].items():
                 gear['stock'][key]-=amount
             if slot=='supply':
@@ -393,7 +394,7 @@ class LearningService:
         if slot!='supply' and item_id in gear['owned']:
             gear['equipped'][slot]=item_id
         elif action=='equip':
-            raise InputError('Primero fabrica esta pieza.')
+            raise AbelInputError('Primero fabrica esta pieza.')
         self.save_gear(gear)
         return self.village_view(gear)
 
@@ -461,7 +462,7 @@ class LearningService:
             if key not in used:
                 break
         else:
-            raise InputError('No salió un reto distinto. Inténtalo nuevamente.')
+            raise AbelInputError('No salió un reto distinto. Inténtalo nuevamente.')
         exercise.update(topic=exercise_topic,hintTopic=source)
         if source in {'naturales','resta1'} and not barrier:
             exercise.update(question='¿Cuánto da esta operación?',showExpression=True)
@@ -495,7 +496,7 @@ class LearningService:
         boss=bool(chapter_boss) or world
         item=game.WORLD_BOSSES.get(topic_id) if world else chapter_boss if chapter_boss else TOPICS.get(topic_id)
         if not item or item['level']>=3:
-            raise InputError('Elige una misión de Primaria o Secundaria.')
+            raise AbelInputError('Elige una misión de Primaria o Secundaria.')
         rival=combat.rival_for(topic_id)
         if not self.db.in_transaction:
             self.db.execute('BEGIN IMMEDIATE')
@@ -510,18 +511,18 @@ class LearningService:
             if world:
                 boss_topics=list(item['topics'])
                 if not set(boss_topics)<=self.mastery():
-                    raise InputError('Completa las tres misiones de este mundo para desafiar a su rey.')
+                    raise AbelInputError('Completa las tres misiones de este mundo para desafiar a su rey.')
             elif chapter_boss:
                 members=combat.grade_topics(item['level'],item['unit'])
                 if not self.grade_unlocked(item['level'],item['unit']):
-                    raise InputError('Este capítulo aún no empieza. Vence primero al jefe del grado anterior.')
+                    raise AbelInputError('Este capítulo aún no empieza. Vence primero al jefe del grado anterior.')
                 if not set(members)<=self.mastery():
-                    raise InputError('Completa todas las misiones del grado para desafiar a '+item['name']+'.')
+                    raise AbelInputError('Completa todas las misiones del grado para desafiar a '+item['name']+'.')
                 boss_topics=random.sample(members,min(8,len(members)))
             else:
                 if not self.grade_unlocked(item['level'],item['unit']):
                     previous=story.GRADE_BOSS_BY_GRADE[(item['level'],item['unit']-1)]
-                    raise InputError('Vence a '+previous['name']+' para jugar los duelos de este grado.')
+                    raise AbelInputError('Vence a '+previous['name']+' para jugar los duelos de este grado.')
                 self.require_unlocked(topic_id)
             if not battle or action=='restart' and (battle['hero']==0 or battle['rival']==0):
                 gear=self.village_ledger(self.adventure_status()['wins'])
@@ -533,7 +534,7 @@ class LearningService:
                     battle['topics']=random.sample(boss_topics,len(boss_topics))
                 self.adventure_question(item,battle,rival)
         elif not battle or payload.get('turn')!=battle['turn']:
-            raise InputError('Vuelve a abrir la misión para recuperar el turno actual.')
+            raise AbelInputError('Vuelve a abrir la misión para recuperar el turno actual.')
 
         # Older saved duels get a full turn the first time they are reopened.
         now=time.time()
@@ -563,7 +564,7 @@ class LearningService:
             combat.choose_attack(battle,payload.get('move'))
         elif action=='pet-hint' and not battle['event']:
             if not battle.get('petHint') or battle['usedHint']:
-                raise InputError('Tu mascota ya te dio su pista en este duelo.')
+                raise AbelInputError('Tu mascota ya te dio su pista en este duelo.')
             battle.update(petHint=False,usedHint=True)
         elif action in {'hint','shield'} and not battle['event']:
             column, flag=('hints','usedHint') if action=='hint' else ('shields','shielded')
@@ -571,12 +572,12 @@ class LearningService:
                 spent=self.db.execute(f'UPDATE adventure_inventory SET {column}={column}-1 WHERE profile_id=? AND {column}>0',
                                       (self.profile_id,)).rowcount
                 if not spent:
-                    raise InputError('Gana un duelo nuevo para conseguir más ayudas.')
+                    raise AbelInputError('Gana un duelo nuevo para conseguir más ayudas.')
                 battle[flag]=True
         elif action=='potion' and not (battle['event'] or battle['usedPotion']):
             gear=self.village_ledger(self.adventure_status()['wins'])
             if battle['hero']==battle['heroTotal'] or gear['potions']<=0:
-                raise InputError('La poción requiere que te falten corazones y tengas una en el morral.')
+                raise AbelInputError('La poción requiere que te falten corazones y tengas una en el morral.')
             gear['potions']-=1
             restore=combat.ITEMS['healing-potion']['heal']
             battle.update(hero=min(battle['heroTotal'],battle['hero']+restore),usedPotion=True)
@@ -631,7 +632,7 @@ class LearningService:
     def exercise(self,identity):
         row=self.db.execute('SELECT * FROM exercises WHERE id=? AND profile_id=?',(identity,self.profile_id)).fetchone()
         if not row:
-            raise InputError('Ese ejercicio ya no pertenece al perfil activo.')
+            raise AbelInputError('Ese ejercicio ya no pertenece al perfil activo.')
         return with_exercise_formula({'id':identity,**json.loads(row['body']),'purpose':row['purpose']})
 
     def calculate(self,request):
@@ -643,7 +644,7 @@ class LearningService:
                 'lados':('Recorre el borde','Empieza en una esquina y cuenta cada línea hasta volver al punto de partida.')
             }[request['topic']]
             sequence=', '.join(map(str,range(1,min(int(result.value),30)+1)))
-            result.steps=[StepGenerator.step(title,instruction,text=sequence)]
+            result.steps=[AbelStepGenerator.step(title,instruction,text=sequence)]
         return result
 
     def solve(self,request,save=True):
@@ -656,9 +657,9 @@ class LearningService:
     def hint(self,identity,in_battle=False):
         item=self.exercise(identity)
         if item['purpose']=='exam':
-            raise InputError('Las evaluaciones muestran la corrección al finalizar.')
+            raise AbelInputError('Las evaluaciones muestran la corrección al finalizar.')
         if item['purpose'] in {'adventure','boss','tactic'} and not in_battle:
-            raise InputError('Usa una pista desde el duelo.')
+            raise AbelInputError('Usa una pista desde el duelo.')
         if item.get('tactic'):
             return {'rule':'Romper la barrera','explanation':item['tactic']['hint']}
         topic=TOPICS[item.get('hintTopic',item['topic'])]
@@ -668,16 +669,16 @@ class LearningService:
         solution=self.calculate(item)
         try:
             correct=verify_answer(answer,solution,item['operation'],item['variable'],item['argument'])
-        except (InputError,ValueError,TypeError,NotImplementedError) as error:
+        except (AbelInputError,ValueError,TypeError,NotImplementedError) as error:
             return {'correct':False,'invalid':True,'feedback':{'type':'Formato','message':str(error),'answer':answer},'solution':solution.as_dict()}
         return {'correct':correct,'invalid':False,'feedback':feedback_for(answer,solution,correct),'solution':solution.as_dict()}
 
     def grade(self,identity,answer,in_battle=False):
         item=self.exercise(identity)
         if item['purpose']=='exam':
-            raise InputError('Envía las respuestas desde la evaluación.')
+            raise AbelInputError('Envía las respuestas desde la evaluación.')
         if item['purpose'] in {'adventure','boss','tactic'} and not in_battle:
-            raise InputError('Responde desde el duelo.')
+            raise AbelInputError('Responde desde el duelo.')
         answer=clean(answer,450)
         previous=self.db.execute('SELECT * FROM responses WHERE exercise_id=?',(identity,)).fetchone()
         if previous:
@@ -700,7 +701,7 @@ class LearningService:
         for row in rows:
             if row['topic_id'] in TOPICS and all(prior in mastered for prior in TOPICS[row['topic_id']]['requires']):
                 return self.insert_exercise(json.loads(row['body']),'practice')
-        raise InputError('No tienes ejercicios independientes fallados pendientes de repetir.')
+        raise AbelInputError('No tienes ejercicios independientes fallados pendientes de repetir.')
 
     def exam_history(self):
         rows=self.db.execute("""SELECT e.*,
@@ -715,7 +716,7 @@ class LearningService:
     def exam(self,identity,include_results=False):
         row=self.db.execute('SELECT * FROM evaluations WHERE id=? AND profile_id=?',(identity,self.profile_id)).fetchone()
         if not row:
-            raise InputError('Selecciona una evaluación de tu perfil.')
+            raise AbelInputError('Selecciona una evaluación de tu perfil.')
         result=dict(row)
         entries=self.db.execute("""SELECT i.exercise_id,r.answer,r.correct FROM evaluation_items i
                                   LEFT JOIN responses r ON r.exercise_id=i.exercise_id WHERE i.evaluation_id=? ORDER BY i.ordinal""",(identity,)).fetchall()
@@ -767,36 +768,36 @@ class LearningService:
             title='Universitaria · procedimiento'
             if scope_id:
                 if str(scope_id) not in {str(index) for index in range(1,len(LEVELS[2][2])+1)}:
-                    raise InputError('Elige un curso universitario válido.')
+                    raise AbelInputError('Elige un curso universitario válido.')
                 number=int(scope_id)
                 allowed=[topic for topic in allowed if topic['unit']==number]
                 title=LEVELS[2][2][number-1]+' · procedimiento'
         elif scope=='topics':
             if not isinstance(topic_ids,list) or not topic_ids or any(not isinstance(id_,str) or id_ not in TOPICS for id_ in topic_ids):
-                raise InputError('Selecciona al menos un tema válido para la evaluación.')
+                raise AbelInputError('Selecciona al menos un tema válido para la evaluación.')
             selected=set(topic_ids)
             allowed=[topic for topic in allowed if topic['id'] in selected]
             if len(allowed)!=len(selected):
-                raise InputError('Selecciona solo temas habilitados para tu perfil.')
+                raise AbelInputError('Selecciona solo temas habilitados para tu perfil.')
             if len(selected)>count:
-                raise InputError('Pon al menos una pregunta por cada tema seleccionado.')
+                raise AbelInputError('Pon al menos una pregunta por cada tema seleccionado.')
             title='Evaluación · '+(allowed[0]['name'] if len(allowed)==1 else f'{len(allowed)} temas')
         elif scope=='unit':
             if scope_id not in TOPICS:
-                raise InputError('Elige el tema cuya unidad quieres evaluar.')
+                raise AbelInputError('Elige el tema cuya unidad quieres evaluar.')
             chosen=TOPICS[scope_id]
             allowed=[topic for topic in allowed if topic['level']==chosen['level'] and topic['unit']==chosen['unit']]
             title=LEVELS[chosen['level']-1][2][chosen['unit']-1]
         elif scope=='level':
             if str(scope_id) not in {str(index) for index in range(1,len(LEVELS)+1)}:
-                raise InputError('Selecciona un nivel válido para la evaluación.')
+                raise AbelInputError('Selecciona un nivel válido para la evaluación.')
             number=int(scope_id)
             allowed=[topic for topic in allowed if topic['level']==number]
             title=LEVELS[number-1][0]
         else:
             title='Evaluación general'
         if not allowed:
-            raise InputError('Todavía no tienes temas habilitados en ese alcance. Revisa los prerrequisitos.')
+            raise AbelInputError('Todavía no tienes temas habilitados en ese alcance. Revisa los prerrequisitos.')
         minutes=bounded_int(minutes,8,1,60)
         identity=token()
         self.db.execute('INSERT INTO evaluations VALUES (?,?,?,?,?,NULL,NULL,?)',(identity,self.profile_id,title,timestamp(),time.time()+minutes*60,count))
@@ -866,16 +867,16 @@ class LearningService:
         identity=clean(args.get('id'),32)
         prior=self.db.execute('SELECT * FROM university_notebook WHERE id=? AND profile_id=?',(identity,self.profile_id)).fetchone() if identity else None
         if identity and not prior:
-            raise InputError('Esa entrada no pertenece al cuaderno de este perfil.')
+            raise AbelInputError('Esa entrada no pertenece al cuaderno de este perfil.')
         if action=='remove' and prior:
             self.db.execute('DELETE FROM university_notebook WHERE id=? AND profile_id=?',(identity,self.profile_id))
             return {'id':identity,'unit':prior['unit']}
         if action!='save':
-            raise InputError('Elige una acción del cuaderno.')
+            raise AbelInputError('Elige una acción del cuaderno.')
         title=clean(args.get('title'),100)
         unit=bounded_int(args.get('unit'),0,0,len(LEVELS[2][2]))
         if not title or not unit:
-            raise InputError('Pon un título y selecciona un curso.')
+            raise AbelInputError('Pon un título y selecciona un curso.')
         kind=prior['kind'] if prior else args.get('kind','note')
         raw=args.get('payload',{})
         if kind=='graph':
@@ -884,14 +885,14 @@ class LearningService:
             source=raw if raw else json.loads(prior['payload']) if prior else {}
             payload={key:clean(source.get(key),600) for key in ('question','problem','result')}
             if not (payload['question'] or payload['problem']):
-                raise InputError('Selecciona un ejercicio para guardar.')
+                raise AbelInputError('Selecciona un ejercicio para guardar.')
         elif kind=='note':
             payload={}
         else:
-            raise InputError('Elige un apunte, un ejercicio o una gráfica.')
+            raise AbelInputError('Elige un apunte, un ejercicio o una gráfica.')
         if self.db.execute('SELECT COUNT(*) FROM university_notebook WHERE profile_id=? AND unit=?',
                            (self.profile_id,unit)).fetchone()[0]>=60 and (not prior or prior['unit']!=unit):
-            raise InputError('Este curso admite hasta 60 entradas. Quita alguna para guardar otra.')
+            raise AbelInputError('Este curso admite hasta 60 entradas. Quita alguna para guardar otra.')
         identity=identity or token()
         self.db.execute("""INSERT INTO university_notebook VALUES (?,?,?,?,?,?,?,?)
                           ON CONFLICT(id) DO UPDATE SET unit=excluded.unit,title=excluded.title,body=excluded.body,
@@ -904,19 +905,19 @@ class LearningService:
         name=clean(data.get('name'),65) or self.profile()['name']
         difficulty=data.get('difficulty')
         if difficulty not in ('auto',*DIFFICULTIES):
-            raise InputError('Elige una dificultad válida.')
+            raise AbelInputError('Elige una dificultad válida.')
         variable=data.get('variable')
         if variable not in ('x','t','y','z'):
-            raise InputError('Elige una variable válida.')
+            raise AbelInputError('Elige una variable válida.')
         preference=data.get('preference')
         if preference not in ('guiado','directo'):
-            raise InputError('Elige un estilo de aprendizaje válido.')
+            raise AbelInputError('Elige un estilo de aprendizaje válido.')
         self.db.execute('UPDATE profiles SET name=?,difficulty=?,preference=?,variable=? WHERE id=?',(name,difficulty,preference,variable,self.profile_id))
         return self.profile()
 
     def set_demo(self,enabled):
         if self.active_exam():
-            raise InputError('Finaliza la evaluación antes de cambiar de perfil.')
+            raise AbelInputError('Finaliza la evaluación antes de cambiar de perfil.')
         self.db.execute("UPDATE config SET value=? WHERE key='profile'",('2' if enabled else '1',))
         exists=self.db.execute('SELECT 1 FROM exercises WHERE profile_id=2 LIMIT 1').fetchone()
         if enabled and not exists:
@@ -996,19 +997,19 @@ class LearningService:
     def validate_steps(self,lines,variable='x'):
         lines=[line.strip() for line in str(lines).splitlines() if line.strip()]
         if not 2<=len(lines)<=8:
-            raise InputError('Escribe de 2 a 8 líneas. La primera debe ser el problema original.')
+            raise AbelInputError('Escribe de 2 a 8 líneas. La primera debe ser el problema original.')
         first=lines[0]
         equation=bool(RELATION.search(first))
-        expected=solve_problem(first,'auto',variable).value if equation else ExpressionParser(first).scalar()
+        expected=solve_problem(first,'auto',variable).value if equation else AbelExpressionParser(first).scalar()
         checks=[]
         for index,line in enumerate(lines[1:],2):
             try:
-                candidate=solve_problem(line,'auto',variable).value if equation and RELATION.search(line) else ExpressionParser(line).scalar()
-                equivalent=ResultValidator.equivalent(expected,candidate)
+                candidate=solve_problem(line,'auto',variable).value if equation and RELATION.search(line) else AbelExpressionParser(line).scalar()
+                equivalent=AbelResultValidator.equivalent(expected,candidate)
                 text=('Conserva el conjunto de soluciones.' if equation else 'Es equivalente a la expresión inicial.') if equivalent else (
                     'Este paso cambia el conjunto solución. Aplica la misma operación a ambos miembros.' if equation else
                     'El resultado de esta línea no es equivalente al original. Revisa signos, factores y paréntesis.')
-            except (InputError,ValueError,TypeError,NotImplementedError) as error:
+            except (AbelInputError,ValueError,TypeError,NotImplementedError) as error:
                 equivalent=False
                 text='Revisa el formato de esta línea. '+str(error)
             checks.append({'line':index,'input':line,'ok':equivalent,'message':text})
@@ -1019,7 +1020,7 @@ class LearningService:
     def backup(self,target):
         target=Path(target).resolve()
         if target==self.filename:
-            raise InputError('Elige un archivo distinto a la base activa.')
+            raise AbelInputError('Elige un archivo distinto a la base activa.')
         temp=target.with_name(target.name+'.'+token()+'.tmp')
         try:
             self.db.commit()
@@ -1033,9 +1034,9 @@ class LearningService:
     def restore(self,source):
         source=Path(source).resolve()
         if source==self.filename:
-            raise InputError('Selecciona un archivo de respaldo distinto.')
+            raise AbelInputError('Selecciona un archivo de respaldo distinto.')
         if not source.is_file() or source.stat().st_size>64*1024*1024:
-            raise InputError('Selecciona un respaldo de MathPath de hasta 64 MB.')
+            raise AbelInputError('Selecciona un respaldo de MathPath de hasta 64 MB.')
         try:
             copy=sqlite3.connect(source.as_uri()+'?mode=ro',uri=True)
             copy.execute('PRAGMA trusted_schema=OFF')
@@ -1044,21 +1045,21 @@ class LearningService:
             if (copy.execute('PRAGMA user_version').fetchone()[0]!=SCHEMA_VERSION
                     or not (expected-OPTIONAL_TABLES)<=tables<=expected
                     or copy.execute('PRAGMA integrity_check').fetchone()[0]!='ok'):
-                raise InputError('El archivo no es un respaldo íntegro de esta versión de MathPath.')
+                raise AbelInputError('El archivo no es un respaldo íntegro de esta versión de MathPath.')
             for table in ('profiles','config','topics'):
                 if not copy.execute(f'SELECT 1 FROM {table} LIMIT 1').fetchone():
-                    raise InputError('Faltan datos en el respaldo.')
+                    raise AbelInputError('Faltan datos en el respaldo.')
             self.db.commit()
             copy.backup(self.db)
         except sqlite3.DatabaseError as error:
-            raise InputError('No se pudo leer un respaldo válido de MathPath.') from error
+            raise AbelInputError('No se pudo leer un respaldo válido de MathPath.') from error
         finally:
             if 'copy' in locals():
                 copy.close()
         self.db.executescript(SCHEMA)
         with self.db:
             self.seed_catalog()
-            self.fun=game.FunService(self)
+            self.fun=game.AbelFunService(self)
         return self.status()
 
 

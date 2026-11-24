@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """MathPath lessons and parametric exercises."""
 import random
 

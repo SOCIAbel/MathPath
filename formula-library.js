@@ -1,7 +1,8 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
-const formulaLibrary=(()=>{
-  const catalog=universityFormulaData;
+const abelFormulaLibrary=(()=>{
+  const catalog=abelUniversityFormulaData;
   const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const plain=value=>String(value).normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
   const topics=new Map(catalog.topics.map(topic=>[topic.id,topic]));

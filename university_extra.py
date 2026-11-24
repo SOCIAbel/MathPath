@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """More pure-mathematics university topics and four extra courses.
 
 Each row: id | title | explanation | rule | exercise prompt | engine | expression | parameter.

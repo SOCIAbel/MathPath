@@ -1,11 +1,12 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 (() => {
   const api=window.mathpath, view=document.querySelector('#content'), nav=document.querySelector('#navigation');
   const notice=document.querySelector('#notice'), examWindow=document.querySelector('#exam-window');
-  const lessonVideo=new LessonVideoPlayer(document.querySelector('#lesson-video'));
+  const lessonVideo=new AbelLessonVideoPlayer(document.querySelector('#lesson-video'));
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const call=(name,args)=>api.call(name,args);
-  const graphWorkspace=new GraphWorkspace(document.querySelector('#graph-window'),call);
-  const academicLab=new AcademicLab(call,esc);
+  const graphWorkspace=new AbelGraphWorkspace(document.querySelector('#graph-window'),call);
+  const academicLab=new AbelAcademicLab(call,esc);
   const date=value=>value?new Intl.DateTimeFormat('es-PE',{dateStyle:'short',timeStyle:'short',timeZone:'America/Lima'}).format(new Date(value)):'—';
   const percent=(n,total)=>total?Math.round(100*n/total):0;
   const btn=(key,label,style='')=>'<button class="btn '+style+'" type="button" data-action="'+key+'">'+label+'</button>';
@@ -77,7 +78,7 @@
       page==='practice'?topic(practice?.topic||practiceTopic)?.level:
       page==='teacher'?(topic(teacher?.grounding?.topic)?.level??teacherLevel):
       page==='progress'?(state.levels.find(item=>item.id===progressStage)||state.levels[state.currentLevel-1])?.id:
-      page==='cards'?funUI.getCardLevel():['labs','notebook'].includes(page)?3:null;
+      page==='cards'?abelFunUI.getCardLevel():['labs','notebook'].includes(page)?3:null;
     return {page,contentLevel};
   }
   function renderNav(){
@@ -107,7 +108,7 @@
       '<h1 id="home-greeting">¡Hola, '+esc(state.profile.name)+'!</h1><p class="home-subtitle">Un paso más para entenderlo mejor.</p>'+
       (typeof streak==='number'?'<div class="home-streak">'+flame+'<span><strong>'+streak+'</strong> '+(streak===1?'día':'días')+' de racha</span></div>':'')+
       '</div><aside class="home-companion'+(companion?'':' home-companion-empty')+'">'+
-      '<div class="home-companion-art" aria-hidden="true">'+(companion?funUI.petSvg(companion,108):
+      '<div class="home-companion-art" aria-hidden="true">'+(companion?abelFunUI.petSvg(companion,108):
         '<img src="recursos/mascotas/draco-0.webp" width="120" height="120" alt="">')+'</div>'+
       '<div class="home-companion-copy"><small>'+(companion?'TU COMPAÑERO':'UN AMIGO PARA TU AVENTURA')+'</small>'+
       (companion?'<strong>'+esc(companion.name)+'</strong><span>'+esc(companion.stageName)+' · Nivel '+companion.level+'</span>'+link('pet','Ver mi mascota','small ghost'):
@@ -587,7 +588,7 @@
     const info=topic(topicId);
     if(!info)return '';
     const video=videos[topicId];
-    const extra=youtubeLessons[topicId];
+    const extra=abelYoutubeLessons[topicId];
     const guided='<button type="button" class="study-video study-video-local" data-lesson-video="'+esc(info.id)+
       '"><span class="video-icon" aria-hidden="true">▶</span><span><strong>Reproducir minilección</strong>'+
       '<small>Teoría y ejemplo paso a paso</small></span></button>';
@@ -724,7 +725,7 @@
       input.value=option?.name||'';
       generate.disabled=!choice.value;
       close();
-      funUI.refreshHeader();
+      abelFunUI.refreshHeader();
     }
 
     input.addEventListener('focus',()=>{
@@ -812,8 +813,8 @@
   function duelSprite(name,lives,weapon=null,equipment={}){
     const gear={weapon:equipment.sword||weapon?.item||'starter-sword',armor:equipment.armor||null,
       shield:equipment.shield||null,label:'Tu caballero'};
-    const poses=name==='knight'?'<span class="arena-ready">'+heroRig.render({...gear,pose:'ready'})+'</span>'+
-      '<span class="arena-attack">'+heroRig.render({...gear,pose:'attack'})+'</span>':
+    const poses=name==='knight'?'<span class="arena-ready">'+abelHeroRig.render({...gear,pose:'ready'})+'</span>'+
+      '<span class="arena-attack">'+abelHeroRig.render({...gear,pose:'attack'})+'</span>':
       '<img class="arena-ready" src="arena/'+name+'.webp" alt="">'+
       '<img class="arena-attack" src="arena/'+name+'-attack.webp" alt="">';
     return '<div class="arena-character '+(name==='knight'?'knight':'enemy '+name)+(lives?'':' defeated')+'" aria-hidden="true">'+
@@ -854,7 +855,7 @@
       event==='break'?'El próximo acierto vuelve a dañar al rival.':'';
     const rewards=(cleared&&chapterBoss?'<p class="story-victory">📖 '+esc(chapterBoss.victory)+'</p>':'')+
       (reward?'<p>¡Nivel '+(inventory.wins.length+1)+'!</p>':'')+
-      (Object.keys(loot).length?'<div class="adventure-loot" aria-label="Botín del duelo">'+adventureUI.lootMarkup(loot)+'</div>':'');
+      (Object.keys(loot).length?'<div class="adventure-loot" aria-label="Botín del duelo">'+abelAdventureUI.lootMarkup(loot)+'</div>':'');
     const verdictBlock=event?'<div class="mission-feedback '+(grade.correct?'correct':'review')+'" role="status"><strong>'+
       esc(verdict)+'</strong>'+(aftermath?'<p>'+esc(aftermath.trim())+'</p>':'')+rewards+'</div>':'';
     let action;
@@ -874,7 +875,7 @@
       '>⬟ '+(shielded?'Escudo activo':'Usar escudo')+' <span>'+inventory.shields+'</span></button>'+
       '<button type="button" class="btn small" data-action="adventure-potion"'+
       (!village.potions||hero===heroTotal||battle.usedPotion?' disabled':'')+'>♥ Poción <span>'+village.potions+'</span></button></div>';
-    const special=tactic?adventureUI.tacticMarkup(tactic,tacticPosition)+
+    const special=tactic?abelAdventureUI.tacticMarkup(tactic,tacticPosition)+
       (hint?'<div class="verification"><p>'+mathText(hint.explanation)+'</p></div>':''):practiceInput(true);
     const result=verdictBlock+(event?details(grade.correct?'Ver procedimiento':'Ver cómo se resuelve',steps)+
       '<div class="lesson-actions">'+action+((cleared||lost)?villageEntry():'')+'</div>':special+help);
@@ -885,18 +886,18 @@
     const strike=duelEffect?'<div class="arena-strike" aria-hidden="true">'+
       (impact.damage?'−'+impact.damage:event==='blocked'?'⬟':'✦')+'</div>':'';
     const technique=duelEffect?(event==='hit'?impact.name||heroAttack.name:event==='break'?'¡Barrera rota!':threat.name):'';
-    const strategies=combatUI.heroMoves(state.adventureGuide,battle,false,tactic,esc);
-    const enemyPlan=combatUI.rivalMoves(foe,threat,esc,equipped||{});
+    const strategies=abelCombatUI.heroMoves(state.adventureGuide,battle,false,tactic,esc);
+    const enemyPlan=abelCombatUI.rivalMoves(foe,threat,esc,equipped||{});
     return '<div class="adventure arena-page"><div class="subnav">'+btn('mission-map','← Mapa','ghost')+
       '<span>'+esc(stage.title)+' · '+esc(stage.units[item.unit-1])+'</span></div>'+
       '<h1>'+esc(item.name)+'</h1><p class="arena-location">'+esc(world.name)+(chapterBoss?' · '+esc(chapterBoss.chapter):crowned?' · 👑 Jefe del mundo':'')+
       '</p><div class="combat-stage"><div class="arena combat-arena'+(boss?' arena-boss':'')+(crowned?' fun-crowned':'')+(duelEffect?' arena-'+duelEffect:'')+
       '" data-weapon="'+(battle.weaponStyle||'wood')+'" data-combat-event="'+duelEffect+'" data-hero-move="'+(impact.move||battle.heroMove)+
       '" data-arena-world="'+world.location+'" data-arena-rival="'+world.enemy+'" data-attack="'+threat.kind+'">'+arenaScenery(world)+
-      fighter('Tu caballero',hero,heroTotal,'hero',shielded,combatUI.heroStatus(state.adventureGuide,battle))+
+      fighter('Tu caballero',hero,heroTotal,'hero',shielded,abelCombatUI.heroStatus(state.adventureGuide,battle))+
       (event?'':'<div class="arena-clock"><span>Tiempo</span><output role="timer" aria-live="off" aria-label="Tiempo restante"></output></div>')+
       fighter(esc(boss?item.name:world.rival),rival,rivalTotal,'guardian')+duelSprite('knight',hero,weapon,equipped||{})+duelSprite(world.enemy,rival)+
-      enemyPlan+combatUI.heroDefense(battle)+aura+'<canvas class="combat-effects" aria-hidden="true"></canvas>'+strike+
+      enemyPlan+abelCombatUI.heroDefense(battle)+aura+'<canvas class="combat-effects" aria-hidden="true"></canvas>'+strike+
       (technique?'<div class="combat-action-name" aria-hidden="true">'+esc(technique)+'</div>':'')+
       '</div>'+strategies+'</div>'+
       (itemsEquipped.length?'<div class="arena-gear" aria-label="Equipo y racha">'+itemsEquipped.join('')+'</div>':'')+
@@ -1123,12 +1124,12 @@
   }
 
   const renders={dashboard,learn:()=>lesson?lessonPage():learning(),solver:solverPage,teacher:teacherPage,practice:practicePage,
-    village:()=>adventureUI.villagePage(state.adventureGuide,state.village,adventurePack(),villageView,esc,btn,
+    village:()=>abelAdventureUI.villagePage(state.adventureGuide,state.village,adventurePack(),villageView,esc,btn,
       {category:villageCategory,selected:villageItem,crafted:villageCrafted}),
     labs:()=>academicLab.render(),notebook:notebookPage,exams:examsPage,progress,settings,
-    ...Object.fromEntries([...funUI.pages].map(name=>[name,()=>funUI.render(name)]))};
+    ...Object.fromEntries([...abelFunUI.pages].map(name=>[name,()=>abelFunUI.render(name)]))};
   function render(){
-    combatUI.stop();
+    abelCombatUI.stop();
     renderNav();
     view.innerHTML=renders[page]();
     if(page==='solver')queuePreview();
@@ -1137,13 +1138,13 @@
     if(page==='labs')academicLab.bind(view.querySelector('[data-lab]'));
     const examForm=view.querySelector('#exam-config');
     if(examForm&&examOptions.scope==='topics')renderExamTopicResults(examForm);
-    funUI.afterRender(page,view,{battle:page==='practice'&&mission?battle:null,effect:duelEffect,lesson:page==='learn'?lesson:null,
+    abelFunUI.afterRender(page,view,{battle:page==='practice'&&mission?battle:null,effect:duelEffect,lesson:page==='learn'?lesson:null,
       level:page==='practice'&&practice?topic(practice.topic)?.level:null,variable:page==='practice'&&practice?practice.variable:null});
     duelEffect='';
     villageCrafted='';
     if(page==='practice'&&mission){
-      if(practice.tactic)adventureUI.updateTactic(view.querySelector('#duel-tactic'),practice.tactic);
-      combatUI.bind(view.querySelector('.arena'),battle);
+      if(practice.tactic)abelAdventureUI.updateTactic(view.querySelector('#duel-tactic'),practice.tactic);
+      abelCombatUI.bind(view.querySelector('.arena'),battle);
       tickDuel();
     }
   }
@@ -1161,14 +1162,14 @@
     busy=true;say('');view.setAttribute('aria-busy','true');
     try{await task();}
     catch(error){console.error(error);say(errorText(error),true);}
-    finally{busy=false;view.setAttribute('aria-busy','false');if(state){render();void funUI.sync();}}
+    finally{busy=false;view.setAttribute('aria-busy','false');if(state){render();void abelFunUI.sync();}}
   }
   async function openPage(target){
     if(!renders[target])return;
     const previousLevel=headerContext().contentLevel;
     if(target==='progress'&&[1,2,3].includes(previousLevel))progressStage=previousLevel;
-    funUI.leave();
-    if(funUI.pages.has(target))await funUI.open(target);
+    abelFunUI.leave();
+    if(abelFunUI.pages.has(target))await abelFunUI.open(target);
     page=target;
     if(target==='learn'){lesson=null;level=0;universityQuery='';}
     if(target==='practice'&&mission){
@@ -1225,7 +1226,7 @@
     const resolved=battle.event&&(previousBattle?.exercise.id!==battle.exercise.id||!previousBattle.event);
     if(resolved){
       duelEffect=battle.event;
-      funUI.duel(battle);
+      abelFunUI.duel(battle);
     }
     practice=battle.exercise;grade=battle.grade;hint=battle.hint;mission=true;page='practice';
     if(resolved)await refresh();
@@ -1262,7 +1263,7 @@
     if(mission)return playAdventure('answer',battle.target,answer);
     const prior=topic(practice.topic).mastered;
     grade=await call('grade',{id:practice.id,answer});await refresh();
-    if(!grade.invalid)funAudio.play(grade.correct?'correct':'wrong');
+    if(!grade.invalid)abelFunAudio.play(grade.correct?'correct':'wrong');
     if(!mission&&!prior&&topic(practice.topic).mastered)say('Tema dominado.');
   }
   async function showExam(){
@@ -1392,7 +1393,7 @@
     }
     const button=event.target.closest('button');
     if(!button||!state||!api)return;
-    if(button.dataset.fun)return void run(()=>funUI.action(button.dataset.fun));
+    if(button.dataset.fun)return void run(()=>abelFunUI.action(button.dataset.fun));
     if(button.dataset.calcKey){if(!busy)pressCalculatorKey(button);return;}
     if(button.dataset.combatMove)return void run(()=>playAdventure('move',battle.target,undefined,button.dataset.combatMove));
     if(button.dataset.page==='graph'||button.dataset.graph!==undefined){
@@ -1618,7 +1619,7 @@
     if(input.id==='teacher-topic-search'){teacherSearch=input.value;filterTeacherTopics();}
     if(mission&&input.form?.id==='duel-tactic'){
       tacticPosition=Number(input.value);
-      adventureUI.updateTactic(input.form,practice.tactic);
+      abelAdventureUI.updateTactic(input.form,practice.tactic);
     }
     if(mission&&input.form?.id==='practice-answer')duelAnswer=input.value;
     if(input.form?.id==='solver-form')updateCalculator(input);
@@ -1676,7 +1677,7 @@
     event.preventDefault();
     const formNode=event.target,fields=Object.fromEntries(new FormData(formNode)),submitter=event.submitter;
     void run(async()=>{
-      if(formNode.dataset.funForm)return funUI.submit(formNode.dataset.funForm,fields,submitter);
+      if(formNode.dataset.funForm)return abelFunUI.submit(formNode.dataset.funForm,fields,submitter);
       switch(formNode.id){
         case 'solver-form':
           solver=fields;solution=await call('solve',fields);solved=await call('solved');
@@ -1704,7 +1705,7 @@
         case 'practice-answer':
           await checkPractice(fields.answer);break;
         case 'duel-tactic':
-          await checkPractice(adventureUI.tacticAnswer(practice.tactic,fields.position));break;
+          await checkPractice(abelAdventureUI.tacticAnswer(practice.tactic,fields.position));break;
         case 'exam-config': {
           const {scope,scopeId,minutes,count,difficulty}=fields;
           const options={scope,scopeId,minutes,count,difficulty};
@@ -1744,10 +1745,10 @@
   setInterval(()=>{
     if(api&&state&&document.hasFocus()&&!document.hidden&&['learn','practice','exams','teacher','solver','labs','notebook'].includes(page))void call('study',{seconds:15}).catch(()=>{});
   },15000);
-  funUI.init({call,run,say,esc,exerciseText,getState:()=>state,getViewContext:headerContext,refresh,openPage,
+  abelFunUI.init({call,run,say,esc,exerciseText,getState:()=>state,getViewContext:headerContext,refresh,openPage,
     resetProfile:()=>{if(typeof resetProfileViews==='function')resetProfileViews();},
     solve:async problem=>{solver={...solver,problem,operation:'auto',argument:''};solution=await call('solve',solver);solved=await call('solved');page='solver';},
     openGrade:(stage,grade)=>{level=stage;unit=grade;lesson=null;page='learn';window.scrollTo(0,0);}});
-  if(api)void run(async()=>{await refresh();solver.variable=state.profile.variable;funUI.ready();});
+  if(api)void run(async()=>{await refresh();solver.variable=state.profile.variable;abelFunUI.ready();});
   else view.innerHTML=heading('MathPath','Abre la aplicación de escritorio con Abrir-MathPath.cmd para usar el motor y guardar el progreso.');
 })();

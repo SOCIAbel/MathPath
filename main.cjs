@@ -1,3 +1,4 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 const { app, BrowserWindow, ipcMain, dialog, safeStorage, shell } = require('electron');
 const fs = require('node:fs/promises');
 const path = require('node:path');
@@ -424,7 +425,7 @@ else {
           if(Object.keys(state.adventureGuide.heroAttacks).length!==4||roster.some(rival=>rival.attacks.length<4))
             throw Error('Cuatro ataques por combatiente');
           // Every school lesson has a curated YouTube video.
-          if(state.topics.some(topic=>topic.level<3&&!youtubeLessons[topic.id]))throw Error('Lecciones de YouTube del catálogo escolar');
+          if(state.topics.some(topic=>topic.level<3&&!abelYoutubeLessons[topic.id]))throw Error('Lecciones de YouTube del catálogo escolar');
           if(state.gradeBosses.length!==11||state.gradeBosses.some(boss=>!boss.intro||!boss.victory))throw Error('Historia y jefes por grado');
           if(state.levels.map(level=>level.title).join(',')!=='Primaria,Secundaria,Universitario')throw Error('Mapa de niveles');
           (await waitFor('[data-page="progress"]')).click();
@@ -540,7 +541,7 @@ else {
           const answerForm=await waitFor('#practice-answer');
           // Voice and scan buttons sit under the answer; without AI they explain what is missing.
           if(!['voice','camera','file','board'].every(kind=>answerForm.querySelector('[data-capture="'+kind+'"]')))throw Error('Botones de dictado y escaneo');
-          if(answerCapture.normalize('x⁴ + 3·x + C')!=='x^4 + 3*x + C')throw Error('Normalización de la respuesta');
+          if(abelAnswerCapture.normalize('x⁴ + 3·x + C')!=='x^4 + 3*x + C')throw Error('Normalización de la respuesta');
           // Offline scan: draw a formula and read it back without any AI configured.
           const sheet=document.createElement('canvas');sheet.width=700;sheet.height=200;
           const pen=sheet.getContext('2d');pen.fillStyle='#fff';pen.fillRect(0,0,700,200);pen.fillStyle='#1d2633';
@@ -560,7 +561,7 @@ else {
           (await waitFor('[data-action="teacher-topics"]')).click();
           (await waitFor('[data-teacher-topic="integrales"]')).click();
           await waitFor('.teacher-lesson [data-lesson-video="integrales"]');
-          const integralVideo=await waitFor('.teacher-lesson [data-video="'+youtubeLessons.integrales[0]+'"]');
+          const integralVideo=await waitFor('.teacher-lesson [data-video="'+abelYoutubeLessons.integrales[0]+'"]');
           if(!await api.call('openVideo',{id:integralVideo.dataset.video}))throw Error('Lección de YouTube de integrales');
           (await waitFor('[data-page="solver"]')).click();
           const form=await waitFor('#solver-form');

@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Offline acceptance checks for the MathPath desktop backend."""
 import random
 import sys
@@ -8,14 +9,14 @@ from pathlib import Path
 BASE = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE / 'vendor'))
 from curriculum import TOPICS, DIFFICULTIES, LEVELS, exercise_for
-from engine import InputError, solve_problem, verify_answer
-from learning import LearningService, math_preview
+from engine import AbelInputError, solve_problem, verify_answer
+from learning import AbelLearningService, math_preview
 
 
 def expect_error(action):
     try:
         action()
-    except InputError:
+    except AbelInputError:
         return
     raise AssertionError('Se esperaba un error de validación')
 
@@ -54,7 +55,7 @@ expect_error(lambda: solve_problem('1/x', 'limit', 'x', '0'))
 scratch = BASE / '.qa'
 scratch.mkdir(exist_ok=True)
 folder = Path(tempfile.mkdtemp(prefix='check-', dir=scratch))
-service = LearningService(folder / 'student.sqlite')
+service = AbelLearningService(folder / 'student.sqlite')
 assert [level[0] for level in LEVELS] == ['Primaria','Secundaria','Universitario']
 assert [len(level[2]) for level in LEVELS[:2]] == [6,5]
 assert service.status()['total'] == len(TOPICS)

@@ -1,16 +1,19 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """JSON-line bridge between the desktop process and the offline math service."""
 import json
 import sys
 import traceback
 from pathlib import Path
 
+MATHPATH_AUTOR = 'Abel Josué Colquehuanca Humpiri'
+
 sys.path.insert(0, str(Path(__file__).resolve().parent/'vendor'))
-from learning import LearningService, math_preview
+from learning import AbelLearningService, math_preview
 from academic import matrix_step
-from engine import InputError, exercise_formula
+from engine import AbelInputError, exercise_formula
 from graphing import sample_graph
 
-service=LearningService(sys.argv[1])
+service=AbelLearningService(sys.argv[1])
 
 
 def preview(args):
@@ -60,7 +63,7 @@ def dispatch(name,args):
         'scan':lambda:__import__('local_ai').scan_answer(args['path'])
     }
     if name not in handlers:
-        raise InputError('Operación de escritorio no disponible.')
+        raise AbelInputError('Operación de escritorio no disponible.')
     return handlers[name]()
 
 
@@ -68,14 +71,14 @@ for raw in sys.stdin:
     request={}
     try:
         if len(raw)>180000:
-            raise InputError('La solicitud supera el tamaño permitido.')
+            raise AbelInputError('La solicitud supera el tamaño permitido.')
         request=json.loads(raw)
         if len(raw)>18000 and request.get('name')!='notebook':
-            raise InputError('La solicitud supera el tamaño permitido.')
+            raise AbelInputError('La solicitud supera el tamaño permitido.')
         with service.db:
             result=dispatch(request['name'],request.get('args') or {})
         response={'id':request['id'],'result':result}
-    except (InputError, KeyError, TypeError, NotImplementedError, ValueError) as error:
+    except (AbelInputError, KeyError, TypeError, NotImplementedError, ValueError) as error:
         response={'id':request.get('id'),'error':str(error) or 'El motor no admite esta operación con los datos indicados.'}
     except Exception:
         traceback.print_exc(file=sys.stderr)

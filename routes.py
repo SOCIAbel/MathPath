@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Stage and grade routes, adapted from Peru's school curriculum and PUCP Ciencias."""
 
 AREAS = ('Números', 'Patrones y álgebra', 'Geometría y medida', 'Datos y azar')

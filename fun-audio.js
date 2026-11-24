@@ -1,7 +1,8 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
 // Synthesized sound effects and chiptune music. No audio files are needed.
-const funAudio=(()=>{
+const abelFunAudio=(()=>{
   let context=null,master=null,musicGain=null,musicTimer=null,musicTheme='',step=0;
   const read=(key,fallback)=>{try{const value=localStorage.getItem(key);return value===null?fallback:value;}catch{return fallback;}};
   const write=(key,value)=>{try{localStorage.setItem(key,value);}catch{}};

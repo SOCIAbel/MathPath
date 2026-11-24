@@ -1,3 +1,4 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 /* global AudioWorkletProcessor, registerProcessor, sampleRate */
 "use strict";
 
@@ -7,7 +8,7 @@ const VOICE_MAX_GAIN = 4;
 const VOICE_GAIN_FLOOR = 0.0015;
 const VOICE_TARGET_RMS = 0.035;
 
-class MathPathVoiceCapture extends AudioWorkletProcessor {
+class AbelVoiceCapture extends AudioWorkletProcessor {
   constructor() {
     super();
     this.active = true;
@@ -135,4 +136,4 @@ class MathPathVoiceCapture extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor("mathpath-voice-capture", MathPathVoiceCapture);
+registerProcessor("mathpath-voice-capture", AbelVoiceCapture);

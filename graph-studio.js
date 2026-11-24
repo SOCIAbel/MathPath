@@ -1,3 +1,4 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
 const studioColors=['#6655c9','#197aaa','#c45948','#24825c','#b28124','#9a53ad','#388b8f','#bd6383'];
@@ -95,8 +96,8 @@ function studioMarkup(){
       '<input name="xmin" type="number"><input name="xmax" type="number"><input name="ymin" type="number"><input name="ymax" type="number"></form>';
 }
 
-const LegacyGraphWorkspace=GraphWorkspace;
-GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
+const AbelLegacyGraphWorkspace=AbelGraphWorkspace;
+AbelGraphWorkspace=class GraphStudio extends AbelLegacyGraphWorkspace {
   constructor(dialog,call){
     dialog.innerHTML=studioMarkup();
     dialog.classList.add('graph-studio');
@@ -251,7 +252,7 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     const focused=document.activeElement;
     const draft=focused?.matches('.studio-function-input')&&this.objectList.contains(focused)?
       {id:focused.dataset.entryEdit,value:focused.value,start:focused.selectionStart,end:focused.selectionEnd}:null;
-    const cache=StudioGeometry.resolve(this.geometry);
+    const cache=AbelStudioGeometry.resolve(this.geometry);
     const functions=this.entries[this.mode].map(entry=>{
       const result=this.active.studioData?.find(result=>result.id===entry.id);
       return '<div class="studio-object'+(result?.error?' has-error':'')+'" data-entry-id="'+entry.id+'">'+
@@ -267,7 +268,7 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
       '<button type="button" class="studio-visibility" style="--object-color:'+item.color+'" data-studio-visible="'+item.id+
       '" aria-pressed="'+item.visible+'" aria-label="'+(item.visible?'Ocultar ':'Mostrar ')+studioEscape(item.label)+'"></button>'+
       '<button type="button" class="studio-object-select" data-studio-select="'+item.id+'"><strong>'+studioEscape(item.label)+'</strong>'+
-      '<small>'+studioEscape(StudioGeometry.description(cache.get(item.id)))+'</small></button>'+
+      '<small>'+studioEscape(AbelStudioGeometry.description(cache.get(item.id)))+'</small></button>'+
       '<input type="color" value="'+item.color+'" data-studio-color="'+item.id+'" aria-label="Color de '+studioEscape(item.label)+'">'+
       '<button type="button" class="studio-remove" data-studio-remove="'+item.id+'" aria-label="Eliminar '+studioEscape(item.label)+'">×</button></div>').join(''):'';
     this.objectList.innerHTML=functions+geometry;
@@ -352,7 +353,7 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     if(button.dataset.studioRemove){
       this.remember();
       this.entries[this.mode]=this.entries[this.mode].filter(item=>item.id!==button.dataset.studioRemove);
-      this.geometry=StudioGeometry.remove(this.geometry,button.dataset.studioRemove);
+      this.geometry=AbelStudioGeometry.remove(this.geometry,button.dataset.studioRemove);
       this.selected=null;this.renderObjects();this.refreshView();return;
     }
     if(button.dataset.studioSelect){
@@ -531,7 +532,7 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
   addGeometry(type,refs,extras={},record=true){
     if(this.geometry.length>=40)throw Error('Puedes crear hasta 40 objetos geométricos.');
     if(record)this.remember();
-    const point=StudioGeometry.pointKinds.has(type);
+    const point=AbelStudioGeometry.pointKinds.has(type);
     let label=extras.label;
     if(!label){
       const used=new Set(this.geometry.map(item=>item.label));
@@ -563,8 +564,8 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     if(event.button!==0)return;
     event.stopImmediatePropagation();
     this.canvas.focus({preventScroll:true});
-    const pixel=this.eventPixel(event),cache=StudioGeometry.resolve(this.geometry);
-    const hit=StudioGeometry.hit(this.geometry,cache,pixel,point=>this.project(point),this.tool==='intersection');
+    const pixel=this.eventPixel(event),cache=AbelStudioGeometry.resolve(this.geometry);
+    const hit=AbelStudioGeometry.hit(this.geometry,cache,pixel,point=>this.project(point),this.tool==='intersection');
     if(this.tool==='move'){
       this.selected=hit?.id||null;
       if(hit?.type==='point')this.editDrag={id:event.pointerId,item:hit,before:this.snapshot()};
@@ -574,18 +575,18 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     }
     try{
       if(this.tool==='intersection'){
-        if(!hit||!StudioGeometry.lineKinds.has(hit.type)&&hit.type!=='circle')return;
+        if(!hit||!AbelStudioGeometry.lineKinds.has(hit.type)&&hit.type!=='circle')return;
         if(this.pending.includes(hit.id))return;
         this.pending.push(hit.id);
         if(this.pending.length===2){
-          const points=StudioGeometry.intersections(...this.pending.map(id=>cache.get(id)));
+          const points=AbelStudioGeometry.intersections(...this.pending.map(id=>cache.get(id)));
           if(!points.length){this.setStatus('Los objetos elegidos no tienen intersecciones aisladas.',true);this.pending=[];return;}
           this.remember();
           points.forEach((_,branch)=>this.addGeometry('intersection',this.pending,{branch},false));
           this.pending=[];
         }
       }else{
-        const existing=hit&&StudioGeometry.pointKinds.has(hit.type)?hit:null;
+        const existing=hit&&AbelStudioGeometry.pointKinds.has(hit.type)?hit:null;
         if(this.tool==='polygon'&&existing?.id===this.pending[0]&&this.pending.length>=3){this.finishPolygon();return;}
         const point=existing||this.addGeometry('point',[],{position:this.unproject(pixel)});
         if(this.tool==='point'){this.renderObjects();this.requestPaint();return;}
@@ -748,13 +749,13 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
         for(const [first,last] of result?.segments||[]){ctx.moveTo(...this.project(first));ctx.lineTo(...this.project(last));}
         ctx.stroke();
       });
-      StudioGeometry.draw(ctx,this.geometry,StudioGeometry.resolve(this.geometry),point=>this.project(point),this.selected,this.pending);
+      AbelStudioGeometry.draw(ctx,this.geometry,AbelStudioGeometry.resolve(this.geometry),point=>this.project(point),this.selected,this.pending);
     }
     ctx.restore();
   }
   fitConstruction(){
     if(this.mode===3){this.reset();return;}
-    const points=[...StudioGeometry.resolve(this.geometry).values()].filter(Boolean).flatMap(value=>
+    const points=[...AbelStudioGeometry.resolve(this.geometry).values()].filter(Boolean).flatMap(value=>
       value.position?[value.position]:value.center?[[value.center[0]-value.radius,value.center[1]-value.radius],
         [value.center[0]+value.radius,value.center[1]+value.radius]]:value.points||[]);
     for(const entry of this.active.studioData||[]){
@@ -955,7 +956,7 @@ GraphWorkspace=class GraphStudio extends LegacyGraphWorkspace {
     const valid=this.perspective==='probability'?Boolean(this.probData):this.perspective==='sheet'?Boolean(this.sheetPoints?.length):
       this.mode===3?this.active.data?.hasValues:
       this.entries[2].some(entry=>entry.visible&&this.active.studioData?.find(result=>result.id===entry.id)?.hasValues)||
-        this.geometry.some(item=>item.visible&&StudioGeometry.resolve(this.geometry).get(item.id));
+        this.geometry.some(item=>item.visible&&AbelStudioGeometry.resolve(this.geometry).get(item.id));
     if(!valid||this.perspective==='cas')return null;
     this.paint();
     const canvas=document.createElement('canvas'),scale=Math.min(1,480/this.canvas.width,320/this.canvas.height);

@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Deterministic mathematics. User input is interpreted as a small AST, never evaluated."""
 import ast
 import html
@@ -30,15 +31,15 @@ MATRIX_CALLS = {'det', 'inversa', 'transpuesta', 'matmul', 'matsuma', 'punto', '
 STATS_CALLS = {'media', 'mediana', 'moda', 'varianza', 'desviacion', 'probabilidad'}
 
 
-class InputError(ValueError):
+class AbelInputError(ValueError):
     pass
 
 
-class ExpressionParser:
+class AbelExpressionParser:
     def __init__(self, text):
         raw = str(text).strip()
         if not raw or len(raw) > 450:
-            raise InputError('Escribe una expresión de hasta 450 caracteres.')
+            raise AbelInputError('Escribe una expresión de hasta 450 caracteres.')
         self.source = (raw.replace('^', '**').replace('−', '-').replace('×', '*')
                        .replace('·', '*').replace('÷', '/').replace('π', 'pi').replace('∞', 'oo')
                        .replace('√(', 'sqrt('))
@@ -49,16 +50,16 @@ class ExpressionParser:
         try:
             self.root = ast.parse(self.source, mode='eval').body
         except (SyntaxError, RecursionError) as error:
-            raise InputError('Revisa los paréntesis y la sintaxis de la expresión.') from error
+            raise AbelInputError('Revisa los paréntesis y la sintaxis de la expresión.') from error
         if sum(1 for _ in ast.walk(self.root)) > 140:
-            raise InputError('La expresión tiene demasiadas operaciones para una sola consulta.')
+            raise AbelInputError('La expresión tiene demasiadas operaciones para una sola consulta.')
 
     def parse(self, node=None, symbolic_function=False):
         node = self.root if node is None else node
         if isinstance(node, ast.Constant) and type(node.value) in (int, float):
             token = ast.get_source_segment(self.source, node)
             if not token or not re.fullmatch(r'(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d{1,2})?', token) or len(token) > 22:
-                raise InputError('Usa números en notación decimal de longitud razonable.')
+                raise AbelInputError('Usa números en notación decimal de longitud razonable.')
             return s.Rational(token)
         if isinstance(node, ast.Name):
             if node.id in SYMBOLS:
@@ -67,7 +68,7 @@ class ExpressionParser:
                 return CONSTANTS[node.id]
         if isinstance(node, (ast.List, ast.Tuple)):
             if len(node.elts) > 24:
-                raise InputError('Cada lista admite hasta 24 valores.')
+                raise AbelInputError('Cada lista admite hasta 24 valores.')
             return [self.parse(item, symbolic_function) for item in node.elts]
         if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
             value = self.scalar(node.operand, symbolic_function)
@@ -82,15 +83,15 @@ class ExpressionParser:
                 return a * b
             if isinstance(node.op, ast.Div):
                 if b == 0:
-                    raise InputError('La división entre cero está indefinida.')
+                    raise AbelInputError('La división entre cero está indefinida.')
                 return a / b
             if isinstance(node.op, ast.Pow):
                 if b.is_number and (b.is_real is not True or abs(b) > 120):
-                    raise InputError('En esta versión los exponentes numéricos van de −120 a 120.')
+                    raise AbelInputError('En esta versión los exponentes numéricos van de −120 a 120.')
                 if a.is_Rational and max(int(abs(a.p)).bit_length(), int(a.q).bit_length()) > 12000:
-                    raise InputError('La potencia produciría un número demasiado grande.')
+                    raise AbelInputError('La potencia produciría un número demasiado grande.')
                 if a == 0 and b.is_negative:
-                    raise InputError('Cero elevado a un exponente negativo está indefinido.')
+                    raise AbelInputError('Cero elevado a un exponente negativo está indefinido.')
                 return a**b
         if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and not node.keywords:
             name = node.func.id
@@ -98,19 +99,19 @@ class ExpressionParser:
                 return FUNCTIONS[name](*(self.scalar(arg, symbolic_function) for arg in node.args))
             if symbolic_function and name == 'y' and len(node.args) == 1:
                 return s.Function('y')(self.scalar(node.args[0], True))
-        raise InputError('Símbolo u operación no admitidos. Usa la guía del editor para ver la sintaxis.')
+        raise AbelInputError('Símbolo u operación no admitidos. Usa la guía del editor para ver la sintaxis.')
 
     def scalar(self, node=None, symbolic_function=False):
         result = self.parse(node, symbolic_function)
         if not isinstance(result, s.Expr):
-            raise InputError('Se esperaba una expresión escalar.')
+            raise AbelInputError('Se esperaba una expresión escalar.')
         if result.has(s.zoo, s.nan):
-            raise InputError('La expresión no está definida para estos valores.')
+            raise AbelInputError('La expresión no está definida para estos valores.')
         return result
 
     def call(self):
         if not isinstance(self.root, ast.Call) or not isinstance(self.root.func, ast.Name) or self.root.keywords:
-            raise InputError('Escribe una operación con paréntesis, como media([2, 4, 6]).')
+            raise AbelInputError('Escribe una operación con paréntesis, como media([2, 4, 6]).')
         return self.root.func.id, [self.parse(arg) for arg in self.root.args]
 
     def domain(self, variable):
@@ -148,7 +149,7 @@ class ExpressionParser:
 
 
 @dataclass
-class Solution:
+class AbelSolution:
     problem: str
     kind: str
     value: object
@@ -192,7 +193,7 @@ def expression_markup(problem):
     if not problem:
         return ''
     if len(problem)>600:
-        raise InputError('El problema supera el límite del editor.')
+        raise AbelInputError('El problema supera el límite del editor.')
     def group(body):
         return '<mrow><mo>(</mo>'+body+'<mo>)</mo></mrow>'
 
@@ -223,7 +224,7 @@ def expression_markup(problem):
                 right=group(right)
             symbol={ast.Add:'+',ast.Sub:'−',ast.Mult:'·'}.get(type(node.op))
             if not symbol:
-                raise InputError('Operación no reconocida en la vista previa.')
+                raise AbelInputError('Operación no reconocida en la vista previa.')
             return '<mrow>'+left+'<mo>'+symbol+'</mo>'+right+'</mrow>'
         if isinstance(node,(ast.List,ast.Tuple)):
             return '<mrow><mo>[</mo>'+'<mo>,</mo>'.join(render(item,parser) for item in node.elts)+'<mo>]</mo></mrow>'
@@ -231,12 +232,12 @@ def expression_markup(problem):
             if node.func.id=='sqrt' and len(node.args)==1:
                 return '<msqrt>'+render(node.args[0],parser)+'</msqrt>'
             return '<mrow><mi>'+html.escape(node.func.id)+'</mi><mo>(</mo>'+'<mo>,</mo>'.join(render(item,parser) for item in node.args)+'<mo>)</mo></mrow>'
-        raise InputError('Sintaxis no reconocida en la vista previa.')
+        raise AbelInputError('Sintaxis no reconocida en la vista previa.')
     if RELATION.search(problem):
         left,op,right=sides(problem)
         body=render(left.root,left)+'<mo>'+html.escape({'<=':'≤','>=':'≥','!=':'≠'}.get(op,op))+'</mo>'+render(right.root,right)
     else:
-        parser=ExpressionParser(problem)
+        parser=AbelExpressionParser(problem)
         body=render(parser.root,parser)
     return '<mrow>'+body+'</mrow>'
 
@@ -270,7 +271,7 @@ def exercise_formula(item):
             rows=''.join('<mtr><mtd>'+expression_markup(line)+'</mtd></mtr>' for line in problem.split(';'))
             return math_markup('<mrow><mo>{</mo><mtable columnalign="left">'+rows+'</mtable></mrow>')
         if operation=='matrix':
-            name,args=ExpressionParser(problem).call()
+            name,args=AbelExpressionParser(problem).call()
             if name in {'matsuma','matmul','punto'}:
                 matrices=[s.Tuple(*arg) if name=='punto' else s.Matrix(arg) for arg in args]
                 separator={'matsuma':'+','matmul':'×','punto':'·'}[name]
@@ -301,12 +302,12 @@ def exercise_formula(item):
             operator='<mo>∂</mo>' if partial else '<mi mathvariant="normal">d</mi>'
             return math_markup('<mrow><mfrac>'+operator+'<mrow>'+operator+symbol+'</mrow></mfrac>'+grouped+'</mrow>')
         if item.get('topic')=='logaritmos':
-            _,args=ExpressionParser(problem).call()
+            _,args=AbelExpressionParser(problem).call()
             number,base=args
             return math_markup('<mrow><msub><mi mathvariant="normal">log</mi>'+presentation_body(base)+
                                '</msub><mo>(</mo>'+presentation_body(number)+'<mo>)</mo></mrow>')
         if item.get('topic') in {'angulos','analitica','mcdmcm'}:
-            _,args=ExpressionParser(problem).call()
+            _,args=AbelExpressionParser(problem).call()
             if item['topic']=='angulos':
                 return math_markup('<msup>'+presentation_body(args[0])+'<mo>°</mo></msup>')
             if item['topic']=='mcdmcm':
@@ -316,7 +317,7 @@ def exercise_formula(item):
         if problem==readable and operation in {'geometry','statistics'}:
             return ''
         return math_markup(expression_markup(readable))
-    except (InputError,TypeError,ValueError,NotImplementedError):
+    except (AbelInputError,TypeError,ValueError,NotImplementedError):
         return ''
 
 
@@ -334,11 +335,11 @@ def equation_formula(left, right):
 def relation_steps(before, after):
     try:
         return math_markup(expression_markup(before)+'<mo>⇒</mo>'+expression_markup(after))
-    except InputError:
+    except AbelInputError:
         return ''
 
 
-class StepGenerator:
+class AbelStepGenerator:
     @staticmethod
     def step(rule, explanation, value=None, text=None, formula=None):
         return {
@@ -579,7 +580,7 @@ class StepGenerator:
         return []
 
 
-class ResultValidator:
+class AbelResultValidator:
     @staticmethod
     def equivalent(a, b):
         if isinstance(a,s.MatrixBase) or isinstance(b,s.MatrixBase):
@@ -587,7 +588,7 @@ class ResultValidator:
         if isinstance(a,s.Set) or isinstance(b,s.Set):
             return isinstance(a,s.Set) and isinstance(b,s.Set) and (a == b or a.symmetric_difference(b) == s.S.EmptySet)
         if isinstance(a,(tuple,s.Tuple)) or isinstance(b,(tuple,s.Tuple)):
-            return isinstance(a,(tuple,s.Tuple)) and isinstance(b,(tuple,s.Tuple)) and len(a)==len(b) and all(ResultValidator.equivalent(x,y) for x,y in zip(a,b))
+            return isinstance(a,(tuple,s.Tuple)) and isinstance(b,(tuple,s.Tuple)) and len(a)==len(b) and all(AbelResultValidator.equivalent(x,y) for x,y in zip(a,b))
         if isinstance(a,(bool,s.logic.boolalg.BooleanAtom)) or isinstance(b,(bool,s.logic.boolalg.BooleanAtom)):
             return a == b
         return a == b or s.simplify(a-b)==0
@@ -605,20 +606,20 @@ class ResultValidator:
         return True
 
 
-class ArithmeticEngine:
+class AbelArithmeticEngine:
     @staticmethod
     def solve(problem):
-        parser = ExpressionParser(problem)
+        parser = AbelExpressionParser(problem)
         if isinstance(parser.root,ast.Call) and isinstance(parser.root.func,ast.Name) and parser.root.func.id in ARITHMETIC_CALLS:
             name,args=parser.call()
             n = 3 if name=='proporcion' else 1 if name=='primo' else 2
             if len(args)!=n or any(not isinstance(v,s.Expr) or v.is_real is not True or v.is_finite is not True for v in args):
-                raise InputError('La operación requiere '+str(n)+' valores reales finitos.')
+                raise AbelInputError('La operación requiere '+str(n)+' valores reales finitos.')
             if name in {'mcd','mcm','primo'} and any(value.is_Integer is not True for value in args):
-                raise InputError('Esta operación requiere enteros.')
+                raise AbelInputError('Esta operación requiere enteros.')
             if name=='primo':
                 if abs(args[0])>10**12:
-                    raise InputError('Usa un entero de hasta 12 cifras para comprobar primalidad.')
+                    raise AbelInputError('Usa un entero de hasta 12 cifras para comprobar primalidad.')
                 value=s.true if s.isprime(args[0]) else s.false
                 rule='Primalidad'
                 explanation='Un primo es un entero mayor que 1 con exactamente dos divisores positivos.'
@@ -630,15 +631,15 @@ class ArithmeticEngine:
                 while y and len(steps)<80:
                     q,r=divmod(x,y)
                     if len(steps)<9:
-                        steps.append(StepGenerator.step('Algoritmo de Euclides','Sustituye el par por el divisor y el resto.',text=f'{x} = {q} × {y} + {r}'))
+                        steps.append(AbelStepGenerator.step('Algoritmo de Euclides','Sustituye el par por el divisor y el resto.',text=f'{x} = {q} × {y} + {r}'))
                     x,y=y,r
                     if len(steps)>=9:
                         break
                 gcd=s.gcd(a,b)
                 value=gcd if name=='mcd' else s.lcm(a,b)
                 if name=='mcm':
-                    steps.append(StepGenerator.step('Relación entre MCD y MCM','Cuando ambos valores son distintos de cero, divide su producto por el MCD. Si alguno es cero, el MCM es cero.',value))
-                return Solution(problem,'Aritmética',value,'El MCD divide a los dos enteros. El MCM es un múltiplo común mínimo.',
+                    steps.append(AbelStepGenerator.step('Relación entre MCD y MCM','Cuando ambos valores son distintos de cero, divide su producto por el MCD. Si alguno es cero, el MCM es cero.',value))
+                return AbelSolution(problem,'Aritmética',value,'El MCD divide a los dos enteros. El MCM es un múltiplo común mínimo.',
                                 f'MCD calculado: {gcd}. Se comprobó con el algoritmo de enteros.',steps,verified=True)
             elif name=='porcentaje':
                 p,base=args
@@ -649,24 +650,24 @@ class ArithmeticEngine:
             else:
                 a,b,c=args
                 if a==0:
-                    raise InputError('La primera cantidad de la proporción debe ser distinta de cero.')
+                    raise AbelInputError('La primera cantidad de la proporción debe ser distinta de cero.')
                 value=b*c/a
                 rule='Proporción directa'
                 explanation='Si a corresponde a b, la cantidad que corresponde a c se obtiene con b × c ÷ a.'
                 check='Se comprobó la igualdad de los productos cruzados.'
-            return Solution(problem,'Aritmética',value,explanation,check,[StepGenerator.step(rule,explanation,value)])
+            return AbelSolution(problem,'Aritmética',value,explanation,check,[AbelStepGenerator.step(rule,explanation,value)])
         expr=parser.scalar()
         if expr.free_symbols:
-            raise InputError('Para calcular un valor, sustituye las variables o elige una operación de álgebra.')
-        steps=StepGenerator.arithmetic(parser)
-        return Solution(problem,'Aritmética',expr,'Resuelve primero los grupos internos, luego potencias y productos o divisiones, y al final sumas y restas.',
+            raise AbelInputError('Para calcular un valor, sustituye las variables o elige una operación de álgebra.')
+        steps=AbelStepGenerator.arithmetic(parser)
+        return AbelSolution(problem,'Aritmética',expr,'Resuelve primero los grupos internos, luego potencias y productos o divisiones, y al final sumas y restas.',
                         'El cálculo utiliza valores exactos cuando es posible. Las fracciones conservan numerador y denominador.',steps)
 
 
-class AlgebraEngine:
+class AbelAlgebraEngine:
     @staticmethod
     def solve(problem, operation):
-        expr=ExpressionParser(problem).scalar()
+        expr=AbelExpressionParser(problem).scalar()
         functions={'simplify':s.simplify,'expand':s.expand,'factor':s.factor}
         rules={
             'simplify':('Reducción algebraica','Combina términos equivalentes y reduce la expresión en su dominio original.'),
@@ -675,8 +676,8 @@ class AlgebraEngine:
         }
         value=functions[operation](expr)
         rule,explanation=rules[operation]
-        ok=ResultValidator.equivalent(value,expr)
-        steps=[StepGenerator.step(rule,explanation,value)] if ok and operation!='factor' else []
+        ok=AbelResultValidator.equivalent(value,expr)
+        steps=[AbelStepGenerator.step(rule,explanation,value)] if ok and operation!='factor' else []
         if operation=='factor' and ok and expr.is_polynomial() and len(expr.free_symbols)==1:
             variable=next(iter(expr.free_symbols))
             coefficients=s.Poly(expr,variable).all_coeffs()
@@ -685,10 +686,10 @@ class AlgebraEngine:
                 roots=s.roots(expr,variable)
                 if sum(roots.values())==2 and all(root.is_Integer for root in roots):
                     factors=[-root for root,multiplicity in roots.items() for _ in range(multiplicity)]
-                    steps=[StepGenerator.step('Buscar dos números','Para un trinomio mónico, busca dos números cuya suma sea el coeficiente lineal y cuyo producto sea el término independiente.',
+                    steps=[AbelStepGenerator.step('Buscar dos números','Para un trinomio mónico, busca dos números cuya suma sea el coeficiente lineal y cuyo producto sea el término independiente.',
                                                text=f'{factors[0]} + {factors[1]} = {b} · {factors[0]} × {factors[1]} = {c}'),
-                           StepGenerator.step('Escritura del producto','Construye los dos factores lineales.',value)]
-        return Solution(problem,'Álgebra',value,explanation,
+                           AbelStepGenerator.step('Escritura del producto','Construye los dos factores lineales.',value)]
+        return AbelSolution(problem,'Álgebra',value,explanation,
                         'La diferencia simbólica se reduce a cero. Se conservan las restricciones de la expresión original.' if ok else 'No se obtuvo una comprobación simbólica independiente.',
                         steps,verified=ok)
 
@@ -697,32 +698,32 @@ RELATION = re.compile(r'(<=|>=|!=|=|<|>|≤|≥)')
 def sides(problem):
     pieces=RELATION.split(problem)
     if len(pieces)!=3 or not pieces[0].strip() or not pieces[2].strip():
-        raise InputError('Escribe una sola relación, por ejemplo 2*x + 3 = 9.')
+        raise AbelInputError('Escribe una sola relación, por ejemplo 2*x + 3 = 9.')
     a,operator,b=pieces
-    return ExpressionParser(a),operator,ExpressionParser(b)
+    return AbelExpressionParser(a),operator,AbelExpressionParser(b)
 
 
-class EquationEngine:
+class AbelEquationEngine:
     @staticmethod
     def solve(problem, variable, operation):
         left,operator,right=sides(problem)
         a,b=left.scalar(),right.scalar()
         if (a.free_symbols|b.free_symbols)-{variable}:
-            raise InputError('Selecciona la variable que aparece en la relación o usa la opción Sistemas.')
+            raise AbelInputError('Selecciona la variable que aparece en la relación o usa la opción Sistemas.')
         domain=left.domain(variable)&right.domain(variable)
         expr=a-b
         data={'Variable':str(variable),'Dominio real':format_value(domain)}
-        steps=[StepGenerator.step('Restar el segundo miembro','Traslada todos los términos al primer miembro.',text=f'{format_value(expr)} {operator} 0')]
+        steps=[AbelStepGenerator.step('Restar el segundo miembro','Traslada todos los términos al primer miembro.',text=f'{format_value(expr)} {operator} 0')]
         if operator!='=':
             comparison={'<':s.Lt,'>':s.Gt,'<=':s.Le,'>=':s.Ge,'≤':s.Le,'≥':s.Ge,'!=':s.Ne}[operator]
             relation=comparison(expr,0,evaluate=False)
             value=s.solve_univariate_inequality(relation,variable,relational=False,domain=s.S.Reals)&domain
             if expr.is_polynomial(variable) and s.Poly(expr,variable).degree()==1:
                 slope,offset=s.Poly(expr,variable).all_coeffs()
-                steps.append(StepGenerator.step('Aislar la variable','Al dividir por un número negativo se invierte el sentido de la desigualdad.' if slope<0 else 'Al dividir por un número positivo se conserva el sentido de la desigualdad.',value))
+                steps.append(AbelStepGenerator.step('Aislar la variable','Al dividir por un número negativo se invierte el sentido de la desigualdad.' if slope<0 else 'Al dividir por un número positivo se conserva el sentido de la desigualdad.',value))
             else:
                 steps=[]
-            return Solution(problem,'Inecuación',value,'El resultado representa los valores reales que satisfacen la desigualdad.',
+            return AbelSolution(problem,'Inecuación',value,'El resultado representa los valores reales que satisfacen la desigualdad.',
                             'Se obtuvo el conjunto solución de la relación y se intersectó con el dominio original.',steps,data,False)
         value=s.solveset(expr,variable,domain=domain)
         if expr.is_polynomial(variable):
@@ -730,8 +731,8 @@ class EquationEngine:
             if polynomial.degree()==1:
                 slope,offset=polynomial.all_coeffs()
                 steps.extend([
-                    StepGenerator.step('Despeje','Resta el término independiente en ambos miembros.',s.Eq(slope*variable,-offset,evaluate=False)),
-                    StepGenerator.step('División','Divide ambos miembros por el coeficiente distinto de cero.',s.Eq(variable,-offset/slope,evaluate=False))
+                    AbelStepGenerator.step('Despeje','Resta el término independiente en ambos miembros.',s.Eq(slope*variable,-offset,evaluate=False)),
+                    AbelStepGenerator.step('División','Divide ambos miembros por el coeficiente distinto de cero.',s.Eq(variable,-offset/slope,evaluate=False))
                 ])
                 if a.is_polynomial(variable) and not b.has(variable) and s.Poly(a,variable).degree()==1 and a.subs(variable,0).is_real:
                     constant=a.subs(variable,0)
@@ -742,7 +743,7 @@ class EquationEngine:
                         n=format_value(abs(constant))
                         working=f'({format_value(a)}) {sign} {n} = {format_value(b)} {sign} {n}'
                         simplified=f'{term} = {target}'
-                        steps=[StepGenerator.step(f'{verb} {n} en ambos lados','Deja el término con la letra en el lado izquierdo.',
+                        steps=[AbelStepGenerator.step(f'{verb} {n} en ambos lados','Deja el término con la letra en el lado izquierdo.',
                                                   text=working+'  →  '+simplified,
                                                   formula=relation_steps(working,simplified))]
                     else:
@@ -752,33 +753,33 @@ class EquationEngine:
                         by=format_value(slope)
                         working=f'({term}) ÷ ({by}) = ({target}) ÷ ({by})'
                         simplified=f'{variable} = {answer}'
-                        steps.append(StepGenerator.step(f'Divide ambos lados entre {by}','Así queda sola la letra.',
+                        steps.append(AbelStepGenerator.step(f'Divide ambos lados entre {by}','Así queda sola la letra.',
                                                         text=f'{term} ÷ ({by}) = {target} ÷ ({by})  →  {variable} = {answer}',
                                                         formula=relation_steps(working,simplified)))
                     substituted=re.sub(r'\b'+str(variable)+r'\b',lambda _:f'({answer})',format_value(a))
                     working=f'{substituted} = {format_value(b)}'
                     simplified=f'{format_value(a.subs(variable,-offset/slope))} = {format_value(b)}'
-                    steps.append(StepGenerator.step('Prueba tu respuesta',f'Cambia {variable} por {answer} en la ecuación original.',
+                    steps.append(AbelStepGenerator.step('Prueba tu respuesta',f'Cambia {variable} por {answer} en la ecuación original.',
                                                     text=working+'  →  '+simplified,
                                                     formula=relation_steps(working,simplified)))
             elif polynomial.degree()==2:
                 q,p,r=polynomial.all_coeffs()
                 discriminant=p**2-4*q*r
-                steps.append(StepGenerator.step('Discriminante','Calcula b² − 4ac para determinar las raíces reales.',text=f'Δ = ({p})² − 4({q})({r}) = {format_value(discriminant)}'))
+                steps.append(AbelStepGenerator.step('Discriminante','Calcula b² − 4ac para determinar las raíces reales.',text=f'Δ = ({p})² − 4({q})({r}) = {format_value(discriminant)}'))
                 if discriminant>=0:
                     roots=[s.simplify((-p+sign*s.sqrt(discriminant))/(2*q)) for sign in (-1,1)]
-                    steps.append(StepGenerator.step('Fórmula cuadrática','Aplica x = (−b ± √Δ) / (2a) y conserva las raíces del dominio.',s.FiniteSet(*roots)&domain))
+                    steps.append(AbelStepGenerator.step('Fórmula cuadrática','Aplica x = (−b ± √Δ) / (2a) y conserva las raíces del dominio.',s.FiniteSet(*roots)&domain))
                 else:
-                    steps.append(StepGenerator.step('Discriminante negativo','La ecuación cuadrática no tiene raíces reales.',s.S.EmptySet))
+                    steps.append(AbelStepGenerator.step('Discriminante negativo','La ecuación cuadrática no tiene raíces reales.',s.S.EmptySet))
             else:
                 steps=[]
         else:
             steps=[]
-        ok=ResultValidator.finite_answers(value,[expr],[variable]) or (
+        ok=AbelResultValidator.finite_answers(value,[expr],[variable]) or (
             value==s.S.EmptySet and expr.is_polynomial(variable) and s.Poly(expr,variable).degree()==2
             and s.discriminant(expr,variable)<0
         )
-        return Solution(problem,'Trigonometría' if operation=='trig_equation' else 'Ecuación',value,
+        return AbelSolution(problem,'Trigonometría' if operation=='trig_equation' else 'Ecuación',value,
                         'Busca los valores del dominio para los que ambos miembros coinciden.',
                         'Las soluciones finitas se comprobaron en la ecuación y en el dominio.' if ok else 'El resultado es un conjunto simbólico. La comprobación independiente queda pendiente.',
                         steps,data,ok)
@@ -789,47 +790,47 @@ class EquationEngine:
         for relation in problem.split(';'):
             left,operator,right=sides(relation)
             if operator!='=':
-                raise InputError('Un sistema debe contener ecuaciones separadas por punto y coma.')
+                raise AbelInputError('Un sistema debe contener ecuaciones separadas por punto y coma.')
             for parser in (left,right):
                 if any(isinstance(node,ast.BinOp) and isinstance(node.op,ast.Div) and parser.scalar(node.right).free_symbols for node in ast.walk(parser.root)):
-                    raise InputError('Para sistemas usa ecuaciones polinómicas, sin variables en el denominador.')
+                    raise AbelInputError('Para sistemas usa ecuaciones polinómicas, sin variables en el denominador.')
             equations.append(left.scalar()-right.scalar())
         variables=sorted(set().union(*(eq.free_symbols for eq in equations)),key=str)
         if not 2<=len(equations)<=4 or not 2<=len(variables)<=4:
-            raise InputError('El sistema debe tener de 2 a 4 ecuaciones y de 2 a 4 variables.')
+            raise AbelInputError('El sistema debe tener de 2 a 4 ecuaciones y de 2 a 4 variables.')
         if not all(equation.is_polynomial(*variables) for equation in equations):
-            raise InputError('Escribe un sistema polinómico.')
+            raise AbelInputError('Escribe un sistema polinómico.')
         steps=[]
         try:
             matrix,constants=s.linear_eq_to_matrix(equations,variables)
             value=s.linsolve((matrix,constants),variables)
             if matrix.shape==(2,2) and matrix.det()!=0:
-                steps.append(StepGenerator.step('Forma matricial','Organiza los coeficientes en A y los términos independientes en b.',matrix))
+                steps.append(AbelStepGenerator.step('Forma matricial','Organiza los coeficientes en A y los términos independientes en b.',matrix))
                 determinant=matrix.det()
-                steps.append(StepGenerator.step('Determinante distinto de cero','La matriz tiene inversa y el sistema tiene una única solución.',determinant))
+                steps.append(AbelStepGenerator.step('Determinante distinto de cero','La matriz tiene inversa y el sistema tiene una única solución.',determinant))
                 for i,variable in enumerate(variables):
                     replaced=matrix.copy()
                     replaced[:,i]=constants
-                    steps.append(StepGenerator.step('Regla de Cramer','Divide el determinante con la columna reemplazada por det(A).',s.Eq(variable,replaced.det()/determinant,evaluate=False)))
+                    steps.append(AbelStepGenerator.step('Regla de Cramer','Divide el determinante con la columna reemplazada por det(A).',s.Eq(variable,replaced.det()/determinant,evaluate=False)))
         except NonlinearError:
             value=s.nonlinsolve(equations,variables)
         if isinstance(value,s.FiniteSet):
             value=s.FiniteSet(*(item for item in value if all(component.is_real is not False for component in item)))
-        ok=ResultValidator.finite_answers(value,equations,variables)
-        return Solution(problem,'Sistema de ecuaciones',value,'Las coordenadas siguen el orden de variables indicado.',
+        ok=AbelResultValidator.finite_answers(value,equations,variables)
+        return AbelSolution(problem,'Sistema de ecuaciones',value,'Las coordenadas siguen el orden de variables indicado.',
                         'Se sustituyeron las coordenadas en todas las ecuaciones.' if ok else 'La comprobación independiente no está disponible para este conjunto.',steps,
                         {'Variables':', '.join(map(str,variables))},ok)
 
 
-class GeometryEngine:
+class AbelGeometryEngine:
     @staticmethod
     def solve(problem):
-        name,args=ExpressionParser(problem).call()
+        name,args=AbelExpressionParser(problem).call()
         required=4 if name=='distancia' else 3 if name=='volumen_caja' else 1 if name in {'grados','area_circulo'} else 2
         if name not in GEOMETRY_CALLS or len(args)!=required or any(not isinstance(v,s.Expr) or v.is_real is not True or v.is_finite is not True for v in args):
-            raise InputError('Revisa la fórmula y usa medidas reales finitas.')
+            raise AbelInputError('Revisa la fórmula y usa medidas reales finitas.')
         if name not in {'distancia','grados'} and any(v<=0 for v in args):
-            raise InputError('Las longitudes deben ser positivas.')
+            raise AbelInputError('Las longitudes deben ser positivas.')
         a=args[0]
         b=args[1] if len(args)>1 else None
         if name=='perimetro_rect':
@@ -848,33 +849,33 @@ class GeometryEngine:
             label,formula,result='Distancia entre dos puntos',f'√(({args[2]} − {a})² + ({args[3]} − {b})²)',s.sqrt((args[2]-a)**2+(args[3]-b)**2)
         else:
             label,formula,result='Grados a radianes',f'{a} × π ÷ 180',a*s.pi/180
-        return Solution(problem,'Geometría' if name!='grados' else 'Trigonometría',result,
+        return AbelSolution(problem,'Geometría' if name!='grados' else 'Trigonometría',result,
                         'Sustituye los datos en la fórmula y respeta las unidades del problema.',
                         'Se evaluó la fórmula con los valores exactos introducidos.',
-                        [StepGenerator.step(label,'Coloca las medidas en la fórmula.',text=formula),
-                         StepGenerator.step('Calcula','Resuelve la operación.',text=f'{formula} = {format_value(result)}')],
+                        [AbelStepGenerator.step(label,'Coloca las medidas en la fórmula.',text=formula),
+                         AbelStepGenerator.step('Calcula','Resuelve la operación.',text=f'{formula} = {format_value(result)}')],
                         {'Datos':', '.join(map(format_value,args))})
 
 
-class TrigonometryEngine:
+class AbelTrigonometryEngine:
     @staticmethod
     def solve(problem, variable, argument):
         if '=' in problem:
-            result=EquationEngine.solve(problem,variable,'trig_equation')
+            result=AbelEquationEngine.solve(problem,variable,'trig_equation')
             if argument.strip():
                 lower,upper=scalar_list(argument,2)
                 if lower>=upper:
-                    raise InputError('El extremo inferior debe ser menor que el superior.')
+                    raise AbelInputError('El extremo inferior debe ser menor que el superior.')
                 left,_,right=sides(problem)
                 domain=s.Interval.Ropen(lower,upper)&left.domain(variable)&right.domain(variable)
                 result.value=s.solveset(left.scalar()-right.scalar(),variable,domain=domain)
                 result.data['Intervalo']=format_value(domain)
-                result.verified=ResultValidator.finite_answers(result.value,[left.scalar()-right.scalar()],[variable])
+                result.verified=AbelResultValidator.finite_answers(result.value,[left.scalar()-right.scalar()],[variable])
                 result.verification=('Se sustituyó cada solución en la ecuación y se comprobó el intervalo.' if result.verified else
                                      'Se consultó el conjunto solución en ese intervalo. La comprobación independiente queda pendiente.')
                 result.steps=[]
             return result
-        expr=ExpressionParser(problem).scalar()
+        expr=AbelExpressionParser(problem).scalar()
         value=s.trigsimp(expr)
         ok=s.trigsimp(expr-value)==0
         steps=[]
@@ -882,43 +883,43 @@ class TrigonometryEngine:
             for sine in expr.atoms(s.sin):
                 angle=sine.args[0]
                 if s.expand(expr-(s.sin(angle)**2+s.cos(angle)**2))==0:
-                    steps=[StepGenerator.step('Identidad pitagórica','El seno al cuadrado más el coseno al cuadrado del mismo ángulo da uno.',value)]
-        return Solution(problem,'Trigonometría',value,'Trabaja en radianes salvo que conviertas de grados.',
+                    steps=[AbelStepGenerator.step('Identidad pitagórica','El seno al cuadrado más el coseno al cuadrado del mismo ángulo da uno.',value)]
+        return AbelSolution(problem,'Trigonometría',value,'Trabaja en radianes salvo que conviertas de grados.',
                         'La diferencia se reduce a cero por simplificación trigonométrica.' if ok else 'La comprobación independiente queda pendiente.',steps,verified=ok)
 
 
-class FunctionEngine:
+class AbelFunctionEngine:
     @staticmethod
     def solve(problem,variable,argument):
-        expr=ExpressionParser(problem).scalar()
-        point=ExpressionParser(argument).scalar()
+        expr=AbelExpressionParser(problem).scalar()
+        point=AbelExpressionParser(argument).scalar()
         if point.free_symbols or point.is_finite is not True:
-            raise InputError('Introduce un punto numérico finito.')
-        if point not in ExpressionParser(problem).domain(variable):
-            raise InputError('El punto está fuera del dominio real de la expresión.')
+            raise AbelInputError('Introduce un punto numérico finito.')
+        if point not in AbelExpressionParser(problem).domain(variable):
+            raise AbelInputError('El punto está fuera del dominio real de la expresión.')
         value=expr.subs(variable,point)
-        return Solution(problem,'Función',value,'Evaluar una función significa reemplazar su variable por un valor del dominio.',
+        return AbelSolution(problem,'Función',value,'Evaluar una función significa reemplazar su variable por un valor del dominio.',
                         'Se sustituyó el punto en la expresión original.',
-                        [StepGenerator.step('Sustitución',f'Reemplaza {variable} por {format_value(point)}.',value)],
+                        [AbelStepGenerator.step('Sustitución',f'Reemplaza {variable} por {format_value(point)}.',value)],
                         {'Variable':str(variable),'Punto':format_value(point)})
 
 
 def scalar_list(argument,count):
     items=str(argument).split(',')
     if len(items)!=count:
-        raise InputError(f'Escribe {count} valores separados por coma.')
-    result=[ExpressionParser(item).scalar() for item in items]
+        raise AbelInputError(f'Escribe {count} valores separados por coma.')
+    result=[AbelExpressionParser(item).scalar() for item in items]
     if any(value.free_symbols or value.is_extended_real is not True for value in result):
-        raise InputError('Usa valores reales o infinito cuando corresponda.')
+        raise AbelInputError('Usa valores reales o infinito cuando corresponda.')
     return result
 
 
-class CalculusEngine:
+class AbelCalculusEngine:
     @staticmethod
     def solve(problem,operation,variable,argument):
         if operation=='ode':
-            return CalculusEngine.ode(problem,variable)
-        parser=ExpressionParser(problem)
+            return AbelCalculusEngine.ode(problem,variable)
+        parser=AbelExpressionParser(problem)
         expr=parser.scalar()
         data={'Variable':str(variable)}
         steps=[]
@@ -928,12 +929,12 @@ class CalculusEngine:
         verification='Cálculo simbólico. La comprobación independiente no está disponible para esta entrada.'
         if operation=='derivative':
             value=s.diff(expr,variable)
-            steps=StepGenerator.derivative(expr,variable)[:24]
+            steps=AbelStepGenerator.derivative(expr,variable)[:24]
             verified=bool(steps) and s.simplify(s.Derivative(expr,variable,evaluate=False).doit()-value)==0
             verification='Las transformaciones se contrastaron con la derivada simbólica.' if verified else verification
             explanation='La derivada mide la tasa de cambio de la expresión respecto a la variable.'
         elif operation=='integral':
-            substitution=StepGenerator.linear_substitution(expr,variable)
+            substitution=AbelStepGenerator.linear_substitution(expr,variable)
             if substitution and substitution[2]==-1:
                 base,coefficient,_,slope=substitution
                 nonzero=s.Dummy(real=True,nonzero=True)
@@ -963,11 +964,11 @@ class CalculusEngine:
                             lower_value=antiderivative.subs(variable,lower)
                             difference='<mrow>'+presentation_body(upper_value)+'<mo>−</mo><mo>(</mo>'+presentation_body(lower_value)+'<mo>)</mo></mrow>'
                             steps=[
-                                StepGenerator.step('Encuentra la primitiva','Integra respecto a la variable antes de sustituir los límites.',
+                                AbelStepGenerator.step('Encuentra la primitiva','Integra respecto a la variable antes de sustituir los límites.',
                                                    s.Eq(s.Function('F')(variable),antiderivative,evaluate=False)),
-                                StepGenerator.step('Evalúa en los límites','Resta el valor en el límite inferior al valor en el límite superior.',
+                                AbelStepGenerator.step('Evalúa en los límites','Resta el valor en el límite inferior al valor en el límite superior.',
                                                    text=f'F({upper}) − F({lower})',formula=equation_formula(integral,at_bounds)),
-                                StepGenerator.step('Calcula la diferencia','Sustituye ambos límites y simplifica.',
+                                AbelStepGenerator.step('Calcula la diferencia','Sustituye ambos límites y simplifica.',
                                                    text=format_value(evaluated),formula=equation_formula(difference,presentation_body(evaluated))),
                             ]
                             verification='Se derivó la primitiva y se comprobó la diferencia de sus valores en los extremos.'
@@ -978,54 +979,54 @@ class CalculusEngine:
                 if verified:
                     suffix=' + C'
                     verification='Al derivar el resultado se recupera el integrando.'
-                    steps=StepGenerator.integral(expr,variable,value)
+                    steps=AbelStepGenerator.integral(expr,variable,value)
                     if steps and steps[-1]['rule']!='Vuelve a la variable original':
-                        steps.append(StepGenerator.step('Añade la constante','Todas las primitivas difieren en una constante en cada intervalo del dominio.',
+                        steps.append(AbelStepGenerator.step('Añade la constante','Todas las primitivas difieren en una constante en cada intervalo del dominio.',
                                                         text=format_value(value)+suffix,
                                                         formula=equation_formula(presentation_body(s.Integral(expr,variable)),
                                                             '<mrow>'+presentation_body(value)+'<mo>+</mo><mi>C</mi></mrow>')))
         elif operation in {'limit','continuity'}:
-            point=ExpressionParser(argument).scalar()
+            point=AbelExpressionParser(argument).scalar()
             if point.free_symbols or point.is_extended_real is not True:
-                raise InputError('El punto del límite debe ser real o infinito.')
+                raise AbelInputError('El punto del límite debe ser real o infinito.')
             data['Punto']=format_value(point)
             if point.is_finite:
                 left=s.limit(expr,variable,point,dir='-')
                 right=s.limit(expr,variable,point,dir='+')
                 same=left==right
                 evaluated=expr.subs(variable,point)
-                steps=[StepGenerator.step('Límite por la izquierda','Considera valores menores que el punto.',left),
-                       StepGenerator.step('Límite por la derecha','Considera valores mayores que el punto.',right)]
+                steps=[AbelStepGenerator.step('Límite por la izquierda','Considera valores menores que el punto.',left),
+                       AbelStepGenerator.step('Límite por la derecha','Considera valores mayores que el punto.',right)]
                 if operation=='continuity':
                     value=s.true if same and left.is_finite and evaluated==left and point in parser.domain(variable) else s.false
                     verified=True
                     explanation='Hay continuidad si ambos límites coinciden y su valor es igual al de la función en el punto.'
                     verification='Se compararon los dos límites laterales y el valor de la función en el punto.'
                 elif not same:
-                    raise InputError('El límite bilateral no existe. Izquierda: '+format_value(left)+' · Derecha: '+format_value(right)+'.')
+                    raise AbelInputError('El límite bilateral no existe. Izquierda: '+format_value(left)+' · Derecha: '+format_value(right)+'.')
                 else:
                     value=left
                     verified=not value.has(s.Limit)
                     explanation='El límite describe a qué valor se aproxima la función.'
                     verification='Se comprobaron por separado los dos límites laterales.' if verified else verification
-                    steps,approach=CalculusEngine.removable_limit(parser,expr,variable,point,value,steps)
+                    steps,approach=AbelCalculusEngine.removable_limit(parser,expr,variable,point,value,steps)
             elif operation=='limit':
                 value=s.limit(expr,variable,point)
                 explanation='Un límite en infinito describe cómo se comporta la función cuando la variable crece en magnitud.'
             else:
-                raise InputError('Comprueba la continuidad en un punto finito.')
+                raise AbelInputError('Comprueba la continuidad en un punto finito.')
         else:
             names=[name.strip() for name in argument.split(',')] if argument.strip() else sorted(map(str,expr.free_symbols))
             if not names or len(names)>4 or len(set(names))!=len(names) or any(name not in SYMBOLS for name in names):
-                raise InputError('Indica de una a cuatro variables distintas, como x,y.')
+                raise AbelInputError('Indica de una a cuatro variables distintas, como x,y.')
             data['Variables']=', '.join(names)
             value=s.Tuple(*(s.diff(expr,SYMBOLS[name]) for name in names))
-            steps=[StepGenerator.step('Derivada parcial',f'Deriva respecto de {name} manteniendo fijas las otras variables.',component)
+            steps=[AbelStepGenerator.step('Derivada parcial',f'Deriva respecto de {name} manteniendo fijas las otras variables.',component)
                    for name,component in zip(names,value)]
             verified=True
             verification='Cada componente se contrastó con su derivada parcial simbólica.'
             explanation='El gradiente ordena las derivadas parciales según las variables indicadas.'
-        return Solution(problem,'Cálculo',value,explanation,verification,steps,data,verified,suffix,approach)
+        return AbelSolution(problem,'Cálculo',value,explanation,verification,steps,data,verified,suffix,approach)
 
     @staticmethod
     def removable_limit(parser,expr,variable,point,value,original_steps):
@@ -1044,13 +1045,13 @@ class CalculusEngine:
         simplified=format_value(reduced)
         substituted=re.sub(r'\b'+str(variable)+r'\b',lambda _:p if point.is_Integer and point>=0 else f'({p})',simplified)
         steps=[
-            StepGenerator.step(f'Prueba con {variable} = {p}','Arriba y abajo da cero. Esa división no da el límite.',text='0 ÷ 0',
+            AbelStepGenerator.step(f'Prueba con {variable} = {p}','Arriba y abajo da cero. Esa división no da el límite.',text='0 ÷ 0',
                                formula=math_markup('<mfrac><mn>0</mn><mn>0</mn></mfrac>')),
-            StepGenerator.step('Factoriza y simplifica',f'Cancela los factores comunes para valores cercanos con {variable} ≠ {p}.',
+            AbelStepGenerator.step('Factoriza y simplifica',f'Cancela los factores comunes para valores cercanos con {variable} ≠ {p}.',
                                text=f'({format_value(numerator_factored)}) ÷ ({format_value(denominator_factored)})  →  {simplified}',
                                formula=equation_formula('<mfrac>'+presentation_body(numerator_factored)+presentation_body(denominator_factored)+'</mfrac>',
                                                         presentation_body(reduced))),
-            StepGenerator.step(f'Acércate a {p}',f'Evalúa la expresión simplificada en {variable} = {p}.',
+            AbelStepGenerator.step(f'Acércate a {p}',f'Evalúa la expresión simplificada en {variable} = {p}.',
                                text=f'{substituted} = {format_value(value)}',
                                formula=equation_formula(expression_markup(substituted),presentation_body(value)))
         ]
@@ -1075,97 +1076,97 @@ class CalculusEngine:
     def ode(problem,variable):
         parts=problem.split('=',1)
         if len(parts)!=2 or parts[0].strip() not in {"y'","dy/d"+str(variable)}:
-            raise InputError("Escribe una ecuación explícita de primer orden, por ejemplo y' = 2*y.")
+            raise AbelInputError("Escribe una ecuación explícita de primer orden, por ejemplo y' = 2*y.")
         function=s.Function('y')(variable)
-        right=ExpressionParser(parts[1]).scalar(symbolic_function=True).subs(SYMBOLS['y'],function)
+        right=AbelExpressionParser(parts[1]).scalar(symbolic_function=True).subs(SYMBOLS['y'],function)
         if right.free_symbols-{variable}:
-            raise InputError('Usa solo la variable independiente y la función y.')
+            raise AbelInputError('Usa solo la variable independiente y la función y.')
         eq=s.Eq(s.diff(function,variable),right)
         try:
             answer=s.dsolve(eq,function)
             checked=s.checkodesol(eq,answer,function)[0] if isinstance(answer,s.Equality) else False
         except (NotImplementedError,ValueError) as error:
-            raise InputError('El motor no encontró una solución explícita para esta ecuación.') from error
+            raise AbelInputError('El motor no encontró una solución explícita para esta ecuación.') from error
         if not isinstance(answer,s.Equality):
-            raise InputError('Esta entrada produjo varias ramas y requiere un análisis adicional.')
-        return Solution(problem,'Ecuación diferencial',answer,'La solución es una función. C1 representa una constante de integración.',
+            raise AbelInputError('Esta entrada produjo varias ramas y requiere un análisis adicional.')
+        return AbelSolution(problem,'Ecuación diferencial',answer,'La solución es una función. C1 representa una constante de integración.',
                         'La solución se sustituyó en la ecuación diferencial.' if checked else 'La comprobación simbólica no concluyó.',
                         [],{'Variable':str(variable)},checked)
 
 
-class StatisticsEngine:
+class AbelStatisticsEngine:
     @staticmethod
     def solve(problem):
-        name,args=ExpressionParser(problem).call()
+        name,args=AbelExpressionParser(problem).call()
         if name not in STATS_CALLS:
-            raise InputError('Usa media, mediana, moda, varianza, desviacion o probabilidad.')
+            raise AbelInputError('Usa media, mediana, moda, varianza, desviacion o probabilidad.')
         if name=='probabilidad':
             if len(args)!=2 or any(not isinstance(item,s.Integer) for item in args):
-                raise InputError('Escribe probabilidad(casos_favorables, casos_totales) con enteros.')
+                raise AbelInputError('Escribe probabilidad(casos_favorables, casos_totales) con enteros.')
             favorable,total=args
             if total<=0 or not 0<=favorable<=total:
-                raise InputError('El total debe ser positivo y los casos favorables deben estar entre cero y el total.')
+                raise AbelInputError('El total debe ser positivo y los casos favorables deben estar entre cero y el total.')
             value=favorable/total
             explanation='Con casos equiprobables, divide los casos favorables por el total de casos.'
-            return Solution(problem,'Probabilidad',value,explanation,'La fracción se simplificó exactamente.',[StepGenerator.step('Casos equiprobables',explanation,value)])
+            return AbelSolution(problem,'Probabilidad',value,explanation,'La fracción se simplificó exactamente.',[AbelStepGenerator.step('Casos equiprobables',explanation,value)])
         if len(args)!=1 or not isinstance(args[0],list) or not args[0] or any(not isinstance(value,s.Expr) or value.is_finite is not True or value.is_real is not True for value in args[0]):
-            raise InputError('Introduce una lista no vacía de números reales, como media([2, 4, 6]).')
+            raise AbelInputError('Introduce una lista no vacía de números reales, como media([2, 4, 6]).')
         values=args[0]
         total=sum(values,s.S.Zero)
         count=len(values)
         mean=total/count
         if name=='media':
             answer=mean
-            steps=[StepGenerator.step('Sumar los datos','Suma todas las observaciones.',total),
-                   StepGenerator.step('Dividir por la cantidad','Divide la suma por el número de observaciones.',mean)]
+            steps=[AbelStepGenerator.step('Sumar los datos','Suma todas las observaciones.',total),
+                   AbelStepGenerator.step('Dividir por la cantidad','Divide la suma por el número de observaciones.',mean)]
         elif name=='mediana':
             ordered=sorted(values)
             answer=(ordered[(count-1)//2]+ordered[count//2])/2
-            steps=[StepGenerator.step('Ordenar los datos','Organiza los valores de menor a mayor.',s.Tuple(*ordered)),
-                   StepGenerator.step('Centro','Si hay dos valores centrales, toma su promedio.',answer)]
+            steps=[AbelStepGenerator.step('Ordenar los datos','Organiza los valores de menor a mayor.',s.Tuple(*ordered)),
+                   AbelStepGenerator.step('Centro','Si hay dos valores centrales, toma su promedio.',answer)]
         elif name=='moda':
             frequencies={value:values.count(value) for value in values}
             modes=[value for value, frequency in frequencies.items() if frequency==max(frequencies.values())]
             if len(modes)!=1:
-                raise InputError('Esta operación requiere una lista con una sola moda.')
+                raise AbelInputError('Esta operación requiere una lista con una sola moda.')
             answer=modes[0]
-            steps=[StepGenerator.step('Contar repeticiones','Cuenta cuántas veces aparece cada valor.',
+            steps=[AbelStepGenerator.step('Contar repeticiones','Cuenta cuántas veces aparece cada valor.',
                                       text=', '.join(f'{value} aparece {frequency} veces' for value,frequency in frequencies.items())),
-                   StepGenerator.step('Elegir el más frecuente','El dato que aparece más veces es la moda.',answer)]
+                   AbelStepGenerator.step('Elegir el más frecuente','El dato que aparece más veces es la moda.',answer)]
         else:
             variance=sum((value-mean)**2 for value in values)/count
             answer=s.sqrt(variance) if name=='desviacion' else variance
-            steps=[StepGenerator.step('Media','Calcula el promedio de las observaciones.',mean),
-                   StepGenerator.step('Varianza poblacional','Promedia los cuadrados de las diferencias respecto a la media.',variance)]
+            steps=[AbelStepGenerator.step('Media','Calcula el promedio de las observaciones.',mean),
+                   AbelStepGenerator.step('Varianza poblacional','Promedia los cuadrados de las diferencias respecto a la media.',variance)]
             if name=='desviacion':
-                steps.append(StepGenerator.step('Raíz cuadrada','Toma la raíz de la varianza.',answer))
+                steps.append(AbelStepGenerator.step('Raíz cuadrada','Toma la raíz de la varianza.',answer))
         explanation = {
             'media':'La media reparte el total en partes iguales.',
             'mediana':'La mediana está en el centro de los datos ordenados.',
             'moda':'La moda es el dato de mayor frecuencia.'
         }.get(name,'La varianza de este módulo usa la fórmula poblacional, con divisor n.')
-        return Solution(problem,'Estadística',answer,explanation,
+        return AbelSolution(problem,'Estadística',answer,explanation,
                         'Se evaluó la definición con aritmética exacta.',steps,{'Observaciones':str(count)})
 
 
-class LinearAlgebraEngine:
+class AbelLinearAlgebraEngine:
     @staticmethod
     def matrix(value):
         if not isinstance(value,list) or not value or not all(isinstance(row,list) for row in value):
-            raise InputError('Escribe una matriz como [[1, 2], [3, 4]].')
+            raise AbelInputError('Escribe una matriz como [[1, 2], [3, 4]].')
         if len(value)>5 or not 1<=len(value[0])<=5 or any(len(row)!=len(value[0]) for row in value) or any(not isinstance(item,s.Expr) for row in value for item in row):
-            raise InputError('Usa matrices rectangulares de hasta 5 por 5.')
+            raise AbelInputError('Usa matrices rectangulares de hasta 5 por 5.')
         return s.Matrix(value)
 
     @staticmethod
     def solve(problem):
-        name,args=ExpressionParser(problem).call()
+        name,args=AbelExpressionParser(problem).call()
         required=2 if name in {'punto','matmul','matsuma'} else 1
         if name not in MATRIX_CALLS or len(args)!=required:
-            raise InputError('Revisa el número de argumentos de la operación matricial.')
+            raise AbelInputError('Revisa el número de argumentos de la operación matricial.')
         if name in {'punto','norma'}:
             if any(not isinstance(vec,list) or not vec or any(not isinstance(value,s.Expr) for value in vec) for vec in args):
-                raise InputError('Escribe vectores como [1, 2, 3].')
+                raise AbelInputError('Escribe vectores como [1, 2, 3].')
             a=s.Matrix(args[0])
             if name=='norma':
                 value=s.sqrt(a.dot(a))
@@ -1173,51 +1174,51 @@ class LinearAlgebraEngine:
             else:
                 b=s.Matrix(args[1])
                 if len(a)!=len(b):
-                    raise InputError('Los vectores deben tener el mismo número de componentes.')
+                    raise AbelInputError('Los vectores deben tener el mismo número de componentes.')
                 value=a.dot(b)
                 text='Multiplica las componentes correspondientes y suma los productos.'
-            return Solution(problem,'Vectores',value,text,'La operación se comprobó con la definición del producto escalar.',
-                            [StepGenerator.step('Componentes',text,value)])
-        a=LinearAlgebraEngine.matrix(args[0])
+            return AbelSolution(problem,'Vectores',value,text,'La operación se comprobó con la definición del producto escalar.',
+                            [AbelStepGenerator.step('Componentes',text,value)])
+        a=AbelLinearAlgebraEngine.matrix(args[0])
         steps=[]
         if name in {'det','inversa'} and a.rows!=a.cols:
-            raise InputError('Esta operación requiere una matriz cuadrada.')
+            raise AbelInputError('Esta operación requiere una matriz cuadrada.')
         if name=='det':
             value=a.det()
             if a.shape==(2,2):
-                steps=[StepGenerator.step('Determinante 2×2','Resta el producto de la diagonal secundaria al de la diagonal principal.',
+                steps=[AbelStepGenerator.step('Determinante 2×2','Resta el producto de la diagonal secundaria al de la diagonal principal.',
                                            text=f'({a[0,0]})({a[1,1]}) − ({a[0,1]})({a[1,0]}) = {format_value(value)}')]
             check=a.det(method='berkowitz')==value
             verification='Se contrastó el determinante con el algoritmo de Berkowitz.'
         elif name=='inversa':
             if a.det()==0:
-                raise InputError('La matriz es singular y no tiene inversa.')
+                raise AbelInputError('La matriz es singular y no tiene inversa.')
             value=a.inv()
-            check=ResultValidator.equivalent(a*value,s.eye(a.rows))
+            check=AbelResultValidator.equivalent(a*value,s.eye(a.rows))
             verification='El producto A·A⁻¹ es la identidad.'
         elif name=='transpuesta':
             value=a.T
             check=value.T==a
             verification='Al transponer de nuevo se obtiene la matriz original.'
-            steps=[StepGenerator.step('Transposición','Intercambia filas por columnas.',value)]
+            steps=[AbelStepGenerator.step('Transposición','Intercambia filas por columnas.',value)]
         else:
-            b=LinearAlgebraEngine.matrix(args[1])
+            b=AbelLinearAlgebraEngine.matrix(args[1])
             if name=='matsuma':
                 if a.shape!=b.shape:
-                    raise InputError('Para sumar, las matrices deben tener las mismas dimensiones.')
+                    raise AbelInputError('Para sumar, las matrices deben tener las mismas dimensiones.')
                 value=a+b
-                check=ResultValidator.equivalent(value-b,a)
+                check=AbelResultValidator.equivalent(value-b,a)
                 verification='Al restar la segunda matriz se recupera la primera.'
-                steps=[StepGenerator.step('Suma de entradas','Suma las entradas en la misma posición.',value)]
+                steps=[AbelStepGenerator.step('Suma de entradas','Suma las entradas en la misma posición.',value)]
             else:
                 if a.cols!=b.rows:
-                    raise InputError('Las columnas de A deben coincidir con las filas de B.')
+                    raise AbelInputError('Las columnas de A deben coincidir con las filas de B.')
                 value=a*b
                 explicit=s.Matrix(a.rows,b.cols,lambda i,j:sum(a[i,k]*b[k,j] for k in range(a.cols)))
-                check=ResultValidator.equivalent(value,explicit)
+                check=AbelResultValidator.equivalent(value,explicit)
                 verification='Cada entrada se comprobó con el producto fila por columna.'
-                steps=[StepGenerator.step('Producto matricial','Cada entrada es el producto escalar de una fila de A y una columna de B.',value)]
-        return Solution(problem,'Álgebra lineal',value,'Las dimensiones determinan qué operaciones son válidas.',
+                steps=[AbelStepGenerator.step('Producto matricial','Cada entrada es el producto escalar de una fila de A y una columna de B.',value)]
+        return AbelSolution(problem,'Álgebra lineal',value,'Las dimensiones determinan qué operaciones son válidas.',
                         verification if check else 'La comprobación independiente no concluyó.',steps,
                         {'Dimensión':f'{a.rows} × {a.cols}'},check)
 
@@ -1225,9 +1226,9 @@ class LinearAlgebraEngine:
 def solve_problem(problem, operation='auto', variable='x', argument=''):
     problem=str(problem).strip()
     if not problem or len(problem)>600:
-        raise InputError('Introduce un problema de hasta 600 caracteres.')
+        raise AbelInputError('Introduce un problema de hasta 600 caracteres.')
     if operation not in OPERATIONS or variable not in SYMBOLS:
-        raise InputError('Elige una operación y una variable admitidas.')
+        raise AbelInputError('Elige una operación y una variable admitidas.')
     symbol=SYMBOLS[variable]
     if operation=='auto':
         prefix=re.match(r'([a-z_]+)\s*\(',problem,re.I)
@@ -1247,34 +1248,34 @@ def solve_problem(problem, operation='auto', variable='x', argument=''):
         elif command in ARITHMETIC_CALLS:
             operation='arithmetic'
         else:
-            expression=ExpressionParser(problem).scalar()
+            expression=AbelExpressionParser(problem).scalar()
             operation='simplify' if expression.free_symbols else 'arithmetic'
     if operation=='arithmetic':
-        return ArithmeticEngine.solve(problem)
+        return AbelArithmeticEngine.solve(problem)
     if operation in {'simplify','expand','factor'}:
-        return AlgebraEngine.solve(problem,operation)
+        return AbelAlgebraEngine.solve(problem,operation)
     if operation in {'equation','inequality'}:
-        return EquationEngine.solve(problem,symbol,operation)
+        return AbelEquationEngine.solve(problem,symbol,operation)
     if operation=='system':
-        return EquationEngine.system(problem)
+        return AbelEquationEngine.system(problem)
     if operation=='geometry':
-        return GeometryEngine.solve(problem)
+        return AbelGeometryEngine.solve(problem)
     if operation in {'trig','trig_equation'}:
-        return TrigonometryEngine.solve(problem,symbol,argument)
+        return AbelTrigonometryEngine.solve(problem,symbol,argument)
     if operation=='function':
-        return FunctionEngine.solve(problem,symbol,argument)
+        return AbelFunctionEngine.solve(problem,symbol,argument)
     if operation in {'limit','continuity','derivative','integral','gradient','ode'}:
-        return CalculusEngine.solve(problem,operation,symbol,argument)
+        return AbelCalculusEngine.solve(problem,operation,symbol,argument)
     if operation=='statistics':
-        return StatisticsEngine.solve(problem)
-    return LinearAlgebraEngine.solve(problem)
+        return AbelStatisticsEngine.solve(problem)
+    return AbelLinearAlgebraEngine.solve(problem)
 
 
 def verify_answer(answer, solution, operation, variable='x', argument=''):
     value=solution.value
     answer=str(answer).strip()
     if not answer:
-        raise InputError('Escribe tu respuesta.')
+        raise AbelInputError('Escribe tu respuesta.')
     if answer==format_value(value):
         return True
     if isinstance(value,s.logic.boolalg.BooleanAtom):
@@ -1288,40 +1289,40 @@ def verify_answer(answer, solution, operation, variable='x', argument=''):
         if value==s.S.EmptySet and answer.lower() in {'ninguna','vacío','vacio','∅'}:
             return True
         if isinstance(value,s.Interval) and RELATION.search(answer):
-            candidate=EquationEngine.solve(answer,SYMBOLS[variable],'inequality').value
-            return ResultValidator.equivalent(value,candidate)
+            candidate=AbelEquationEngine.solve(answer,SYMBOLS[variable],'inequality').value
+            return AbelResultValidator.equivalent(value,candidate)
         if isinstance(value,s.FiniteSet):
             cleaned=answer.strip('{}')
             if all(isinstance(item,s.Tuple) for item in value):
                 cleaned=cleaned if cleaned.startswith('(') else '('+cleaned+')'
-                parsed=ExpressionParser(cleaned).parse()
+                parsed=AbelExpressionParser(cleaned).parse()
                 if not isinstance(parsed,list):
                     return False
                 candidates=parsed if parsed and isinstance(parsed[0],list) else [parsed]
                 candidate=s.FiniteSet(*(s.Tuple(*item) for item in candidates))
             else:
-                items=ExpressionParser('['+cleaned+']').parse()
+                items=AbelExpressionParser('['+cleaned+']').parse()
                 if any(not isinstance(item,s.Expr) for item in items):
                     return False
                 candidate=s.FiniteSet(*items)
-            return ResultValidator.equivalent(value,candidate)
+            return AbelResultValidator.equivalent(value,candidate)
         match=re.fullmatch(r'([\[(])(.+),(.+)([\])])',answer)
         if match and isinstance(value,s.Interval):
             a,b=scalar_list(match.group(2)+','+match.group(3),2)
             interval=s.Interval(a,b,left_open=match.group(1)=='(',right_open=match.group(4)==')')
-            return ResultValidator.equivalent(value,interval)
+            return AbelResultValidator.equivalent(value,interval)
         return False
     if isinstance(value,s.MatrixBase):
-        return ResultValidator.equivalent(value,LinearAlgebraEngine.matrix(ExpressionParser(answer).parse()))
+        return AbelResultValidator.equivalent(value,AbelLinearAlgebraEngine.matrix(AbelExpressionParser(answer).parse()))
     if isinstance(value,s.Tuple):
         normalized=answer if answer.startswith(('[','(')) else '['+answer+']'
-        parsed=ExpressionParser(normalized).parse()
-        return isinstance(parsed,list) and ResultValidator.equivalent(value,s.Tuple(*parsed))
+        parsed=AbelExpressionParser(normalized).parse()
+        return isinstance(parsed,list) and AbelResultValidator.equivalent(value,s.Tuple(*parsed))
     if isinstance(value,s.Equality):
         candidate=answer.split('=',1)[-1].replace('C1','c').replace('C','c')
         expected=value.rhs.subs(s.Symbol('C1'),SYMBOLS['c'])
-        return ResultValidator.equivalent(expected,ExpressionParser(candidate).scalar())
-    parser=ExpressionParser(answer.replace('C','c') if operation=='integral' else answer)
+        return AbelResultValidator.equivalent(expected,AbelExpressionParser(candidate).scalar())
+    parser=AbelExpressionParser(answer.replace('C','c') if operation=='integral' else answer)
     candidate=parser.scalar()
     if operation=='integral' and not argument.strip():
         return s.simplify(s.diff(candidate-value,SYMBOLS[variable]))==0
@@ -1338,7 +1339,7 @@ def verify_answer(answer, solution, operation, variable='x', argument=''):
         needs_product=value.is_Mul or (value.is_Pow and value.exp.is_Integer and value.exp>1)
         if needs_product and not (candidate.is_Mul or candidate.is_Pow):
             return False
-    return ResultValidator.equivalent(value,candidate)
+    return AbelResultValidator.equivalent(value,candidate)
 
 
 def feedback_for(answer,solution,correct):

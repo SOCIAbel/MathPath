@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Gamification layer: streaks, XP, achievements, pet, skills, chests and extra game modes."""
 import json
 import random
@@ -5,7 +6,7 @@ from pathlib import Path
 from datetime import date, datetime, timedelta
 
 from curriculum import TOPICS, exercise_for
-from engine import InputError
+from engine import AbelInputError
 import adventure as combat
 
 FUN_SCHEMA = """
@@ -123,7 +124,7 @@ def default_state():
     }
 
 
-class FunService:
+class AbelFunService:
     def __init__(self, service):
         self.service = service
         self.db = service.db
@@ -348,7 +349,7 @@ class FunService:
         service = self.service
         gear = service.village_ledger(service.adventure_status()['wins'])
         if gear['stock'].get('coins', 0) < amount:
-            raise InputError(f'Necesitas {amount} monedas. Gánalas en los duelos.')
+            raise AbelInputError(f'Necesitas {amount} monedas. Gánalas en los duelos.')
         gear['stock']['coins'] -= amount
         service.save_gear(gear)
 
@@ -428,12 +429,12 @@ class FunService:
                 level, _, unit = part.partition('-')
                 level, unit = int(level), int(unit or 0)
             except ValueError:
-                raise InputError('Elige de dónde salen las preguntas.') from None
+                raise AbelInputError('Elige de dónde salen las preguntas.') from None
             if level not in self.SURVIVAL_LEVELS or (unit and unit not in grades_by_level[level]):
-                raise InputError('Elige grados de Primaria o Secundaria.')
+                raise AbelInputError('Elige grados de Primaria o Secundaria.')
             chosen |= {(level, unit)} if unit else {(level, grade) for grade in grades_by_level[level]}
         if not chosen:
-            raise InputError('Marca al menos un grado.')
+            raise AbelInputError('Marca al menos un grado.')
         pool = [t for t, item in TOPICS.items() if (item['level'], item['unit']) in chosen]
         parts, keys = [], []
         for level, name in self.SURVIVAL_LEVELS.items():
@@ -460,7 +461,7 @@ class FunService:
             state['survival'] = {'score': 0, 'lives': 3, 'scope': key, 'scopeLabel': label}
         run = state['survival']
         if not run:
-            raise InputError('Empieza una partida de Supervivencia.')
+            raise AbelInputError('Empieza una partida de Supervivencia.')
         if action == 'timeout':
             run['lives'] -= 1
             action = 'next'
@@ -516,7 +517,7 @@ class FunService:
         favorites={value for value in saved if isinstance(value,str) and value in allowed} if isinstance(saved,list) else set()
         if identity is not None:
             if not isinstance(identity,str) or identity not in allowed or type(enabled) is not bool:
-                raise InputError('Elige una fórmula válida del formulario universitario.')
+                raise AbelInputError('Elige una fórmula válida del formulario universitario.')
             if enabled:
                 favorites.add(identity)
             else:
@@ -536,7 +537,7 @@ class FunService:
     def open_chest(self, index):
         state = self.load()
         if not 0 <= index < len(state['chests']):
-            raise InputError('Ese cofre ya no está disponible.')
+            raise AbelInputError('Ese cofre ya no está disponible.')
         chest = state['chests'].pop(index)
         rarity = chest['rarity']
         rng = random.Random()
@@ -571,7 +572,7 @@ class FunService:
         """Adopt a new companion (it starts as an egg) or rename one you already have. It becomes the active pet."""
         state = self.load()
         if species not in PETS:
-            raise InputError('Elige una de las mascotas.')
+            raise AbelInputError('Elige una de las mascotas.')
         name = str(name or '').strip()[:24]
         if species in state['pets']:
             if name:
@@ -602,7 +603,7 @@ class FunService:
         """Choose which of your companions goes with you. Each one keeps its own level."""
         state = self.load()
         if species not in state['pets']:
-            raise InputError('Primero adopta a ese compañero.')
+            raise AbelInputError('Primero adopta a ese compañero.')
         state['activePet'] = species
         state['pet'] = state['pets'][species]
         self.save(state)
@@ -611,7 +612,7 @@ class FunService:
     def feed(self):
         state = self.load()
         if not state['pet']:
-            raise InputError('Adopta una mascota primero.')
+            raise AbelInputError('Adopta una mascota primero.')
         self.spend_coins(5)
         before = pet_level(state['pet']['xp'])
         state['pet']['xp'] += 30
@@ -625,7 +626,7 @@ class FunService:
     def dress(self, hat):
         state = self.load()
         if not state['pet'] or hat not in state['unlocked']['hat']:
-            raise InputError('Ese accesorio aún no está desbloqueado.')
+            raise AbelInputError('Ese accesorio aún no está desbloqueado.')
         state['pet']['hat'] = hat
         self.save(state)
         return self.summary(state)
@@ -633,12 +634,12 @@ class FunService:
     def learn_skill(self, skill):
         state = self.load()
         if skill not in SKILLS:
-            raise InputError('Elige una habilidad del árbol.')
+            raise AbelInputError('Elige una habilidad del árbol.')
         current = state['skills'].get(skill, 0)
         if current >= SKILLS[skill]['max']:
-            raise InputError('Esa habilidad ya está al máximo.')
+            raise AbelInputError('Esa habilidad ya está al máximo.')
         if state['skillPoints'] <= 0:
-            raise InputError('Sube de nivel para conseguir puntos de habilidad.')
+            raise AbelInputError('Sube de nivel para conseguir puntos de habilidad.')
         state['skillPoints'] -= 1
         state['skills'][skill] = current + 1
         self.save(state)
@@ -681,7 +682,7 @@ class FunService:
 
     def duel_question(self, topic_id):
         if not self.school_topic(topic_id) or topic_id not in TOPICS:
-            raise InputError('Elige un tema de Primaria o Secundaria para el duelo.')
+            raise AbelInputError('Elige un tema de Primaria o Secundaria para el duelo.')
         item = exercise_for(topic_id, 'fácil' if TOPICS[topic_id]['level'] == 1 else 'intermedio')
         self.service.add_number_choices(item, TOPICS[topic_id])
         identity = 'duel-' + str(random.getrandbits(48))
@@ -694,7 +695,7 @@ class FunService:
     def duel_check(self, identity, answer):
         item = self.duels.get(identity)
         if not item:
-            raise InputError('Ese reto del duelo ya expiró.')
+            raise AbelInputError('Ese reto del duelo ya expiró.')
         result = self.service.mark(item, str(answer or '')[:200])
         return {'correct': result['correct'], 'invalid': result['invalid'],
                 'answer': result['solution'].get('result', ''), 'message': result['feedback'].get('message', '')}
@@ -741,5 +742,5 @@ class FunService:
             'duelEnd': lambda: self.duel_end(),
         }
         if action not in handlers:
-            raise InputError('Acción de juego no disponible.')
+            raise AbelInputError('Acción de juego no disponible.')
         return handlers[action]()

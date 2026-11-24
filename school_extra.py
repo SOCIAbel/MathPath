@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """More primary and secondary topics, appended at the end of each grade.
 
 Row: id | title | explanation | rule | prompt | engine | expression | parameter.

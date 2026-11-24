@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Import character art made with ChatGPT into arena/.
 
 Usage (from the mathpath folder):

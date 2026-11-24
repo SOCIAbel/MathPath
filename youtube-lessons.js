@@ -1,6 +1,7 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 // Direct YouTube lessons for every curriculum topic.
 // Public metadata verified on 2026-11-20; previous available lessons retained.
-const youtubeLessons = Object.freeze({
+const abelYoutubeLessons = Object.freeze({
   conteo: ["qHkEDhTaPnk", "Los números del 1 al 10 - Aprende a escribir y a contar los números del 1 al 10", "Smile and Learn - Español"],
   naturales: ["Y5IhaWSFqCg", "Sumas de una cifra", "La BiBlioTHeKa"],
   resta1: ["6kq1YJ1hlVs", "Restas de una cifra", "La BiBlioTHeKa"],

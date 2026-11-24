@@ -1,7 +1,8 @@
+// MathPath · Autor: Abel Josué Colquehuanca Humpiri
 'use strict';
 
 // Optional bitmap art decorates the existing game without owning its state.
-const pixelArt=(()=>{
+const abelPixelArt=(()=>{
   const cache=new Map();
   const petAnchors={"draco-1.webp":[50.0,34.03],"buho-1.webp":[49.61,16.84],"slime-1.webp":[49.61,37.16],"draco-4.webp":[50.39,33.25],"slime-0.webp":[49.61,33.25],"draco-0.webp":[49.22,38.72],"buho-3.webp":[48.44,18.41],"buho-4.webp":[49.61,16.84],"buho-2.webp":[48.83,18.41],"draco-3.webp":[52.73,21.53],"buho-0.webp":[50.0,31.69],"draco-2.webp":[51.95,24.66],"slime-2.webp":[50.78,37.16],"slime-3.webp":[49.22,34.81],"slime-4.webp":[48.83,37.16]};
   const kings=new Set(['golem','mushroom','beetle','yeti','armor','sphinx','frog','lizard','scarecrow',
@@ -46,12 +47,12 @@ const pixelArt=(()=>{
   function upgradeMedals(){
     for(const card of document.querySelectorAll('.fun-achievement')){
       const medal=card.querySelector('.fun-medal');
-      if(!medal||medal.dataset.pixelArt)continue;
+      if(!medal||medal.dataset.abelPixelArt)continue;
       const name=card.querySelector('strong')?.textContent;
       const file='recursos/logros/'+(medalFor.get(name)||'estrella')+'.webp';
       if(!available(file))continue;
       medal.replaceChildren(picture(file,'pixel-medal',56));
-      medal.dataset.pixelArt='true';
+      medal.dataset.abelPixelArt='true';
       if(!card.classList.contains('got')){
         const lock=document.createElement('small');lock.className='pixel-medal-lock';lock.textContent='🔒';
         medal.append(lock);
@@ -76,19 +77,19 @@ const pixelArt=(()=>{
       arena.classList.add('pixel-royal');
     }
     for(const boss of document.querySelectorAll('.fun-world-boss')){
-      if(boss.dataset.pixelArt)continue;
+      if(boss.dataset.abelPixelArt)continue;
       const reference=boss.closest('.route-biome')?.querySelector('.biome-rival')?.getAttribute('src');
       const id=reference?.match(/^arena\/([a-z-]+)\.webp$/)?.[1];
       if(!kings.has(id))continue;
       const file='arena/'+id+'-rey.webp',host=boss.querySelector(':scope > span');
       if(!host||!available(file))continue;
       host.replaceChildren(picture(file,'pixel-boss-portrait',72));
-      boss.dataset.pixelArt='true';
+      boss.dataset.abelPixelArt='true';
     }
   }
   function upgradeTown(){
     for(const town of document.querySelectorAll('.fun-town')){
-      if(town.dataset.pixelArt)continue;
+      if(town.dataset.abelPixelArt)continue;
       const original=town.querySelector(':scope > svg');
       const file='recursos/aldea/aldea-panorama.webp';
       if(!original||!available(file))continue;
@@ -105,17 +106,17 @@ const pixelArt=(()=>{
         if(index>=count){const mark=document.createElement('b');mark.textContent='🔒';tile.append(mark);}
         panorama.append(tile);
       }
-      original.setAttribute('hidden','');town.append(panorama);town.dataset.pixelArt='true';
+      original.setAttribute('hidden','');town.append(panorama);town.dataset.abelPixelArt='true';
     }
   }
   function alignHats(){
     for(const pet of document.querySelectorAll('.fun-pet-art')){
-      if(pet.dataset.pixelArt)continue;
+      if(pet.dataset.abelPixelArt)continue;
       const name=pet.querySelector('img')?.getAttribute('src');
       const anchor=petAnchors[name?.split('/').at(-1)]||[50,22];
       pet.style.setProperty('--hat-x',(anchor[0]-50)+'%');
       pet.style.setProperty('--hat-y',(anchor[1]-22)+'%');
-      pet.dataset.pixelArt='true';
+      pet.dataset.abelPixelArt='true';
     }
   }
   function upgrade(){upgradeMedals();upgradeBosses();upgradeTown();alignHats();}

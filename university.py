@@ -1,3 +1,4 @@
+# MathPath · Autor: Abel Josué Colquehuanca Humpiri
 """Additional university lessons and the plots associated with their exercises."""
 
 UNIVERSITY_LESSONS = '''
