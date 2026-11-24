@@ -9,3 +9,8 @@ __pycache__/
 .respaldo/
 *.sqlite
 *.sqlite-journal
+
+# Compilación e instaladores (nunca incluir perfiles ni claves).
+build-output/
+dist/
+.build-env/

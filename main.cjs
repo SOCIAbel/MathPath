@@ -13,7 +13,7 @@ app.setName('MathPath');
 const testing = process.env.MATHPATH_SMOKE === '1';
 if (process.env.MATHPATH_DATA_DIR && !testing) app.setPath('userData',path.resolve(process.env.MATHPATH_DATA_DIR));
 if (testing) {
-  app.setPath('userData',path.join(__dirname,'.qa','app-data-'+process.pid));
+  app.setPath('userData',app.isPackaged?path.join(os.tmpdir(),'mathpath-smoke-'+process.pid):path.join(__dirname,'.qa','app-data-'+process.pid));
   app.disableHardwareAcceleration();
 }
 const entry = path.join(__dirname,'index.html');
@@ -22,6 +22,7 @@ let mainWindow;
 let shuttingDown=false;
 const bundlePython = path.join(os.homedir(),'.cache','codex-runtimes','codex-primary-runtime','dependencies','python','python.exe');
 const python = process.env.MATHPATH_PYTHON || (existsSync(bundlePython)?bundlePython:'python');
+const engine = path.join(process.resourcesPath,'engine','mathpath-engine.exe');
 const dataDir = app.getPath('userData');
 const database = path.join(dataDir,'aprendizaje.sqlite');
 const aiFile = path.join(dataDir,'ai.json');
@@ -34,8 +35,12 @@ class WorkerBridge {
   }
 
   start(){
-    const child=spawn(python,['-X','utf8','-B',path.join(__dirname,'worker.py'),database],{
-      cwd:__dirname, stdio:['pipe','pipe','pipe'], windowsHide:true
+    const command=app.isPackaged?engine:python;
+    const args=app.isPackaged?[database]:['-X','utf8','-B',path.join(__dirname,'worker.py'),database];
+    const env={...process.env,PYTHONUTF8:'1'};
+    if(app.isPackaged){delete env.PYTHONHOME;delete env.PYTHONPATH;}
+    const child=spawn(command,args,{
+      cwd:app.isPackaged?dataDir:__dirname, env, stdio:['pipe','pipe','pipe'], windowsHide:true
     });
     this.process=child;
     const output=createInterface({input:child.stdout});
@@ -386,6 +391,7 @@ function installIpc(){
 }
 
 async function createWindow(){
+  if(process.platform==='win32')app.setAppUserModelId('pe.mathpath.desktop');
   mainWindow=new BrowserWindow({
     title:'MathPath',width:1450,height:950,minWidth:920,minHeight:620,show:!testing,
     autoHideMenuBar:true,backgroundColor:'#101924',

@@ -4,10 +4,19 @@
   "private": true,
   "main": "main.cjs",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build:engine": "node scripts/build-engine.cjs",
+    "build:app": "node scripts/build-app.cjs",
+    "check:package": "node scripts/check-package.cjs",
+    "dist": "npm run build:engine && npm run build:app && electron-builder --win nsis --x64 --publish never",
+    "dist:dir": "npm run build:engine && npm run build:app && electron-builder --win --x64 --dir --publish never"
   },
   "devDependencies": {
-    "electron": "45.3.0"
+    "@electron/asar": "3.4.1",
+    "electron": "45.3.0",
+    "electron-builder": "26.18.0",
+    "esbuild": "0.28.2"
   },
-  "author": "Abel Josué Colquehuanca Humpiri"
+  "author": "Abel Josué Colquehuanca Humpiri",
+  "description": "Aprendizaje matemático para estudiantes, con ejercicios, aventura y herramientas sin conexión."
 }

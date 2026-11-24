@@ -1,0 +1,47 @@
+appId: pe.mathpath.desktop
+productName: MathPath
+copyright: Copyright © 2026 Abel Josué Colquehuanca Humpiri
+asar: true
+npmRebuild: false
+compression: normal
+directories:
+  app: build-output/app
+  output: dist
+  buildResources: build
+electronDist: node_modules/electron/dist
+files:
+  - '*.html'
+  - '*.js'
+  - '*.css'
+  - main.cjs
+  - preload.cjs
+  - package.json
+  - arena/**
+  - recursos/**
+extraResources:
+  - from: build-output/engine/mathpath-engine
+    to: engine
+    filter:
+      - '**/*'
+  - from: build-output/licenses
+    to: licenses
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+  artifactName: MathPath-Setup-${version}-${arch}.${ext}
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: MathPath
+  uninstallDisplayName: MathPath
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
+  language: '3082'
+  installerLanguages: [es_ES]
+publish: null
