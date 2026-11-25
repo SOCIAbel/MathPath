@@ -1,5 +1,7 @@
 # MathPath
 
+**Autor:** Abel Josué Colquehuanca Humpiri
+
 Aplicación de escritorio para Windows. Abre **Abrir-MathPath.cmd** desde la carpeta principal. El lanzador usa el ejecutable de Electron disponible en el proyecto. El motor SymPy corre localmente en un proceso Python y guarda los datos en SQLite.
 
 ## Estructura del proyecto
@@ -37,7 +39,7 @@ Los archivos de la aplicación están en la raíz de `mathpath/`. Electron local
 | Aventura y aldea | `adventure.py`, `adventure-ui.js` | Rivales, ataques, botín, equipo y retos de barrera. |
 | Instalación | `package.json`, `requirements.txt` | Dependencias y comandos de la aplicación. |
 | Comprobaciones | `check.py` | Pruebas del motor y de los flujos de aprendizaje. |
-| Capa de juego | `fun.py`, `fun-ui.js`, `fun-audio.js`, `fun.css` | Racha, XP, logros, mascota, habilidades, cofres, retos, cartas, aula, sonidos, temas y pizarra. |
+| Capa de juego | `fun.py`, `fun-ui.js`, `fun-audio.js`, `fun.css` | Racha, XP, logros, mascota, habilidades, cofres, retos, cartas, sonidos, temas y pizarra. |
 
 Ejecuta `python -X utf8 check.py` desde `mathpath/` para comprobar el motor. La aplicación guarda el perfil real en la carpeta de datos de MathPath de Windows. `.qa/` contiene archivos de prueba generados dentro del proyecto.
 
@@ -59,12 +61,11 @@ Ejecuta `python -X utf8 check.py` desde `mathpath/` para comprobar el motor. La 
 ## Capa de juego
 
 - **Barra superior:** racha diaria 🔥, nivel y XP ⭐, cofres 🎁, sonido, música, modo oscuro y pizarra ✏️.
-- **Retos:** reto del día, Supervivencia (3 vidas), Mazmorra de errores, reto gráfico, duelo de 2 jugadores y misiones del profe.
+- **Retos:** reto del día, Supervivencia (3 vidas), Mazmorra de errores, reto gráfico, y duelo de 2 jugadores.
 - **Duelos:** golpe crítico si respondes rápido, combo cada 3 aciertos, mascota acompañante con pista gratis, y un **Rey** opcional en cada mundo con fases y cofre épico.
 - **Logros:** 30 logros, cofres, árbol de habilidades, color del caballero, títulos y 7 temas de color.
-- **Mascota:** 3 especies que evolucionan en 5 etapas y accesorios para equiparles.
+- **Mascota:** varias especies a elegir que evolucionan en 5 etapas y accesorios para equiparles.
 - **Cartas:** una carta de fórmula por cada tema dominado.
-- **Aula:** varios alumnos, reporte PDF y creación de misiones propias.
 - **Responder sin escribir:** 🎤 Dictar en todos los niveles y 📸 escanear (cámara, foto o pizarra) en universidad. Funciona sin internet con `local_ai.py` (Vosk y el modelo de fórmulas de Pix2Text). Si la IA está configurada, se usa solo como respaldo. El motor local sigue validando la respuesta.
 - **Con IA configurada:** botón "Explícamelo fácil" en las lecciones y "Desde una foto" en el Solucionador (necesita un modelo con visión).
 - **Arte opcional:** ver `PROMPTS-IMAGENES.md`.
@@ -95,6 +96,16 @@ El catálogo incluye lecciones introductorias con ejercicios parametrizados. Pri
 
 ## Instalación en otro equipo
 
+Instalador listo para Windows: descarga `MathPath-Setup-1.0.0-x64.exe` desde la sección **Releases** del repositorio.
+
+Desde el código fuente:
+
+```powershell
+git clone https://github.com/SOCIAbel/MathPath.git
+cd MathPath
+```
+
+
 Instala Node.js 22.12 o posterior y Python 3.12. Desde esta carpeta ejecuta:
 
 ```powershell
@@ -110,9 +121,9 @@ Para el dictado y el escaneo sin internet, descarga también los modelos en `ven
 
 El primer inicio de Electron descarga su ejecutable. Después, las lecciones, el solucionador, los ejercicios y las evaluaciones funcionan sin conexión. Si Python está fuera del PATH, define `MATHPATH_PYTHON` con la ruta a su ejecutable. En este equipo el lanzador también reconoce el Python incluido en el entorno de trabajo.
 
-Los datos se guardan en el directorio local de MathPath. **Configuración → Copias de seguridad** permite exportar y restaurar el archivo SQLite. Las claves de IA se almacenan por separado con el cifrado del sistema.
+Los datos se guardan en el directorio local de MathPath. **Mi perfil → Copias de seguridad** permite exportar y restaurar el archivo SQLite. Las claves de IA se almacenan por separado con el cifrado del sistema.
 
 ## IA opcional
 
-Configura un endpoint HTTPS compatible con Chat Completions, un modelo y una clave en **Configuración**. En **Profesor inteligente**, **Ordenar pistas con IA** envía la pregunta y las pistas de la lección al proveedor. Solo se acepta el índice de una pista existente. El resultado, los pasos y la comprobación vienen del motor local.
+Configura un endpoint HTTPS compatible con Chat Completions, un modelo y una clave en **Mi perfil**. En **Profesor inteligente**, **Ordenar pistas con IA** envía la pregunta y las pistas de la lección al proveedor. Solo se acepta el índice de una pista existente. El resultado, los pasos y la comprobación vienen del motor local.
 

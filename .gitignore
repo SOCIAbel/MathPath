@@ -14,3 +14,7 @@ __pycache__/
 build-output/
 dist/
 .build-env/
+
+# Documentos de entrega
+*.docx
+~$*
