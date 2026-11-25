@@ -114,7 +114,7 @@ npm install
 npm start
 ```
 
-Para el dictado y el escaneo sin internet, descarga también los modelos en `vendor/models/`:
+Para el dictado y el escaneo sin internet, descarga los modelos con `powershell -ExecutionPolicy Bypass -File scripts\descargar-modelos.ps1`. El script guarda en `vendor/models/`:
 
 - `vendor/models/vosk-es/`: contenido de [vosk-model-small-es-0.42](https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip) (voz, unos 40 MB).
 - `vendor/models/mfr/`: archivos de [breezedeus/pix2text-mfr-1.5](https://huggingface.co/breezedeus/pix2text-mfr-1.5/tree/main) (fórmulas, unos 120 MB).
