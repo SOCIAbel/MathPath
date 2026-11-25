@@ -4,7 +4,8 @@ from PyInstaller.utils.hooks import collect_dynamic_libs, copy_metadata
 
 root = Path(SPECPATH).parent
 vendor = root / 'vendor'
-datas = [(str(vendor / 'models'), 'vendor/models')]
+datas = [(str(vendor / 'models'), 'vendor/models'),
+         (str(root / 'recursos' / 'formulas' / 'indice.json'), 'recursos/formulas')]
 for package in ('sympy', 'mpmath', 'numpy', 'onnxruntime', 'tokenizers', 'vosk', 'pillow'):
     datas += copy_metadata(package)
 

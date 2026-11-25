@@ -37,11 +37,15 @@ const {once}=require('node:events');
     const status=await call('status');assert(status.total>=335);
     assert.equal((await call('solve',{problem:'6 × 4 ÷ 3'})).result,'8');
     assert.equal((await call('solve',{operation:'integral',problem:'x^2',variable:'x'})).result,'x^3/3 + C');
+    const formulas=JSON.parse(await fs.readFile(path.join(root,'recursos','formulas','indice.json'),'utf8'));
+    const identity=Array.isArray(formulas)?formulas[0]:Object.keys(formulas)[0];
+    assert.deepEqual(await call('fun',{action:'formulaFavorites'}),[]);
+    assert.deepEqual(await call('fun',{action:'formulaFavorites',identity,enabled:true}),[identity]);
     const graph=await call('graph',{mode:3,expressions:['x^2-y^2'],bounds:[-4,4,-4,4]});assert.deepEqual(graph.zRange,[-16,16]);
     const session=randomUUID();await call('speechStream',{action:'start',session,variable:'x'});
     await call('speechStream',{action:'chunk',session,pcm:Buffer.alloc(8000).toString('base64')});
     assert.equal((await call('speechStream',{action:'stop',session})).done,true);
-    console.log('Paquete autónomo, catálogo, cálculo, integral, gráfico 3D y modelo de voz comprobados.');
+    console.log('Paquete autónomo, catálogo, fórmulas favoritas, cálculo, integral, gráfico 3D y modelo de voz comprobados.');
   }finally{
     child.stdin.end();
     const cleanup=setTimeout(()=>child.kill(),5000);await exited;clearTimeout(cleanup);
