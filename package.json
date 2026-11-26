@@ -2,12 +2,12 @@
   "name": "mathpath-desktop",
   "version": "1.0.0",
   "private": true,
-  "main": "main.cjs",
+  "main": "mainajch.cjs",
   "scripts": {
     "start": "electron .",
-    "build:engine": "node scripts/build-engine.cjs",
-    "build:app": "node scripts/build-app.cjs",
-    "check:package": "node scripts/check-package.cjs",
+    "build:engine": "node scripts/build-engineajch.cjs",
+    "build:app": "node scripts/build-appajch.cjs",
+    "check:package": "node scripts/check-packageajch.cjs",
     "dist": "npm run build:engine && npm run build:app && electron-builder --win nsis --x64 --publish never",
     "dist:dir": "npm run build:engine && npm run build:app && electron-builder --win --x64 --dir --publish never"
   },

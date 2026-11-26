@@ -12,7 +12,7 @@ La app ya funciona con **arte provisional**: versiones recoloreadas de rivales e
 4. Desde la carpeta `mathpath`, ejecuta:
 
 ```powershell
-python importar_arte.py "C:\arte-nuevo"
+python importar_arteajch.py "C:\arte-nuevo"
 ```
 
 El script recorta cada personaje, lo ajusta a 204×142 con fondo transparente y lo guarda en `arena/`. Al final te dice cuántos siguen con arte provisional.

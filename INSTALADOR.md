@@ -30,7 +30,7 @@ No compartir la carpeta del proyecto. El instalador solo contiene la interfaz co
 ## Comprobaciones
 
 ```powershell
-python -X utf8 check.py
+python -X utf8 checkajch.py
 npm run check:package
 $env:MATHPATH_SMOKE='1'; npm start; Remove-Item Env:MATHPATH_SMOKE
 $env:MATHPATH_SMOKE='1'; & '.\dist\win-unpacked\MathPath.exe'; Remove-Item Env:MATHPATH_SMOKE

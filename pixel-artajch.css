@@ -1,0 +1,34 @@
+.pixel-medal,.pixel-boss-portrait{display:block;object-fit:contain;image-rendering:pixelated}
+.fun-medal[data-pixel-art]{position:relative;flex:0 0 56px;width:56px;line-height:1;filter:none}
+.fun-achievement:not(.got) .pixel-medal{filter:grayscale(1);opacity:.48}
+.pixel-medal-lock{position:absolute;bottom:-2px;right:-3px;font-size:17px;filter:none}
+.fun-world-boss[data-pixel-art]>span{flex:0 0 72px;filter:none;opacity:1;animation:none}
+.fun-world-boss:not(.ready) .pixel-boss-portrait{filter:grayscale(.75);opacity:.65}
+.pixel-royal .arena-character.enemy::before{content:none}
+.combat-arena.pixel-royal .arena-character.enemy{height:55%;width:33%;transform:scale(1.04)}
+.pixel-royal .arena-character.enemy img{object-position:center bottom}
+.fun-town>svg[hidden]{display:none}
+.fun-town[data-pixel-art]{padding:10px 0 0;overflow:hidden}
+.fun-town[data-pixel-art] .fun-town-head{padding:0 12px 8px}
+.pixel-town{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));aspect-ratio:80/13;min-height:100px;
+  overflow:hidden;background:#b9e1ec;border-radius:0 0 13px 13px}
+.pixel-town-building{position:relative;min-width:0;background-image:url('recursos/aldea/aldea-panorama.webp');
+  background-repeat:no-repeat;background-size:1200% 100%;background-position:var(--tile-position) center;
+  image-rendering:pixelated;transform-origin:center bottom}
+.pixel-town-building.built{animation:pixel-build .55s var(--build-delay) ease-out backwards}
+.pixel-town-building.planned{filter:grayscale(.9);opacity:.28;border-left:1px dashed #42637c}
+.pixel-town-building>b{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font-size:clamp(14px,1.3vw,19px)}
+.fun-pet-art>svg{transform:translate(var(--hat-x,0%),var(--hat-y,0%))}
+.fun-chest:hover .fun-chest-art{animation:fun-wiggle .8s}
+.fun-reveal>.fun-chest-art{width:132px;height:132px;object-fit:contain;animation:pixel-treasure .8s ease-out both}
+@keyframes pixel-build{from{transform:translateY(15%) scale(.9);filter:brightness(1.5);opacity:0}}
+@keyframes pixel-treasure{0%{transform:scale(.5) rotate(-8deg);filter:brightness(2.2)}
+  60%{transform:scale(1.12) rotate(4deg)}100%{transform:scale(1);filter:drop-shadow(0 0 12px #e9b83b)}}
+@media(max-width:650px){
+  .pixel-town{min-height:100px}
+  .fun-world-boss[data-pixel-art]>span{flex-basis:54px}
+  .pixel-boss-portrait{width:54px;height:54px}
+}
+@media(prefers-reduced-motion:reduce){
+  .pixel-town-building.built,.fun-chest:hover .fun-chest-art,.fun-reveal>.fun-chest-art{animation:none}
+}

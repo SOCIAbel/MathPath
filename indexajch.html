@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="author" content="Abel Josué Colquehuanca Humpiri">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'">
+<title>MathPath</title>
+<link rel="stylesheet" href="appajch.css">
+<link rel="stylesheet" href="academicajch.css">
+<link rel="stylesheet" href="combatajch.css">
+<link rel="stylesheet" href="funajch.css">
+<link rel="stylesheet" href="villageajch.css">
+<link rel="stylesheet" href="graph-studioajch.css">
+<link rel="stylesheet" href="pixel-artajch.css">
+<link rel="stylesheet" href="student-pagesajch.css">
+<link rel="stylesheet" href="hero-rigajch.css">
+<link rel="stylesheet" href="design-systemajch.css">
+<script src="lesson-videoajch.js" defer></script>
+<script src="youtube-lessonsajch.js" defer></script>
+<script src="graphajch.js" defer></script>
+<script src="graph-geometryajch.js" defer></script>
+<script src="graph-studioajch.js" defer></script>
+<script src="academic-labsajch.js" defer></script>
+<script src="hero-rigajch.js" defer></script>
+<script src="adventure-uiajch.js" defer></script>
+<script src="combat-uiajch.js" defer></script>
+<script src="fun-audioajch.js" defer></script>
+<script src="answer-captureajch.js" defer></script>
+<script src="formula-catalogajch.js" defer></script>
+<script src="formula-libraryajch.js" defer></script>
+<script src="student-loungeajch.js" defer></script>
+<script src="fun-uiajch.js" defer></script>
+<script src="pixel-artajch.js" defer></script>
+<script src="appajch.js" defer></script>
+</head>
+<body>
+<div class="app">
+ <aside class="sidebar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">∑</span><div><strong>MathPath</strong><small>Aprendizaje matemático</small></div></div>
+  <nav id="navigation" aria-label="Navegación principal"></nav>
+  <div class="profile"><span class="avatar" id="profile-initial" aria-hidden="true">E</span><div><strong id="profile-name">Estudiante</strong><small id="profile-mode">Perfil local</small></div></div>
+ </aside>
+ <div class="workspace">
+  <header class="topbar"><span id="breadcrumb">MathPath / Panel principal</span><div class="fun-topbar" id="fun-topbar"></div><button class="btn small" id="toggle-demo" type="button">Probar DEMO</button></header>
+  <main id="workspace" class="page">
+   <div id="notice" role="status"></div>
+   <div id="content" aria-live="off"><h1>MathPath</h1><p>Preparando el motor matemático…</p></div>
+  </main>
+ </div>
+</div>
+<dialog id="exam-window" aria-labelledby="exam-title">
+ <div class="dialog-top"><div><small>Evaluación</small><h2 id="exam-title">Evaluación</h2></div><div class="row"><output id="exam-time" aria-label="Tiempo restante"></output><form method="dialog"><button class="btn close" type="submit" aria-label="Cerrar evaluación">×</button></form></div></div>
+ <form id="active-exam-form"><p id="exam-rubric" class="exam-rubric" hidden></p><div id="exam-questions"></div><button class="btn primary">Entregar evaluación</button></form>
+</dialog>
+<dialog id="lesson-video" class="video-player" aria-labelledby="lesson-video-title">
+ <header class="video-player-header">
+  <h2 id="lesson-video-title">Minilección</h2>
+  <form method="dialog"><button class="btn close" type="submit" aria-label="Cerrar minilección">×</button></form>
+ </header>
+ <div class="video-stage" data-video-stage></div>
+ <div class="video-controls" hidden>
+  <label class="sr-only" for="video-seek">Escena de la minilección</label>
+  <input id="video-seek" type="range" min="0" max="0" value="0" step="1">
+  <div class="video-buttons">
+   <button class="btn small" type="button" data-video-control="previous" aria-label="Escena anterior">←</button>
+   <button class="btn small primary" type="button" data-video-control="play">Pausar</button>
+   <button class="btn small" type="button" data-video-control="next" aria-label="Escena siguiente">→</button>
+   <span data-video-position></span>
+   <label class="video-narration" hidden><input type="checkbox" checked> Narración</label>
+  </div>
+ </div>
+</dialog>
+<dialog id="graph-window" class="plot-window" aria-labelledby="plot-title">
+ <header class="plot-heading">
+  <div><h2 id="plot-title">Graficador</h2><p data-plot-context hidden></p></div>
+  <form method="dialog"><button class="btn close" type="submit" aria-label="Cerrar graficador">×</button></form>
+ </header>
+ <div class="plot-layout">
+  <form id="plot-controls" class="plot-controls">
+   <div class="plot-modes" role="group" aria-label="Dimensión del gráfico">
+    <button type="button" class="btn" data-plot-mode="2" aria-pressed="true">Plano 2D</button>
+    <button type="button" class="btn" data-plot-mode="3" aria-pressed="false">Espacio 3D</button>
+   </div>
+   <div class="plot-expressions">
+    <label class="plot-expression"><span data-plot-first-label>f(x)</span><input name="curve0" maxlength="220" autocomplete="off" spellcheck="false"></label>
+    <label class="plot-expression plot-second" data-curve-only><span>g(x)</span><input name="curve1" maxlength="220" autocomplete="off" spellcheck="false" placeholder="Opcional"></label>
+    <label class="plot-expression plot-third" data-curve-only><span>h(x)</span><input name="curve2" maxlength="220" autocomplete="off" spellcheck="false" placeholder="Opcional"></label>
+   </div>
+   <p class="plot-syntax">Usa <code>^</code> para potencias y <code>*</code> para multiplicar.</p>
+   <details class="plot-ranges">
+    <summary>Rangos de los ejes</summary>
+    <div>
+     <label>x mín.<input name="xmin" type="number" step="any" required></label>
+     <label>x máx.<input name="xmax" type="number" step="any" required></label>
+     <label>y mín.<input name="ymin" type="number" step="any" required></label>
+     <label>y máx.<input name="ymax" type="number" step="any" required></label>
+    </div>
+   </details>
+   <button class="btn primary plot-submit" type="submit">Graficar</button>
+   <div class="plot-examples">
+    <span>Ejemplos</span>
+    <button class="btn small" type="button" data-plot-example="0"></button>
+    <button class="btn small" type="button" data-plot-example="1"></button>
+   </div>
+   <p class="plot-status" data-plot-status role="status"></p>
+   <button type="button" class="btn" data-graph-notebook>Guardar en cuaderno</button>
+  </form>
+  <section class="plot-view" aria-label="Vista del gráfico">
+   <div class="plot-toolbar">
+    <p data-plot-instructions></p>
+    <div role="group" aria-label="Controles de la vista">
+     <button type="button" class="btn small" data-plot-zoom="in" aria-label="Acercar">+</button>
+     <button type="button" class="btn small" data-plot-zoom="out" aria-label="Alejar">−</button>
+     <button type="button" class="btn small" data-plot-reset>Restablecer</button>
+    </div>
+   </div>
+   <canvas tabindex="0" aria-label="Gráfico interactivo"></canvas>
+   <output class="plot-coordinate" data-plot-readout aria-live="off"></output>
+  </section>
+ </div>
+</dialog>
+</body>
+</html>

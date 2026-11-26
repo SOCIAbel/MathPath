@@ -16,6 +16,6 @@ Los reyes aparecen en su tarjeta del mapa y en los duelos de jefe de mundo. Sus 
 
 La panorámica muestra los doce edificios de la aldea: los construidos aparecen en color y los pendientes, apagados y con un candado. El número de construcciones continúa dependiendo del progreso y del equipo forjado.
 
-`pixel-art.js` y `pixel-art.css` conectan estos recursos con la interfaz existente. Si falta una imagen, la aplicación conserva su dibujo o sprite de respaldo. Para ver imágenes nuevas después de copiarlas, reinicia MathPath.
+`pixel-artajch.js` y `pixel-artajch.css` conectan estos recursos con la interfaz existente. Si falta una imagen, la aplicación conserva su dibujo o sprite de respaldo. Para ver imágenes nuevas después de copiarlas, reinicia MathPath.
 
 Los prompts finales, referencias, dimensiones y hashes de los archivos están en **`recursos/arte-original/pixel-art-manifest.json`**.

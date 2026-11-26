@@ -13,8 +13,8 @@ files:
   - '*.html'
   - '*.js'
   - '*.css'
-  - main.cjs
-  - preload.cjs
+  - mainajch.cjs
+  - preloadajch.cjs
   - package.json
   - arena/**
   - recursos/**

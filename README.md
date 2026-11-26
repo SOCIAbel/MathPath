@@ -29,19 +29,19 @@ Los archivos de la aplicación están en la raíz de `mathpath/`. Electron local
 
 | Dónde buscar | Archivos | Qué contienen |
 | --- | --- | --- |
-| Ventana y conexión | `main.cjs`, `preload.cjs`, `worker.py` | Inicio de Electron y comunicación con el motor Python. |
-| Interfaz | `index.html`, `app.js`, `app.css` | Pantallas, navegación, controles y estilos. |
-| Graficador | `graph.js`, `graphing.py` | Vista interactiva en 2D y 3D y cálculo de los puntos del gráfico. |
-| Motor matemático | `engine.py` | Analizador de expresiones, resolución, pasos y validación de respuestas. |
-| Cursos y ejercicios | `routes.py`, `curriculum.py`, `university.py` | Niveles, grados, cursos, lecciones y ejercicios parametrizados. |
-| Videos | `lesson-video.js`, `youtube-lessons.js` | Reproductor de minilecciones y enlaces por tema. |
-| Progreso | `learning.py` | SQLite, perfiles, prerrequisitos, evaluaciones, historial y respaldos. |
-| Aventura y aldea | `adventure.py`, `adventure-ui.js` | Rivales, ataques, botín, equipo y retos de barrera. |
+| Ventana y conexión | `mainajch.cjs`, `preloadajch.cjs`, `workerajch.py` | Inicio de Electron y comunicación con el motor Python. |
+| Interfaz | `indexajch.html`, `appajch.js`, `appajch.css` | Pantallas, navegación, controles y estilos. |
+| Graficador | `graphajch.js`, `graphingajch.py` | Vista interactiva en 2D y 3D y cálculo de los puntos del gráfico. |
+| Motor matemático | `engineajch.py` | Analizador de expresiones, resolución, pasos y validación de respuestas. |
+| Cursos y ejercicios | `routesajch.py`, `curriculumajch.py`, `universityajch.py` | Niveles, grados, cursos, lecciones y ejercicios parametrizados. |
+| Videos | `lesson-videoajch.js`, `youtube-lessonsajch.js` | Reproductor de minilecciones y enlaces por tema. |
+| Progreso | `learningajch.py` | SQLite, perfiles, prerrequisitos, evaluaciones, historial y respaldos. |
+| Aventura y aldea | `adventureajch.py`, `adventure-uiajch.js` | Rivales, ataques, botín, equipo y retos de barrera. |
 | Instalación | `package.json`, `requirements.txt` | Dependencias y comandos de la aplicación. |
-| Comprobaciones | `check.py` | Pruebas del motor y de los flujos de aprendizaje. |
-| Capa de juego | `fun.py`, `fun-ui.js`, `fun-audio.js`, `fun.css` | Racha, XP, logros, mascota, habilidades, cofres, retos, cartas, sonidos, temas y pizarra. |
+| Comprobaciones | `checkajch.py` | Pruebas del motor y de los flujos de aprendizaje. |
+| Capa de juego | `funajch.py`, `fun-uiajch.js`, `fun-audioajch.js`, `funajch.css` | Racha, XP, logros, mascota, habilidades, cofres, retos, cartas, sonidos, temas y pizarra. |
 
-Ejecuta `python -X utf8 check.py` desde `mathpath/` para comprobar el motor. La aplicación guarda el perfil real en la carpeta de datos de MathPath de Windows. `.qa/` contiene archivos de prueba generados dentro del proyecto.
+Ejecuta `python -X utf8 checkajch.py` desde `mathpath/` para comprobar el motor. La aplicación guarda el perfil real en la carpeta de datos de MathPath de Windows. `.qa/` contiene archivos de prueba generados dentro del proyecto.
 
 ## Prueba rápida
 
@@ -55,8 +55,8 @@ Ejecuta `python -X utf8 check.py` desde `mathpath/` para comprobar el motor. La 
 - **Primaria · Los Cristales de Numeria (1.º a 6.º):** el caballero recupera un cristal por grado y termina enfrentando al Rey Sombra.
 - **Secundaria · El Eclipse de Aritmia (1.º a 5.º):** el guardián enciende un faro por grado y termina venciendo al Eclipse Eterno.
 - Cada grado es un capítulo con historia y termina con un **jefe final**. El jefe tiene mucha más vida, mezcla hasta 8 temas del grado y da menos tiempo, ajustado al largo de cada ejercicio. Al vencerlo se abre el siguiente capítulo.
-- Los datos están en `story.py` (historia, jefes y rivales) y `school_extra.py` (temas nuevos al final de cada grado).
-- **Arte:** `PROMPTS-HISTORIA.md` tiene los prompts para ChatGPT. Para instalar los dibujos, ejecuta `python importar_arte.py "carpeta-con-png"`. Mientras no existan, se usan copias recoloreadas de rivales anteriores.
+- Los datos están en `storyajch.py` (historia, jefes y rivales) y `school_extraajch.py` (temas nuevos al final de cada grado).
+- **Arte:** `PROMPTS-HISTORIA.md` tiene los prompts para ChatGPT. Para instalar los dibujos, ejecuta `python importar_arteajch.py "carpeta-con-png"`. Mientras no existan, se usan copias recoloreadas de rivales anteriores.
 
 ## Capa de juego
 
@@ -66,7 +66,7 @@ Ejecuta `python -X utf8 check.py` desde `mathpath/` para comprobar el motor. La 
 - **Logros:** 30 logros, cofres, árbol de habilidades, color del caballero, títulos y 7 temas de color.
 - **Mascota:** varias especies a elegir que evolucionan en 5 etapas y accesorios para equiparles.
 - **Cartas:** una carta de fórmula por cada tema dominado.
-- **Responder sin escribir:** 🎤 Dictar en todos los niveles y 📸 escanear (cámara, foto o pizarra) en universidad. Funciona sin internet con `local_ai.py` (Vosk y el modelo de fórmulas de Pix2Text). Si la IA está configurada, se usa solo como respaldo. El motor local sigue validando la respuesta.
+- **Responder sin escribir:** 🎤 Dictar en todos los niveles y 📸 escanear (cámara, foto o pizarra) en universidad. Funciona sin internet con `local_aiajch.py` (Vosk y el modelo de fórmulas de Pix2Text). Si la IA está configurada, se usa solo como respaldo. El motor local sigue validando la respuesta.
 - **Con IA configurada:** botón "Explícamelo fácil" en las lecciones y "Desde una foto" en el Solucionador (necesita un modelo con visión).
 - **Arte opcional:** ver `PROMPTS-IMAGENES.md`.
 
@@ -114,7 +114,7 @@ npm install
 npm start
 ```
 
-Para el dictado y el escaneo sin internet, descarga los modelos con `powershell -ExecutionPolicy Bypass -File scripts\descargar-modelos.ps1`. El script guarda en `vendor/models/`:
+Para el dictado y el escaneo sin internet, descarga los modelos con `powershell -ExecutionPolicy Bypass -File scripts\descargar-modelosajch.ps1`. El script guarda en `vendor/models/`:
 
 - `vendor/models/vosk-es/`: contenido de [vosk-model-small-es-0.42](https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip) (voz, unos 40 MB).
 - `vendor/models/mfr/`: archivos de [breezedeus/pix2text-mfr-1.5](https://huggingface.co/breezedeus/pix2text-mfr-1.5/tree/main) (fórmulas, unos 120 MB).

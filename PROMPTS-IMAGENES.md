@@ -50,7 +50,7 @@ Los 35 jefes únicos ya están instalados y conectados. Para regenerar una varia
 
 > [estilo] Versión "rey" y más imponente de este personaje (adjunta `arena/<rival>.webp`): más grande, con corona dorada, capa real y ojos brillantes. Mantén los colores y la silueta del original.
 
-Guárdalos como `arena/<rival>-rey.webp` (por ejemplo `arena/golem-rey.webp`). La app los carga automáticamente en el mapa y durante los combates de jefe de mundo mediante `pixel-art.js`.
+Guárdalos como `arena/<rival>-rey.webp` (por ejemplo `arena/golem-rey.webp`). La app los carga automáticamente en el mapa y durante los combates de jefe de mundo mediante `pixel-artajch.js`.
 
 ## 4. Fondo de la aldea que crece (opcional)
 
